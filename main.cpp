@@ -12,8 +12,9 @@
 #include "entero.h"
 #include "ListaEnlazada.h"
 #include "ListaEstatica.h"
-//#include "Nodo.cpp"
-//#include "ListaEnlazada.cpp"
+
+using namespace std;
+
 
 //#pragma GCC visibility push(default)
 
@@ -31,26 +32,26 @@ int main(int argc, char *argv[]) {
 
     //mostrando los elementos de listaEnlazada
     for (i=0;i<lst->longitud();i++) {
-        std::cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst->recuperar(i)))->getVal() <<std::endl;
+        cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst->recuperar(i)))->getVal() <<endl;
     }
 
     //eliminando un elemento
-    std::cout << "eliminando un elemento"<<std::endl;
+    cout << "eliminando un elemento"<<endl;
     lst->eliminar(0);
     //mostrando los elementos de listaEnlazada
     for (i=0;i<lst->longitud();i++) {
-        std::cout <<"elemento N° " << i+1<< " de la lista: "<< (static_cast<entero *> (lst->recuperar(i)))->getVal() <<std::endl;
+        cout <<"elemento N° " << i+1<< " de la lista: "<< (static_cast<entero *> (lst->recuperar(i)))->getVal() <<endl;
     }
 
     //insertando un elemento
-    std::cout << "insertando un elemento"<<std::endl;
+    cout << "insertando un elemento"<<endl;
     lst->insertar(new entero(24), 4);
     //mostrando los elementos de listaEnlazada
     for (i=0;i<lst->longitud();i++) {
-        std::cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst->recuperar(i)))->getVal() <<std::endl;
+        cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst->recuperar(i)))->getVal() <<endl;
     }
 
-    std::cout <<"ahora a probar la lista estática" <<std::endl;
+    cout <<"ahora a probar la lista estática" <<endl;
     ListaEstatica *lst2 = new ListaEstatica();
     //copio los elementos de la lista enlazada a la lista estática
     for (i = 0; i < lst->longitud(); i++)
@@ -58,27 +59,25 @@ int main(int argc, char *argv[]) {
 
     //Mostrando los elementos de la lista estática
     for (i = 0;i<lst2->longitud();i++) {
-        std::cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst2->recuperar(i)))->getVal() <<std::endl;
+        cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst2->recuperar(i)))->getVal() <<endl;
     }
 
     //elimino un elemento de la lista estática
-    std::cout << "elimiando un elemento de la lista estática" << std::endl;
+    cout << "elimiando un elemento de la lista estática" << endl;
     lst2->eliminar(lst2->longitud());
     //Mostrando los elementos de la lista estática
     for (i = 0;i<lst2->longitud();i++) {
-        std::cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst2->recuperar(i)))->getVal() <<std::endl;
+        cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst2->recuperar(i)))->getVal() <<endl;
     }
-
-
+    
     //vaciando la lista
-    std::cout <<"vaciando la lista"<<std::endl;
+    cout <<"vaciando la lista"<<endl;
     lst->anular();
     //mostrando los elementos de listaEnlazada
     for (i=0;i<lst->longitud();i++) {
-        std::cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst->recuperar(i)))->getVal() <<std::endl;
+        cout <<"elemento N° " << i<< " de la lista: "<< (static_cast<entero *> (lst->recuperar(i)))->getVal() <<endl;
     }
     if (lst->longitud() == 0)
-        std::cout <<"la lista está vacía"<<std::endl;
-
+        cout <<"la lista está vacía"<<endl;
 }
 

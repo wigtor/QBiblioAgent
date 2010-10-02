@@ -15,12 +15,18 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>Cliente.cpp</itemPath>
+      <itemPath>Cliente.h</itemPath>
+      <itemPath>Libro.cpp</itemPath>
+      <itemPath>Libro.h</itemPath>
       <itemPath>ListaEnlazada.cpp</itemPath>
       <itemPath>ListaEnlazada.h</itemPath>
       <itemPath>ListaEstatica.cpp</itemPath>
       <itemPath>ListaEstatica.h</itemPath>
       <itemPath>Nodo.cpp</itemPath>
       <itemPath>Nodo.h</itemPath>
+      <itemPath>Venta.cpp</itemPath>
+      <itemPath>Venta.h</itemPath>
       <itemPath>entero.cpp</itemPath>
       <itemPath>entero.h</itemPath>
       <itemPath>main.cpp</itemPath>
