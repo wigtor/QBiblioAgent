@@ -12,6 +12,8 @@
 #include "Venta.h"
 #include "ListaEnlazada.h"
 
+using namespace std;
+
 class Admin : public Vendedor{
 public:
     //Otras Funciones

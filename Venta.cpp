@@ -1,27 +1,28 @@
-/* 
+/*
  * File:   Venta.cpp
  * Author: Mateo
  * 
  * Created on 24 de septiembre de 2010, 11:33 PM
  */
 
+
 #include "Venta.h"
 
 Venta::Venta() {
     this->correlativo = false;
     this->idLibro = 0;
-    this->libro = NULL; //¿Correcto?
+    this->libro = NULL;
     this->idCliente = 0;
     this->cliente = NULL;
     this->cantidadLibros = 0;
     this->montoTotal = 0;
-    //this->vendedor = NULL;
+    this->vendedor = NULL;
     //this->fecha = NULL;
     this->idVendedor = 0;
 }
 
 
-Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal /*, Vendedor *vendedor, Fecha *fecha */, int idVendedor) {
+Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor/* ,Fecha *fecha */, int idVendedor) {
     this->correlativo = correlativo;
     this->idLibro = idLibro;
     this->libro = libro;
@@ -29,7 +30,7 @@ Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente
     this->cliente = cliente;
     this->cantidadLibros = cantidadLibros;
     this->montoTotal = montoTotal;
-    // this->vendedor = vendedor;
+    this->vendedor = vendedor;
     // this->fecha = fecha;
     this->idVendedor = idVendedor;
 }
@@ -60,13 +61,13 @@ void Venta::setIdLibro(int idLibro) {
     this->idLibro = idLibro;
 }
 
-// Libro Venta::getLibro() {
-    // return this->libro;
-// }
+Libro *Venta::getLibro() {
+    return this->libro;
+}
 
-// void Venta::setLibro(Libro libro) {
-    // this->libro = libro;
-// }
+void Venta::setLibro(Libro *libro) {
+    this->libro = libro;
+}
 
 int Venta::getIdCliente() {
     return this->idCliente;
@@ -100,13 +101,13 @@ void Venta::setMontoTotal(int montoTotal) {
     this->montoTotal = montoTotal;
 }
 
-// Vendedor *Venta::getVendedor() {
-    // return this->vendedor;
-// }
+Vendedor *Venta::getVendedor() {
+    return this->vendedor;
+}
 
-// void Venta::setVendedor(Vendedor *vendedor) {
-    // this->vendedor = vendedor;
-// }
+void Venta::setVendedor(Vendedor *vendedor) {
+     this->vendedor = vendedor;
+}
 
 // Fecha *Venta::getFecha() {
     // return this->fecha;

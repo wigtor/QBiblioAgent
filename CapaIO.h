@@ -12,12 +12,12 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <ListaEstatica.h>
-#include <ListaEnlazada.h>
-#include <Cliente.h>
-#include <Venta.h>
-#include <Libro.h>
-#include <Vendedor.h>
+#include "ListaEstatica.h"
+#include "ListaEnlazada.h"
+#include "Cliente.h"
+#include "Venta.h"
+#include "Libro.h"
+#include "Vendedor.h"
 
 using namespace std;
 

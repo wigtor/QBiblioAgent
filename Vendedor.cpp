@@ -8,6 +8,13 @@
 #include "Vendedor.h"
 #pragma GCC visibility push(default)
 
+/****************************************
+ *
+ * Variables Auxiliares
+ * 
+ ****************************************/
+
+int Vendedor::idCont = 1;
 
 /****************************************
  *
@@ -16,7 +23,7 @@
  ****************************************/
 
 Vendedor::Vendedor(int numRut){
-    this->id = 1;
+    this->id = Vendedor::idCont++;
     this->RUT = numRut;
     this->telefonos = new ListaEstatica();
     this->nombre = "";
@@ -54,13 +61,11 @@ void Vendedor::setEmail(string strEmail){
 }
 
 void Vendedor::addTelefono(int telefonoAgregado){
-    this->telefonos->agregar(&telefonoAgregado); //se agrega un elemento a la lista de telefonos, fijate que se agrega un puntero al elemento
+    this->telefonos->agregar(&telefonoAgregado); 
 }
 
 void Vendedor::addVenta(Venta *ventaAgregada){
-    this->ventas->agregar(ventaAgregada); //acá tambien agrego un elemento a la lista de ventas
-    //fijate que no usé el operador & ara obtener la direccion de memoria y agregarlo como puntero,
-    // porque ventaAgregada ya es puntero como argumento del método
+    this->ventas->agregar(ventaAgregada);
 }
 
 /****************************************
@@ -99,6 +104,10 @@ ListaEstatica *Vendedor::getTelefonos(){
     return this->telefonos;
 }
 
+ListaEnlazada *Vendedor::getVentas(){
+    return this->ventas;
+}
+
 /****************************************
  *
  * Funciones Adicionales
@@ -133,3 +142,5 @@ Libro *Vendedor::ingresaLibro(){
 void Vendedor::realizarVenta(){
 
 }
+
+

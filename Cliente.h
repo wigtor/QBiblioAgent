@@ -12,7 +12,7 @@
 #include "ListaEnlazada.h"
 #include "ListaEstatica.h"
 
-using std::string;
+using namespace std;
 
 class Cliente {
 public:

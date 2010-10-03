@@ -8,12 +8,12 @@
 #ifndef VENDEDOR_H
 #define	VENDEDOR_H
 
-#include "Cliente.h"
-#include "Libro.h"
-#include "Venta.h"
-//#include "Telefonos.h" //borrado mejor que los telefonos sean solo enteros, manejados mediante una listaEstatica
-
 #include <string>
+#include <Cliente.h>
+#include <Libro.h>
+#include <Venta.h>
+
+using namespace std;
 
 class Vendedor{
 public:
@@ -40,26 +40,27 @@ public:
     int getEdad();
     string getDireccion();
     ListaEstatica *getTelefonos();
-    //funcion para ver las ventas??
+    ListaEnlazada *getVentas();
     //////////////////////////////////
 
     //Otras Funciones
     Cliente *ingresaCliente();
     string verInfoCliente(Cliente *Cliente);
-    Venta *verHistorialCliente(Cliente *cliente); //todo retorno o argumento que sea dato compuesto (una clase) debe ser puntero a...
+    Venta *verHistorialCliente(Cliente *cliente); 
     Cliente *editarCliente(Cliente *cliente);
-    Libro *ingresaLibro(); //acá por ejemplo, le agregué el * de puntero al tipo de retorno
+    Libro *ingresaLibro(); 
     void realizarVenta();
     //////////////////////////////////
 
 private:
+    static int idCont;
     int id;
     int RUT;
     string nombre;
     int edad;
     string direccion;
     string email;
-    ListaEstatica *telefonos; //los telefonos son una lista estatica de enteros
+    ListaEstatica *telefonos; 
     ListaEnlazada *ventas;
 };
 

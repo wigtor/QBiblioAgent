@@ -81,8 +81,18 @@ string CapaIO::idToString(int id, int tipoId)
 }
 
 string CapaIO::ventaToString(Venta *venta)
-{
-    return NULL;
+{   stringstream linea;
+    linea << "<Venta ";
+    linea << "id=\"" << venta->getId() << "\" ";
+    linea << "correlativo=\"" << venta->getCorrelativo() << "\" ";
+    linea << "idLibro=\"" << venta->getIdLibro() << "\" ";
+    linea << "idCliente=\"" << venta->getIdCliente() << "\" ";
+    linea << "cantidadLibros=\"" << venta->getCantidadLibros() << "\" ";
+    linea << "montoTotal=\"" << venta->getMontoTotal() << "\" ";
+    linea << "vendedor=\"" << venta->getIdVendedor() << "\" ";
+    //linea << "fecha=\"" << venta->getFecha();
+    linea <<  "\" >";
+    return linea.str();
 }
 
 string CapaIO::clienteToString(Cliente *cliente)
