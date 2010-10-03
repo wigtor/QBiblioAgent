@@ -55,6 +55,10 @@ void Libro::setPaginas(int intPaginas){
     this->paginas = intPaginas;
 }
 
+void Libro::setPeso(int peso){
+    this->peso = peso;
+}
+
 void Libro::setStock(int intStock){
     this->stock = intStock;
 }
@@ -87,6 +91,10 @@ string Libro::getAutor(){
 
 int Libro::getPaginas(){
     return this->paginas;
+}
+
+int Libro::getPeso(){
+    return this->peso;
 }
 
 int Libro::getStock(){

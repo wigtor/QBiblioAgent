@@ -17,7 +17,10 @@
 
 Vendedor::Vendedor(int numRut){
     this->id = 1;
-    this->RUT;
+    this->RUT = numRut;
+    this->telefonos = new ListaEstatica();
+    this->nombre = "";
+    this->direccion = "";
 }
 
 Vendedor::Vendedor(const Vendedor& orig){
@@ -88,22 +91,27 @@ string Vendedor::getResumen(){
 
 Cliente *Vendedor::ingresaCliente(){
 
+    return NULL;
 }
 
 string Vendedor::verInfoCliente(Cliente *cliente){
 
+    return NULL;
 }
 
 Venta *Vendedor::verHistorialCliente(Cliente  *cliente){
 
+    return NULL;
 }
 
 Cliente *Vendedor::editarCliente(Cliente *cliente){
 
+    return NULL;
 }
 
 Libro *Vendedor::ingresaLibro(){
 
+    return NULL;
 }
 
 void Vendedor::realizarVenta(){

@@ -17,7 +17,7 @@
 #include <Cliente.h>
 #include <Venta.h>
 #include <Libro.h>
-//#include <Usuario.h>
+#include <Vendedor.h>
 
 using namespace std;
 
@@ -30,10 +30,10 @@ public:
     ListaEnlazada *leeVentas();
     ListaEnlazada *leeClientes();
     ListaEnlazada *leeLibros();
-    int escribeUsuarios(ListaEstatica listaUsuarios);
-    int escribeVentas(ListaEnlazada listaVentas);
-    int escribeClientes(ListaEnlazada listaClientes);
-    int escribeLibros(ListaEnlazada listaLibros);
+    int escribeUsuarios(ListaEstatica *listaUsuarios);
+    int escribeVentas(ListaEnlazada *listaVentas);
+    int escribeClientes(ListaEnlazada *listaClientes);
+    int escribeLibros(ListaEnlazada *listaLibros);
     int leeIdUsuarios();
     int leeIdVentas();
     int leeIdClientes();
@@ -59,13 +59,13 @@ private:
     int stringToId(string linea);
     Venta *stringToVenta(string linea);
     Cliente *stringToCliente(string linea);
-    //Usuario *stringToUsuario(string linea);
+    Vendedor *stringToVendedor(string linea);
     Libro *stringToLibro(string linea);
     string idToString(int id, int tipoId);
-    string ventaToString(Venta venta);
-    string clienteToString(Cliente cliente);
-    //string usuarioToString(Usuario usuario);
-    string libroToString(Libro libro);
+    string ventaToString(Venta *venta);
+    string clienteToString(Cliente *cliente);
+    string vendedorToString(Vendedor *vendedor);
+    string libroToString(Libro *libro);
 
 };
 

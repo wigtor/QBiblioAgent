@@ -28,6 +28,7 @@ public:
     void setNombre(string strNombre);
     void setAutor(string strAutor);
     void setPaginas(int intPaginas);
+    void setPeso(int peso);
     void setStock(int intStock);
     //LOS METODOS NECESITAN UN VALOR DE RETORNO, VOID SI NO DEVUELVEN VALOR
     //SE PUEDE OMITIR EL "VOID" EN LAS FUNCIONES SIN ARGUMENTOS
@@ -40,6 +41,7 @@ public:
     string getNombre();
     string getAutor();
     int getPaginas();
+    int getPeso();
     int getStock();
     //////////////////////////////////
 

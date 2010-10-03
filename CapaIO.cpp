@@ -48,7 +48,12 @@ Cliente *CapaIO::stringToCliente(string linea)
 {
     return NULL;
 }
-//Usuario *CapaIO::stringToUsuario(string linea);
+
+Vendedor *CapaIO::stringToVendedor(string linea)
+{
+    return NULL;
+}
+
 Libro *CapaIO::stringToLibro(string linea)
 {
     return NULL;
@@ -74,36 +79,50 @@ string CapaIO::idToString(int id, int tipoId)
     //Si el código id indicado como argumento no es válido entonces retorno NULL
     return NULL;
 }
-string CapaIO::ventaToString(Venta venta)
+string CapaIO::ventaToString(Venta *venta)
 {
     return NULL;
 }
-string CapaIO::clienteToString(Cliente cliente)
+string CapaIO::clienteToString(Cliente *cliente)
 {   stringstream linea;
     int i;
     ListaEnlazada *listaCompras;
     ListaEstatica *listaTelefonos;
-    linea << "id=\"" << cliente.getId() <<"\"";
-    linea << "rut=\"" << cliente.getRut() << "\"";
-    linea << "nombre=\"" << cliente.getNombre() << "\"";
-    linea << "edad=\"" << cliente.getEdad() << "\"";
-    linea << "direccion=\"" << cliente.getDireccion() << "\"";
+    linea << "id=\"" << cliente->getId() <<"\"";
+    linea << "rut=\"" << cliente->getRut() << "\"";
+    linea << "nombre=\"" << cliente->getNombre() << "\"";
+    linea << "edad=\"" << cliente->getEdad() << "\"";
+    linea << "direccion=\"" << cliente->getDireccion() << "\"";
 
-    listaTelefonos = cliente.getTelefonos();
+    listaTelefonos = cliente->getTelefonos();
     for (i = 0; i < listaTelefonos->longitud(); i++)
         linea << "telefonos=\"" << *(static_cast<int *>(listaTelefonos->recuperar(i))) << "\"";
-    linea << "email=\"" << cliente.getEmail() << "\"";
+    linea << "email=\"" << cliente->getEmail() << "\"";
 
-    listaCompras = cliente.getComprasHechas();
+    listaCompras = cliente->getComprasHechas();
     for (i = 0; i < listaCompras->longitud(); i++)
         linea << "comprasHechas=\"" << (static_cast<Venta *>(listaCompras->recuperar(i)))->getId() << "\"";
     
     linea << " >";
     return linea.str();
 }
-//string CapaIO::usuarioToString(Usuario usuario);
-string CapaIO::libroToString(Libro libro)
+
+string CapaIO::vendedorToString(Vendedor *vendedor)
 {
     return NULL;
+}
+
+string CapaIO::libroToString(Libro *libro)
+{   stringstream linea;
+    linea << "id=\"" << libro->getId() << "\"";
+    linea << "isbn=\"" << libro->getIsbn() << "\"";
+    linea << "precio=\"" << libro->getPrecio() << "\"";
+    linea << "nombre=\"" << libro->getNombre() << "\"";
+    linea << "autor=\"" << libro->getAutor() << "\"";
+    linea << "paginas=\"" << libro->getPaginas() << "\"";
+    linea << "peso=\"" << libro->getPeso() << "\"";
+    linea << "stock=\"" << libro->getStock() << "\"";
+    linea << " >";
+    return linea.str();
 }
 
