@@ -36,6 +36,10 @@ public:
     int getID();
     int getRut();
     string getResumen();
+    string getNombre();
+    int getEdad();
+    string getDireccion();
+    ListaEstatica *getTelefonos();
     //funcion para ver las ventas??
     //////////////////////////////////
 

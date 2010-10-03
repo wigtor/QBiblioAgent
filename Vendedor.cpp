@@ -83,6 +83,22 @@ string Vendedor::getResumen(){
     return "wea de prueba";
 }
 
+string Vendedor::getNombre(){
+    return this->nombre;
+}
+
+int Vendedor::getEdad(){
+    return this->edad;
+}
+
+string Vendedor::getDireccion(){
+    return this->direccion;
+}
+
+ListaEstatica *Vendedor::getTelefonos(){
+    return this->telefonos;
+}
+
 /****************************************
  *
  * Funciones Adicionales
