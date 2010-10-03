@@ -13,9 +13,9 @@ Cliente::Cliente() {
     this->nombre = "";
     this->edad = 0;
     this->direccion = "";
-    this->telefonos = NULL; // ¿Correcto?
+    this->telefonos = new ListaEstatica();
     this->email = "";
-    this->comprasHechas = NULL;
+    this->comprasHechas = new ListaEnlazada();
 }
 
 Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email) {
@@ -26,7 +26,7 @@ Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstati
     this->edad = edad;
     this->direccion = direccion;
     this->telefonos = telefonos;
-    this->email=email;
+    this->email = email;
     this->comprasHechas = new ListaEnlazada();
 }
 

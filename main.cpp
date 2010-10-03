@@ -5,7 +5,7 @@
  * Created on 11 de septiembre de 2010, 20:38
  */
 
-#include <cstring>
+
 #include <cstdlib>
 #include <iostream>
 #include "Nodo.h"

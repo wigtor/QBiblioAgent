@@ -22,7 +22,9 @@ SOURCES += main.cpp \
     Cliente.cpp \
     Libro.cpp \
     ListaEnlazada.cpp \
-    CapaIO.cpp
+    CapaIO.cpp \
+    Vendedor.cpp \
+    Admin.cpp
 
 HEADERS += \
     ListaEstatica.h \
@@ -31,4 +33,6 @@ HEADERS += \
     Libro.h \
     ListaEnlazada.h \
     CapaIO.h \
-    Cliente.h
+    Cliente.h \
+    Vendedor.h \
+    Admin.h

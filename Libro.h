@@ -1,31 +1,37 @@
 /* 
  * File:   Libro.h
- * Author: victor
+ * Author: AirZs
  *
- * Created on 30 de septiembre de 2010, 15:18
+ * Created on 25 de septiembre de 2010, 21:16
  */
 
 #ifndef LIBRO_H
 #define	LIBRO_H
 
+
 #include <string>
 using namespace std;
 
-class Libro {
+
+class Libro{
 public:
-    // Constructores y obligatorios
+    //Iniciadores y obligatorios
     Libro();
+    Libro(int intIsbn, string strNombre, string strAutor);
     Libro(const Libro& orig);
-    virtual ~Libro();
-    ///////////////////////////////
+    ~Libro();
+    //////////////////////////////////
 
     //Setters
+    void setIsbn(int intIsbn);
     void setPrecio(int intPrecio);
+    void setNombre(string strNombre);
     void setAutor(string strAutor);
     void setPaginas(int intPaginas);
-    void setPeso(int intPeso);
     void setStock(int intStock);
-    ///////////////////////////////
+    //LOS METODOS NECESITAN UN VALOR DE RETORNO, VOID SI NO DEVUELVEN VALOR
+    //SE PUEDE OMITIR EL "VOID" EN LAS FUNCIONES SIN ARGUMENTOS
+    //////////////////////////////////
 
     //Getters
     int getId();
@@ -34,25 +40,23 @@ public:
     string getNombre();
     string getAutor();
     int getPaginas();
-    int getPeso();
     int getStock();
-    ///////////////////////////////
+    //////////////////////////////////
 
     //Otras funciones
-    ///////////////////////////////
+
+    //////////////////////////////////
 
 private:
-    static int idCont;
     int id;
     int isbn;
     int precio;
     string nombre;
     string autor;
     int paginas;
-    int peso; //gramos
+    int peso;
     int stock;
 };
 
 #endif	/* LIBRO_H */
-
 
