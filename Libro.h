@@ -42,6 +42,7 @@ public:
     ///////////////////////////////
 
 private:
+    static int idCont;
     int id;
     int isbn;
     int precio;

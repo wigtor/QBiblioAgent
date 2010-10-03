@@ -16,3 +16,4 @@ Libro::Libro(const Libro& orig) {
 Libro::~Libro() {
 }
 
+int Libro::idCont = 1;

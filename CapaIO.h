@@ -10,8 +10,14 @@
 
 #include <string>
 #include <fstream>
+#include <iostream>
+#include <sstream>
 #include <ListaEstatica.h>
 #include <ListaEnlazada.h>
+#include <Cliente.h>
+#include <Venta.h>
+#include <Libro.h>
+//#include <Usuario.h>
 
 using namespace std;
 
@@ -42,10 +48,24 @@ private:
     static string archClientes;
     static string archUsuarios;
     static string archLibros;
-    fstream fVentas;
-    fstream fClientes;
-    fstream fUsuarios;
-    fstream fLibros;
+    static int VENTA;
+    static int CLIENTE;
+    static int USUARIO;
+    static int LIBRO;
+    fstream *fVentas;
+    fstream *fClientes;
+    fstream *fUsuarios;
+    fstream *fLibros;
+    int stringToId(string linea);
+    Venta *stringToVenta(string linea);
+    Cliente *stringToCliente(string linea);
+    //Usuario *stringToUsuario(string linea);
+    Libro *stringToLibro(string linea);
+    string idToString(int id, int tipoId);
+    string ventaToString(Venta venta);
+    string clienteToString(Cliente cliente);
+    //string usuarioToString(Usuario usuario);
+    string libroToString(Libro libro);
 
 };
 

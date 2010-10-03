@@ -10,20 +10,21 @@
 Venta::Venta() {
     this->correlativo = false;
     this->idLibro = 0;
-    // this->libro = *(new Libro); ¿Correcto?
+    this->libro = NULL; //¿Correcto?
     this->idCliente = 0;
-    this->cliente = *(new Cliente);
+    this->cliente = NULL;
     this->cantidadLibros = 0;
     this->montoTotal = 0;
-    // this->vendedor = *(new Vendedor);
-    // this->fecha = *(new Fecha);
+    //this->vendedor = NULL;
+    //this->fecha = NULL;
     this->idVendedor = 0;
 }
 
-Venta::Venta(bool correlativo, int idLibro /*Libro libro, */, int idCliente, Cliente cliente, int cantidadLibros, int montoTotal /*Vendedor vendedor, Fecha fecha*/, int idVendedor) {
+
+Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal /*, Vendedor *vendedor, Fecha *fecha */, int idVendedor) {
     this->correlativo = correlativo;
     this->idLibro = idLibro;
-    // this->libro = libro;
+    this->libro = libro;
     this->idCliente = idCliente;
     this->cliente = cliente;
     this->cantidadLibros = cantidadLibros;
@@ -41,6 +42,10 @@ Venta::~Venta() {
 
 bool Venta::getCorrelativo() {
     return this->correlativo;
+}
+
+int Venta::getId() {
+    return this->id;
 }
 
 void Venta::setCorrelativo(bool correlativo) {
@@ -71,11 +76,11 @@ void Venta::setIdCliente(int idCliente) {
     this->idCliente = idCliente;
 }
 
-Cliente Venta::getCliente() {
+Cliente *Venta::getCliente() {
     return this->cliente;
 }
 
-void Venta::setCliente(Cliente cliente) {
+void Venta::setCliente(Cliente *cliente) {
     this->cliente = cliente;
 }
 
@@ -95,19 +100,19 @@ void Venta::setMontoTotal(int montoTotal) {
     this->montoTotal = montoTotal;
 }
 
-// Vendedor Venta::getVendedor() {
+// Vendedor *Venta::getVendedor() {
     // return this->vendedor;
 // }
 
-// void Venta::setVendedor(Vendedor vendedor) {
+// void Venta::setVendedor(Vendedor *vendedor) {
     // this->vendedor = vendedor;
 // }
 
-// Fecha Venta::getFecha() {
+// Fecha *Venta::getFecha() {
     // return this->fecha;
 // }
 
-// void Venta::setFecha(Fecha fecha) {
+// void Venta::setFecha(Fecha *fecha) {
     // this->fecha = fecha;
 // }
 
@@ -119,4 +124,4 @@ void Venta::setIdVendedor(int idVendedor) {
     this->idVendedor = idVendedor;
 }
 
-int Cliente::idCont = 1;
+int Venta::idCont = 1;

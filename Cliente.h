@@ -17,7 +17,7 @@ using std::string;
 class Cliente {
 public:
     Cliente();
-    Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica telefonos, string email);
+    Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email);
     Cliente(const Cliente& orig);
     virtual ~Cliente();
     int getIdCont();
@@ -32,10 +32,10 @@ public:
     void setEdad(int edad);
     string getDireccion();
     void setDireccion(string direccion);
-    ListaEstatica getTelefonos();
+    ListaEstatica *getTelefonos();
     string getEmail();
     void setEmail(string email);
-    ListaEnlazada getComprasHechas();
+    ListaEnlazada *getComprasHechas();
 private:
     static int idCont;
     int id;
@@ -43,9 +43,9 @@ private:
     string nombre;
     int edad;
     string direccion;
-    ListaEstatica telefonos;
+    ListaEstatica *telefonos;
     string email;
-    ListaEnlazada comprasHechas;
+    ListaEnlazada *comprasHechas;
 };
 
 

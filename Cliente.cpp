@@ -13,12 +13,12 @@ Cliente::Cliente() {
     this->nombre = "";
     this->edad = 0;
     this->direccion = "";
-    this->telefonos = *(new ListaEstatica); // ¿Correcto?
+    this->telefonos = NULL; // ¿Correcto?
     this->email = "";
-    this->comprasHechas = *(new ListaEnlazada);
+    this->comprasHechas = NULL;
 }
 
-Cliente::Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica telefonos, string email) {
+Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email) {
     //aunque se copie en memoria no permitir que dos clientes tengan el mismo id;
     this->id = Cliente::idCont+1;
     this->rut = rut;
@@ -27,14 +27,14 @@ Cliente::Cliente(int id, int rut, string nombre, int edad, string direccion, Lis
     this->direccion = direccion;
     this->telefonos = telefonos;
     this->email=email;
-    this->comprasHechas = *(new ListaEnlazada);
+    this->comprasHechas = new ListaEnlazada();
 }
 
 Cliente::Cliente(const Cliente& orig) { // ¿Se necesita esto? Los clientes son unicos, y si se borra uno, ListaEnlazada::eliminar
 }                                       // se encargara de los nodos, así que no veo el sentido de una copia.
 
 Cliente::~Cliente() {
-    comprasHechas.~ListaEnlazada();
+    comprasHechas->~ListaEnlazada();
 }
 
 int Cliente::getIdCont() {
@@ -85,7 +85,7 @@ void Cliente::setDireccion(string direccion) {
     this->direccion = direccion;
 }
 
-ListaEstatica Cliente::getTelefonos() {
+ListaEstatica *Cliente::getTelefonos() {
     return this->telefonos;
 }
 
@@ -97,6 +97,8 @@ void Cliente::setEmail(string email) {
     this->email = email;
 }
 
-ListaEnlazada Cliente::getComprasHechas() {
+ListaEnlazada *Cliente::getComprasHechas() {
     return this->comprasHechas;
 }
+
+int Cliente::idCont = 1;
