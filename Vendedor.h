@@ -9,10 +9,9 @@
 #define	VENDEDOR_H
 
 #include <string>
-#include <Cliente.h>
-#include <Libro.h>
-#include <Venta.h>
-
+#include "Cliente.h"
+#include "Libro.h"
+#include "Venta.h"
 using namespace std;
 
 class Vendedor{

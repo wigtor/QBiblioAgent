@@ -12,14 +12,14 @@
 #include "Cliente.h"
 #include "Libro.h"
 #include "Vendedor.h"
-// #include "Fecha.h"
+#include "Fecha.h"
 
 using namespace std;
 
 class Venta {
 public:
     Venta();
-    Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor /*, Fecha *fecha */, int idVendedor);
+    Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor, Fecha *fecha, int idVendedor);
     Venta(const Venta& orig);
     virtual ~Venta();
     bool getCorrelativo();
@@ -39,8 +39,8 @@ public:
     void setMontoTotal(int montoTotal);
     Vendedor *getVendedor();
     void setVendedor(Vendedor *vendedor);
-    // Fecha *getFecha();
-    // void setFecha(Fecha *fecha);
+    Fecha *getFecha();
+    void setFecha(Fecha *fecha);
     int getIdVendedor();
     void setIdVendedor(int idVendedor);
 private:
@@ -54,7 +54,7 @@ private:
     int cantidadLibros;
     int montoTotal;
     Vendedor *vendedor;
-    // Fecha *fecha;
+    Fecha *fecha;
     int idVendedor;
 };
 

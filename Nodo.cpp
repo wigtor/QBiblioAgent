@@ -7,9 +7,6 @@
 
 #include "Nodo.h"
 
-//#pragma GCC visibility push(default)
-
-
 Nodo::Nodo() {
     this->dato = NULL;
     this->nodoSig = NULL;

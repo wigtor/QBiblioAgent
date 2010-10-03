@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     ListaEnlazada.cpp \
     CapaIO.cpp \
     Vendedor.cpp \
-    Admin.cpp
+    Admin.cpp \
+    Fecha.cpp
 
 HEADERS += \
     ListaEstatica.h \
@@ -35,4 +36,5 @@ HEADERS += \
     CapaIO.h \
     Cliente.h \
     Vendedor.h \
-    Admin.h
+    Admin.h \
+    Fecha.h

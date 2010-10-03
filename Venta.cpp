@@ -17,12 +17,12 @@ Venta::Venta() {
     this->cantidadLibros = 0;
     this->montoTotal = 0;
     this->vendedor = NULL;
-    //this->fecha = NULL;
+    this->fecha = NULL;
     this->idVendedor = 0;
 }
 
 
-Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor/* ,Fecha *fecha */, int idVendedor) {
+Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor, Fecha *fecha , int idVendedor) {
     this->correlativo = correlativo;
     this->idLibro = idLibro;
     this->libro = libro;
@@ -31,7 +31,7 @@ Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente
     this->cantidadLibros = cantidadLibros;
     this->montoTotal = montoTotal;
     this->vendedor = vendedor;
-    // this->fecha = fecha;
+    this->fecha = fecha;
     this->idVendedor = idVendedor;
 }
 
