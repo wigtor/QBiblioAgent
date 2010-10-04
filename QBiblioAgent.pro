@@ -4,9 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core
+#QT       += core
 
-QT       -= gui
+QT       -= gui \
+    core
 
 TARGET = QBiblioAgent
 CONFIG   += console

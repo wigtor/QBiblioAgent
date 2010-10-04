@@ -7,34 +7,54 @@
 
 #include "Cliente.h"
 
+// Hacer:
+// · Destructor
+
+int Cliente::idCont = 1;
+
 Cliente::Cliente() {
-    this->id = Cliente::idCont+1;
+    this->id = Cliente::idCont;
+    setIdCont(getIdCont() + 1);
     this->rut = 0;
     this->nombre = "";
     this->edad = 0;
     this->direccion = "";
-    this->telefonos = new ListaEstatica();
+    this->telefonos = new ListaEstatica;
     this->email = "";
-    this->comprasHechas = new ListaEnlazada();
+    this->comprasHechas = new ListaEnlazada;
 }
 
 Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email) {
-    //aunque se copie en memoria no permitir que dos clientes tengan el mismo id;
-    this->id = Cliente::idCont+1;
+    this->id = Cliente::idCont;
+    setIdCont(getIdCont() + 1);
     this->rut = rut;
     this->nombre = nombre;
     this->edad = edad;
     this->direccion = direccion;
     this->telefonos = telefonos;
     this->email = email;
-    this->comprasHechas = new ListaEnlazada();
+    this->comprasHechas = new ListaEnlazada;
 }
 
-Cliente::Cliente(const Cliente& orig) { // ¿Se necesita esto? Los clientes son unicos, y si se borra uno, ListaEnlazada::eliminar
-}                                       // se encargara de los nodos, así que no veo el sentido de una copia.
+Cliente::Cliente(const Cliente& orig) {
+    this->id = orig.id;
+    this->rut = orig.rut;
+    this->nombre = orig.nombre;
+    this->edad = orig.edad;
+    this->direccion = orig.direccion;
+    this->telefonos = new ListaEstatica;
+    for (int i=0; i<orig.telefonos->longitud(); i++) {
+        this->telefonos->agregar(orig.telefonos->recuperar(i));
+    }
+    this->email = orig.email;
+    this->comprasHechas = new ListaEnlazada;
+    for (int i=0; i<orig.comprasHechas->longitud(); i++) {
+        this->comprasHechas->agregar(orig.comprasHechas->recuperar(i));
+    }
+}
 
 Cliente::~Cliente() {
-    comprasHechas->~ListaEnlazada();
+    comprasHechas.~ListaEnlazada();
 }
 
 int Cliente::getIdCont() {
@@ -101,4 +121,6 @@ ListaEnlazada *Cliente::getComprasHechas() {
     return this->comprasHechas;
 }
 
-int Cliente::idCont = 1;
+void Cliente::addCompra(Venta *compra) {
+    this->comprasHechas->agregar(compra);
+}

@@ -11,8 +11,9 @@
 #include <string>
 #include "ListaEnlazada.h"
 #include "ListaEstatica.h"
+#include "Venta.h"
 
-using namespace std;
+using std::string;
 
 class Cliente {
 public:
@@ -36,6 +37,7 @@ public:
     string getEmail();
     void setEmail(string email);
     ListaEnlazada *getComprasHechas();
+    void addCompra(Venta *compra);
 private:
     static int idCont;
     int id;
@@ -47,7 +49,6 @@ private:
     string email;
     ListaEnlazada *comprasHechas;
 };
-
 
 #endif	/* CLIENTE_H */
 

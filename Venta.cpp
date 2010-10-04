@@ -1,14 +1,21 @@
-/*
+/* 
  * File:   Venta.cpp
  * Author: Mateo
  * 
  * Created on 24 de septiembre de 2010, 11:33 PM
  */
 
-
 #include "Venta.h"
 
+// Terminar:
+// · Constructor copia
+// · Destructor
+
+int Venta::idCont = 1;
+
 Venta::Venta() {
+    this->id = Venta::idCont;
+    setIdCont(getIdCont() + 1);
     this->correlativo = false;
     this->idLibro = 0;
     this->libro = NULL;
@@ -21,32 +28,45 @@ Venta::Venta() {
     this->idVendedor = 0;
 }
 
-
-Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor, Fecha *fecha , int idVendedor) {
+Venta::Venta(bool correlativo, Libro *libro, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor, Fecha *fecha) {
+    this->id = Venta::idCont;
+    setIdCont(getIdCont() + 1);
     this->correlativo = correlativo;
-    this->idLibro = idLibro;
+    this->idLibro = libro->getId();
     this->libro = libro;
-    this->idCliente = idCliente;
+    this->idCliente = cliente->getId();
     this->cliente = cliente;
     this->cantidadLibros = cantidadLibros;
     this->montoTotal = montoTotal;
     this->vendedor = vendedor;
     this->fecha = fecha;
-    this->idVendedor = idVendedor;
+    this->idVendedor = vendedor->getID();
 }
 
-Venta::Venta(const Venta& orig) { // ¿Se necesita esto? Las ventas son unicas, y si se borra una, ListaEnlazada::eliminar
-}                                 // se encargara de los nodos, así que no veo el sentido de una copia.
+Venta::Venta(const Venta& orig) {
+}
 
 Venta::~Venta() {
 }
 
-bool Venta::getCorrelativo() {
-    return this->correlativo;
+int Venta::getIdCont() {
+    return idCont;
+}
+
+void Venta::setIdCont(int idCont) {
+    Venta::idCont = idCont;
 }
 
 int Venta::getId() {
     return this->id;
+}
+
+void Venta::setId(int id) {
+    this->id = id;
+}
+
+bool Venta::getCorrelativo() {
+    return this->correlativo;
 }
 
 void Venta::setCorrelativo(bool correlativo) {
@@ -106,16 +126,16 @@ Vendedor *Venta::getVendedor() {
 }
 
 void Venta::setVendedor(Vendedor *vendedor) {
-     this->vendedor = vendedor;
+    this->vendedor = vendedor;
 }
 
-// Fecha *Venta::getFecha() {
-    // return this->fecha;
-// }
+Fecha *Venta::getFecha() {
+    return this->fecha;
+}
 
-// void Venta::setFecha(Fecha *fecha) {
-    // this->fecha = fecha;
-// }
+void Venta::setFecha(Fecha *fecha) {
+    this->fecha = fecha;
+}
 
 int Venta::getIdVendedor() {
     return this->idVendedor;
@@ -124,5 +144,3 @@ int Venta::getIdVendedor() {
 void Venta::setIdVendedor(int idVendedor) {
     this->idVendedor = idVendedor;
 }
-
-int Venta::idCont = 1;
