@@ -5,7 +5,7 @@
  * Created on 25 de septiembre de 2010, 21:16
  */
 
-#include "Libro.h
+#include "Libro.h"
 
 /****************************************
  *

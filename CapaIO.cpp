@@ -135,6 +135,7 @@ string CapaIO::vendedorToString(Vendedor *vendedor)
     for (i = 0; i < listaTelefonos->longitud(); i++)
         linea << *(static_cast<int *>(listaTelefonos->recuperar(i))) << "|";
     linea << "\" "<< "ventas=\"";
+    listaVentas = vendedor->getVentas();
     for (i = 0; i < listaVentas->longitud(); i++)
         linea << (static_cast<Venta *>(listaVentas->recuperar(i)))->getId() << "|";
     linea << "\" >";

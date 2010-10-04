@@ -10,7 +10,6 @@
 
 
 #include <string>
-#include "Venta.h"
 
 using namespace std;
 

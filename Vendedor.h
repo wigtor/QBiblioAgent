@@ -11,7 +11,8 @@
 #include <string>
 #include "Cliente.h"
 #include "Libro.h"
-#include "Venta.h"
+
+class Venta;
 
 using namespace std;
 

@@ -5,6 +5,7 @@
  * Created on 24 de septiembre de 2010, 11:33 PM
  */
 
+
 #ifndef VENTA_H
 #define	VENTA_H
 
@@ -13,16 +14,14 @@
 #include "Vendedor.h"
 #include "Fecha.h"
 
+using namespace std;
+
 class Venta {
 public:
     Venta();
-    Venta(bool correlativo, Libro *libro, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor, Fecha *fecha);
+    Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor, Fecha *fecha, int idVendedor);
     Venta(const Venta& orig);
     virtual ~Venta();
-    int getIdCont();
-    void setIdCont(int idCont);
-    int getId();
-    void setId(int id);
     bool getCorrelativo();
     void setCorrelativo(bool correlativo);
     int getIdLibro();
@@ -30,6 +29,7 @@ public:
     Libro *getLibro();
     void setLibro(Libro *libro);
     int getIdCliente();
+    int getId();
     void setIdCliente(int idCliente);
     Cliente *getCliente();
     void setCliente(Cliente *cliente);
@@ -45,8 +45,8 @@ public:
     void setIdVendedor(int idVendedor);
 private:
     static int idCont;
-    int id;
     bool correlativo;
+    int id;
     int idLibro;
     Libro *libro;
     int idCliente;
