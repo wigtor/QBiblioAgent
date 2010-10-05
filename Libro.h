@@ -20,6 +20,9 @@ public:
     Libro(int intIsbn, string strNombre, string strAutor);
     Libro(const Libro& orig);
     ~Libro();
+    bool operator<(Libro *otroLibro);
+    bool operator>(Libro *otroLibro);
+    bool operator==(Libro *otroLibro);
     //////////////////////////////////
 
     //Setters
@@ -30,8 +33,7 @@ public:
     void setPaginas(int intPaginas);
     void setPeso(int peso);
     void setStock(int intStock);
-    //LOS METODOS NECESITAN UN VALOR DE RETORNO, VOID SI NO DEVUELVEN VALOR
-    //SE PUEDE OMITIR EL "VOID" EN LAS FUNCIONES SIN ARGUMENTOS
+    void setIdCont(int intId);
     //////////////////////////////////
 
     //Getters
@@ -43,6 +45,7 @@ public:
     int getPaginas();
     int getPeso();
     int getStock();
+    int getIdCont();
     //////////////////////////////////
 
     //Otras funciones
@@ -50,6 +53,15 @@ public:
     //////////////////////////////////
 
 private:
+    static int idCont;
+    static int numOrder; // Codigos: 1->Isbn / 2->Precio / 3->Nombre / 4->Autor / 5->Paginas / 6->Peso / 7->Stock
+    static int ORD_ISBN;
+    static int ORD_PRECIO;
+    static int ORD_NOM;
+    static int ORD_AUTOR;
+    static int ORD_PAG;
+    static int ORD_PESO;
+    static int ORD_STOCK;
     int id;
     int isbn;
     int precio;

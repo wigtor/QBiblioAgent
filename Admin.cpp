@@ -2,7 +2,7 @@
  * File:   Admin.h
  * Author: AirZs
  *
- * Created on 25 de septiembre de 2010, 14:29
+ * Creado el 25 de septiembre de 2010, 14:29
  */
 
 #include "Admin.h"

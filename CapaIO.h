@@ -24,7 +24,6 @@ using namespace std;
 class CapaIO {
 public:
     CapaIO();
-    CapaIO(const CapaIO& orig);
     virtual ~CapaIO();
     ListaEstatica *leeUsuarios();
     ListaEnlazada *leeVentas();

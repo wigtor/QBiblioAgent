@@ -10,6 +10,7 @@
 
 Venta::Venta() {
     this->correlativo = false;
+    this->id = Venta::idCont++;
     this->idLibro = 0;
     this->libro = NULL;
     this->idCliente = 0;
@@ -21,9 +22,23 @@ Venta::Venta() {
     this->idVendedor = 0;
 }
 
-
-Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int cantidadLibros, int montoTotal, Vendedor *vendedor, Fecha *fecha , int idVendedor) {
+Venta::Venta(int id, bool correlativo, int idLibro, int idCliente, int idVendedor, int cantidadLibros, int montoTotal, Fecha *fecha) {
     this->correlativo = correlativo;
+    this->id = id;
+    this->idLibro = idLibro;
+    this->libro = NULL;
+    this->idCliente = idCliente;
+    this->cliente = NULL;
+    this->cantidadLibros = cantidadLibros;
+    this->montoTotal = montoTotal;
+    this->vendedor = NULL;
+    this->fecha = fecha;
+    this->idVendedor = idVendedor;
+}
+
+Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int idVendedor, Vendedor *vendedor, int cantidadLibros, int montoTotal, Fecha *fecha) {
+    this->correlativo = correlativo;
+    this->id = Venta::idCont++;
     this->idLibro = idLibro;
     this->libro = libro;
     this->idCliente = idCliente;
@@ -109,13 +124,13 @@ void Venta::setVendedor(Vendedor *vendedor) {
      this->vendedor = vendedor;
 }
 
-// Fecha *Venta::getFecha() {
-    // return this->fecha;
-// }
+Fecha *Venta::getFecha() {
+    return this->fecha;
+}
 
-// void Venta::setFecha(Fecha *fecha) {
-    // this->fecha = fecha;
-// }
+void Venta::setFecha(Fecha *fecha) {
+    this->fecha = fecha;
+}
 
 int Venta::getIdVendedor() {
     return this->idVendedor;

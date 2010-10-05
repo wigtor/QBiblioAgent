@@ -24,8 +24,6 @@ CapaIO::CapaIO() {
     
 }
 
-CapaIO::CapaIO(const CapaIO& orig) {
-}
 
 CapaIO::~CapaIO(){
     this->fVentas->close();
@@ -35,14 +33,35 @@ CapaIO::~CapaIO(){
 }
 
 int CapaIO::stringToId(string linea)
-{   if (linea.find("<id") != linea.length())
-        return (1);//VOY ACÁ
+{   if (linea.find("<id") != string::npos)
+    {   size_t posInicioId = linea.find("\"", 0);
+        size_t posFinalId = linea.find("\"", posInicioId);
+        return atoi(linea.substr(posInicioId, posFinalId).c_str());
+    }
     else
-        return 0;
+        return 1;
 }
 Venta *CapaIO::stringToVenta(string linea)
-{
-    return NULL;
+{   if (linea.find("<Venta") != string::npos)
+    {   int id, idLibro, idCliente, idVendedor, cantidadLibros, montoTotal;
+        bool correlativo;
+        Fecha *fecha;
+
+
+        Venta *ventaCreada = new Venta(id, correlativo, idLibro, idCliente, idVendedor, cantidadLibros, montoTotal, fecha);
+        return ventaCreada;
+    }
+    else
+        return NULL;
+    /* linea << "id=\"" << venta->getId() << "\" ";
+    linea << "correlativo=\"" << venta->getCorrelativo() << "\" ";
+    linea << "idLibro=\"" << venta->getIdLibro() << "\" ";
+    linea << "idCliente=\"" << venta->getIdCliente() << "\" ";
+    linea << "cantidadLibros=\"" << venta->getCantidadLibros() << "\" ";
+    linea << "montoTotal=\"" << venta->getMontoTotal() << "\" ";
+    linea << "vendedor=\"" << venta->getIdVendedor() << "\" ";
+    //linea << "fecha=\"" << venta->getFecha();
+    linea <<  "\" >";*/
 }
 Cliente *CapaIO::stringToCliente(string linea)
 {
@@ -90,7 +109,7 @@ string CapaIO::ventaToString(Venta *venta)
     linea << "cantidadLibros=\"" << venta->getCantidadLibros() << "\" ";
     linea << "montoTotal=\"" << venta->getMontoTotal() << "\" ";
     linea << "vendedor=\"" << venta->getIdVendedor() << "\" ";
-    //linea << "fecha=\"" << venta->getFecha();
+    linea << "fecha=\"" << venta->getFecha();
     linea <<  "\" >";
     return linea.str();
 }
@@ -125,7 +144,7 @@ string CapaIO::vendedorToString(Vendedor *vendedor)
     ListaEnlazada *listaVentas;
     ListaEstatica *listaTelefonos;
     linea << "Vendedor ";
-    linea << "id=\"" << vendedor->getID() << "\" ";
+    linea << "id=\"" << vendedor->getId() << "\" ";
     linea << "rut=\"" << vendedor->getRut() << "\" ";
     linea << "nombre=\"" << vendedor->getNombre() << "\" ";
     linea << "edad=\"" << vendedor->getEdad() << "\" ";

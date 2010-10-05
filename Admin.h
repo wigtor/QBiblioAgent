@@ -2,7 +2,7 @@
  * File:   Admin.h
  * Author: AirZs
  *
- * Created on 25 de septiembre de 2010, 14:29
+ * Creado el 25 de septiembre de 2010, 14:29
  */
 
 #ifndef ADMIN_H
@@ -20,7 +20,7 @@ public:
     int ingresaVendedor();
     int modificaVendedor(Vendedor *vendedor);
     int eliminaVendedor(Vendedor *vendedor);
-    ListaEnlazada *verVentas(Vendedor *vendedor); //ventaSS, los vendedores hacen varias ventas
+    ListaEnlazada *verVentas(Vendedor *vendedor);
     string verInfoVendedor(Vendedor *vendedor);
     //////////////////////////////////
 };
