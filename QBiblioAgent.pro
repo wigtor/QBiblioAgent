@@ -19,10 +19,8 @@ TEMPLATE = app
 SOURCES += main.cpp \
     Venta.cpp \
     Nodo.cpp \
-    ListaEstatica.cpp \
     Cliente.cpp \
     Libro.cpp \
-    ListaEnlazada.cpp \
     CapaIO.cpp \
     Vendedor.cpp \
     Admin.cpp \
