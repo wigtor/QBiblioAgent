@@ -20,11 +20,11 @@ ReferListas::ReferListas(ListaEnlazada<Venta> *listaVentas, ListaEnlazada<Libro>
     this->listClientes = listaClientes;
 }
 
-ReferListas(const ReferListas& orig){
+//ReferListas::ReferListas(const ReferListas& orig){
+//
+//}
 
-}
-
-~ReferListas(){
+ReferListas::~ReferListas(){
 
 }
 
@@ -36,10 +36,10 @@ ReferListas(const ReferListas& orig){
 
 int ReferListas::crearReferencias(){
     int cont = 0;
-    cont += crearReferencias(listaVentas);
-    cont += crearReferencias(listaLibros);
-    cont += crearReferencias(listaVendedores);
-    cont += crearReferencias(listaClientes);
+    cont += crearReferenciasClientes();
+    cont += crearReferenciasLibros();
+    cont += crearReferenciasVendedores();
+    cont += crearReferenciasVentas();
     if (cont != 4){
         return -1;
     }
@@ -53,12 +53,27 @@ int ReferListas::crearReferencias(){
  ****************************************/
 
 int ReferListas::crearReferenciasVentas(){
-    for (int i = 0; i < this->listVentas.longitud()){
-        actual = listVentas.recuperar(i);
+    Venta *actual;
+    for (int i = 0; i < this->listVentas->longitud(); i++){
+        actual = listVentas->recuperar(i);
 
     }
+
+    return 1;
 }
 
-int crearReferencias(ListaEnlazada<Libro> listLibros);
-int crearReferencias(ListaEstatica<Vendedor> listVendedores);
-int crearReferencias(ListaEnlazada<Cliente> listClientes);
+int ReferListas::crearReferenciasLibros(){
+
+    return 1;
+}
+
+int ReferListas::crearReferenciasVendedores(){
+
+    return 1;
+}
+
+int ReferListas::crearReferenciasClientes(){
+
+    return 1;
+}
+

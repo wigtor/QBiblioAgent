@@ -9,19 +9,19 @@
 #ifndef REFERLISTAS_H
 #define REFERLISTAS_H
 
-#import "ListaEstatica.h"
-#import "ListaEnlazada.h"
-#import "Venta.h"
-#import "Libro.h"
-#import "Vendedor.h"
-#import "Cliente.h"
+#include "ListaEstatica.h"
+#include "ListaEnlazada.h"
+#include "Venta.h"
+#include "Libro.h"
+#include "Vendedor.h"
+#include "Cliente.h"
 
 class ReferListas{
 public:
     //Iniciadores y obligatorios
     ReferListas(ListaEnlazada<Venta> *listaVentas, ListaEnlazada<Libro> *listaLibros, ListaEstatica<Vendedor> *listaVendedores, ListaEnlazada<Cliente> *listaClientes);
     ReferListas(const ReferListas& orig);
-    ~ReferListas();
+    virtual ~ReferListas();
 
     //Otras Funciones
     int crearReferencias();
