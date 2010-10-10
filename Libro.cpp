@@ -15,6 +15,7 @@
 
 int Libro::idCont = 1;
 int Libro::numOrder = 3;
+/*
 int Libro::ORD_ISBN = 1;
 int Libro::ORD_PRECIO = 2;
 int Libro::ORD_NOM = 3;
@@ -22,6 +23,7 @@ int Libro::ORD_AUTOR = 4;
 int Libro::ORD_PAG = 5;
 int Libro::ORD_PESO = 6;
 int Libro::ORD_STOCK = 7;
+*/
 
 /****************************************
  *

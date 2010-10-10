@@ -8,8 +8,6 @@
 #include "Vendedor.h"
 #pragma GCC visibility push(default)
 
-
-
 /****************************************
  *
  * Variables Estaticas
@@ -18,16 +16,22 @@
 
 int Vendedor::idCont = 1;
 int Vendedor::numOrder = 3;
+/*
 int Vendedor::ORD_RUT = 1;
 int Vendedor::ORD_NOM = 2;
 int Vendedor::ORD_EDAD = 3;
 int Vendedor::ORD_CANTVENT = 4;
+/*
 
 /****************************************
  *
  * Funciones Iniciadores y Obligatorios
  *
  ****************************************/
+ 
+Vendedor::Vendedor(){
+                       
+}
 
 Vendedor::Vendedor(int numRut){
     this->id = Vendedor::idCont++;
@@ -36,6 +40,11 @@ Vendedor::Vendedor(int numRut){
     this->ventas = new ListaEnlazada();
     this->nombre = "";
     this->direccion = "";
+    stringstream password;
+    password << numRut;
+    int pos;
+    pos = (password.str()).length();
+    this->pass = (password.str()).substr(pos-3);
 }
 
 Vendedor::Vendedor(const Vendedor& orig){
@@ -209,8 +218,7 @@ string Vendedor::getResumen(){
     resumen << "Dirección: " << this->direccion << endl;
     resumen << "Edad: " << this->edad << endl;
     resumen << "E-Mail: " << this->email << endl;
-
-    //return this->nombre + "||" + str(this->edad) + "||" + this->direccion + str(this->telefonos)"||" + this->email;
+    resumen << "Password: " << this->pass << endl;
     return resumen.str();
 }
 

@@ -8,9 +8,18 @@
 #ifndef VENDEDOR_H
 #define	VENDEDOR_H
 
+//Constantes
+#define ORD_V_RUT = 1;
+#define ORD_V_NOM = 2;
+#define ORD_V_EDAD = 3;
+#define ORD_V_CANTVENT = 4;
+
+
+
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <cstdlib>
 #include "Cliente.h"
 #include "Libro.h"
 
@@ -22,6 +31,7 @@ class Vendedor{
 public:
 
     //Iniciadores y obligatorios
+    Vendedor();
     Vendedor(int intRut);
     Vendedor(const Vendedor& orig);
     ~Vendedor();
@@ -65,10 +75,12 @@ private:
 
     static int idCont;
     static int numOrder;    // Codigos: 1->Rut / 2->Nombre / 3-> Edad / 4-> Cantidad de Ventas
+    /*
     static int ORD_RUT;
     static int ORD_NOM;
     static int ORD_EDAD;
     static int ORD_CANTVENT;
+    */
     int id;
     int rut;
     string nombre;
@@ -77,6 +89,7 @@ private:
     string email;
     ListaEstatica *telefonos; 
     ListaEnlazada *ventas;
+    string pass;
 };
 
 #endif	/* VENDEDOR_H */

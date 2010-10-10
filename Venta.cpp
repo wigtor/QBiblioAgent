@@ -1,16 +1,31 @@
-/*
+/* 
  * File:   Venta.cpp
  * Author: Mateo
  * 
  * Created on 24 de septiembre de 2010, 11:33 PM
  */
 
-
 #include "Venta.h"
 
+/* Hacer:
+ * Constructor copia
+ * Destructor
+ */
+
+/****************************************
+ VARIABLES ESTATICAS
+ ****************************************/
+
+int Venta::idCont = 1;
+int Venta::numOrder = 1;
+
+/****************************************
+ CONSTRUCTORES, COPIAS, DESTRUCTORES
+ ****************************************/
+
 Venta::Venta() {
-    this->correlativo = false;
     this->id = Venta::idCont++;
+    this->correlativo = false;
     this->idLibro = 0;
     this->libro = NULL;
     this->idCliente = 0;
@@ -50,94 +65,232 @@ Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente
     this->idVendedor = idVendedor;
 }
 
-Venta::Venta(const Venta& orig) { // ¿Se necesita esto? Las ventas son unicas, y si se borra una, ListaEnlazada::eliminar
-}                                 // se encargara de los nodos, así que no veo el sentido de una copia.
+Venta::Venta(const Venta& orig) {
+}
 
 Venta::~Venta() {
 }
 
-bool Venta::getCorrelativo() {
-    return this->correlativo;
+/****************************************
+ SETTERS
+ ****************************************/
+
+void Venta::setIdCont(int idCont) {
+    Venta::idCont = idCont;
 }
 
-int Venta::getId() {
-    return this->id;
+void Venta::setId(int id) {
+    this->id = id;
 }
 
 void Venta::setCorrelativo(bool correlativo) {
     this->correlativo = correlativo;
 }
 
-int Venta::getIdLibro() {
-    return this->idLibro;
-}
-
 void Venta::setIdLibro(int idLibro) {
     this->idLibro = idLibro;
-}
-
-Libro *Venta::getLibro() {
-    return this->libro;
 }
 
 void Venta::setLibro(Libro *libro) {
     this->libro = libro;
 }
 
-int Venta::getIdCliente() {
-    return this->idCliente;
-}
-
 void Venta::setIdCliente(int idCliente) {
     this->idCliente = idCliente;
-}
-
-Cliente *Venta::getCliente() {
-    return this->cliente;
 }
 
 void Venta::setCliente(Cliente *cliente) {
     this->cliente = cliente;
 }
 
-int Venta::getCantidadLibros() {
-    return this->cantidadLibros;
-}
-
 void Venta::setCantidadLibros(int cantidadLibros) {
     this->cantidadLibros = cantidadLibros;
-}
-
-int Venta::getMontoTotal() {
-    return this->montoTotal;
 }
 
 void Venta::setMontoTotal(int montoTotal) {
     this->montoTotal = montoTotal;
 }
 
-Vendedor *Venta::getVendedor() {
-    return this->vendedor;
-}
-
 void Venta::setVendedor(Vendedor *vendedor) {
-     this->vendedor = vendedor;
-}
-
-Fecha *Venta::getFecha() {
-    return this->fecha;
+    this->vendedor = vendedor;
 }
 
 void Venta::setFecha(Fecha *fecha) {
     this->fecha = fecha;
 }
 
-int Venta::getIdVendedor() {
-    return this->idVendedor;
-}
-
 void Venta::setIdVendedor(int idVendedor) {
     this->idVendedor = idVendedor;
 }
 
-int Venta::idCont = 1;
+/****************************************
+ GETTERS
+ ****************************************/
+
+int Venta::getId() {
+    return this->id;
+}
+
+bool Venta::getCorrelativo() {
+    return this->correlativo;
+}
+
+int Venta::getIdLibro() {
+    return this->idLibro;
+}
+
+Libro *Venta::getLibro() {
+    return this->libro;
+}
+
+int Venta::getIdCliente() {
+    return this->idCliente;
+}
+
+Cliente *Venta::getCliente() {
+    return this->cliente;
+}
+
+int Venta::getCantidadLibros() {
+    return this->cantidadLibros;
+}
+
+int Venta::getMontoTotal() {
+    return this->montoTotal;
+}
+
+Vendedor *Venta::getVendedor() {
+    return this->vendedor;
+}
+
+Fecha *Venta::getFecha() {
+    return this->fecha;
+}
+
+int Venta::getIdVendedor() {
+    return this->idVendedor;
+}
+
+/****************************************
+ OPERADORES
+ ****************************************/
+
+/* Codigos numOrder:
+ * 1 = ID
+ * 2 = Nombre del libro
+ * 3 = Nombre del cliente
+ * 4 = Cantidad de libros
+ * 5 = Monto total
+ * 6 = Nombre del vendedor
+ */
+
+bool Venta::operator <(Venta *otraVenta){
+    switch(Venta::numOrder) {
+        case 1:
+            if (this->id < otraVenta->id)
+                return true;
+            else
+                return false;
+        case 2:
+            if (this->libro->getNombre().compare(otraVenta->libro->getNombre()) < 0)
+                return true;
+            else
+                return false;
+        case 3:
+            if (this->cliente->getNombre().compare(otraVenta->cliente->getNombre()) < 0)
+                return true;
+            else
+                return false;
+        case 4:
+            if (this->cantidadLibros < otraVenta->cantidadLibros)
+                return true;
+            else
+                return false;
+        case 5:
+            if (this->montoTotal < otraVenta->montoTotal)
+                return true;
+            else
+                return false;
+        case 6:
+            if (this->vendedor->getNombre().compare(otraVenta->vendedor->getNombre()) < 0)
+                return true;
+            else
+                return false;
+        default:
+            return false;
+    }
+}
+
+bool Venta::operator >(Venta *otraVenta){
+    switch(Venta::numOrder) {
+        case 1:
+            if (this->id > otraVenta->id)
+                return true;
+            else
+                return false;
+        case 2:
+            if (this->libro->getNombre().compare(otraVenta->libro->getNombre()) > 0)
+                return true;
+            else
+                return false;
+        case 3:
+            if (this->cliente->getNombre().compare(otraVenta->cliente->getNombre()) > 0)
+                return true;
+            else
+                return false;
+        case 4:
+            if (this->cantidadLibros > otraVenta->cantidadLibros)
+                return true;
+            else
+                return false;
+        case 5:
+            if (this->montoTotal > otraVenta->montoTotal)
+                return true;
+            else
+                return false;
+        case 6:
+            if (this->vendedor->getNombre().compare(otraVenta->vendedor->getNombre()) > 0)
+                return true;
+            else
+                return false;
+        default:
+            return false;
+    }
+}
+
+bool Venta::operator ==(Venta *otraVenta){
+    switch(Venta::numOrder) {
+        case 1:
+            if (this->id == otraVenta->id)
+                return true;
+            else
+                return false;
+        case 2:
+            if (this->libro->getNombre().compare(otraVenta->libro->getNombre()) == 0)
+                return true;
+            else
+                return false;
+        case 3:
+            if (this->cliente->getNombre().compare(otraVenta->cliente->getNombre()) == 0)
+                return true;
+            else
+                return false;
+        case 4:
+            if (this->cantidadLibros == otraVenta->cantidadLibros)
+                return true;
+            else
+                return false;
+        case 5:
+            if (this->montoTotal == otraVenta->montoTotal)
+                return true;
+            else
+                return false;
+        case 6:
+            if (this->vendedor->getNombre().compare(otraVenta->vendedor->getNombre()) == 0)
+                return true;
+            else
+                return false;
+        default:
+            return false;
+    }
+}

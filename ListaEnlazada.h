@@ -23,8 +23,13 @@ public:
     int eliminar(int pos);
     int anular(void);
     int longitud(void);
+    int ordenar(int critOrden); // critOrden: 1 = ascendente, -1 = descendente
 
 private:
+    //Se hizo un cambio en el diseño de listaEnlazada
+    //El primer nodo cabecera no contiene datos y su puntero al nodoSiguiente es ahora el primer elemento,
+    //Esto para seguir el diseño descrito en los pdf de la materia de EDA
+    //Avisar por errores producidos con este cambio
     Nodo *cabecera;
     int cantidadElems;
 };

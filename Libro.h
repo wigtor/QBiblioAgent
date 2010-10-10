@@ -8,6 +8,16 @@
 #ifndef LIBRO_H
 #define	LIBRO_H
 
+//Constantes
+#define	ORD_L_ISBN = 1;
+#define	ORD_L_PRECIO = 2;
+#define	ORD_L_NOM = 3;
+#define	ORD_L_AUTOR = 4;
+#define	ORD_L_PAG = 5;
+#define	ORD_L_PESO = 6;
+#define	ORD_L_STOCK = 7;
+
+
 
 #include <string>
 
@@ -55,13 +65,6 @@ public:
 private:
     static int idCont;
     static int numOrder; // Codigos: 1->Isbn / 2->Precio / 3->Nombre / 4->Autor / 5->Paginas / 6->Peso / 7->Stock
-    static int ORD_ISBN;
-    static int ORD_PRECIO;
-    static int ORD_NOM;
-    static int ORD_AUTOR;
-    static int ORD_PAG;
-    static int ORD_PESO;
-    static int ORD_STOCK;
     int id;
     int isbn;
     int precio;

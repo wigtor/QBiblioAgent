@@ -77,3 +77,39 @@ int ListaEstatica::longitud(void){
     return this->cantidadElems;
 }
 
+int ListaEstatica::ordenar(int critOrden) {  // critOrden: 1 = ascendente, -1 = descendente
+    int n = this->cantidadElems;
+    int m;
+    void *datoTemp;
+    if (critOrden == 1) { // Orden ascendente
+        while (n > 1) {
+            m = 0;
+            for (int i = 0; i < n-1; i++) {
+                if (datos[i] > datos[i+1]) { // REVISAR
+                    datoTemp = datos[i];
+                    datos[i] = datos[i+1];
+                    datos[i+1] = datoTemp;
+                    m = i + 1;
+                }
+            }
+            n = m;
+        }
+        return 1;
+    }
+    else if (critOrden == -1) { // Orden descendente
+        while (n > 1) {
+            m = 0;
+            for (int i = 0; i < n-1; i++) {
+                if (datos[i] < datos[i+1]) { // REVISAR
+                    datoTemp = datos[i];
+                    datos[i] = datos[i+1];
+                    datos[i+1] = datoTemp;
+                    m = i + 1;
+                }
+            }
+            n = m;
+        }
+        return 1;
+    }
+    return -1;
+}

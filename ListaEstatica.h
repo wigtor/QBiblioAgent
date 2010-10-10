@@ -21,6 +21,7 @@ public:
     int eliminar(int pos);
     int anular(void);
     int longitud(void);
+    int ordenar(int critOrden); // critOrden: 1 = ascendente, -1 = descendente
 private:
     //una lista de punteros
     void **datos;

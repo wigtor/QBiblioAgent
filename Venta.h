@@ -5,7 +5,6 @@
  * Created on 24 de septiembre de 2010, 11:33 PM
  */
 
-
 #ifndef VENTA_H
 #define	VENTA_H
 
@@ -18,36 +17,50 @@ using namespace std;
 
 class Venta {
 public:
+    // CONSTRUCTORES, COPIAS, DESTRUCTORES
     Venta();
-    Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int idVendedor, Vendedor *vendedor, int cantidadLibros, int montoTotal, Fecha *fecha);
     Venta(int id, bool correlativo, int idLibro, int idCliente, int idVendedor, int cantidadLibros, int montoTotal, Fecha *fecha);
+    Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int idVendedor, Vendedor *vendedor, int cantidadLibros, int montoTotal, Fecha *fecha);
     Venta(const Venta& orig);
     virtual ~Venta();
-    bool getCorrelativo();
+
+    // SETTERS
+    void Venta::setIdCont(int idCont);
+    void setId(int id);
     void setCorrelativo(bool correlativo);
-    int getIdLibro();
     void setIdLibro(int idLibro);
-    Libro *getLibro();
     void setLibro(Libro *libro);
-    int getIdCliente();
-    int getId();
     void setIdCliente(int idCliente);
-    Cliente *getCliente();
     void setCliente(Cliente *cliente);
-    int getCantidadLibros();
     void setCantidadLibros(int cantidadLibros);
-    int getMontoTotal();
     void setMontoTotal(int montoTotal);
-    Vendedor *getVendedor();
     void setVendedor(Vendedor *vendedor);
-    Fecha *getFecha();
     void setFecha(Fecha *fecha);
-    int getIdVendedor();
     void setIdVendedor(int idVendedor);
+
+    // GETTERS
+    int getId();    
+    bool getCorrelativo();    
+    int getIdLibro();    
+    Libro *getLibro();    
+    int getIdCliente();    
+    Cliente *getCliente();    
+    int getCantidadLibros();   
+    int getMontoTotal();   
+    Vendedor *getVendedor();   
+    Fecha *getFecha();   
+    int getIdVendedor();
+
+    // OPERADORES
+    bool operator <(Venta *otraVenta);
+    bool operator >(Venta *otraVenta);
+    bool operator ==(Venta *otraVenta);
+    
 private:
     static int idCont;
-    bool correlativo;
+    static int numOrder;
     int id;
+    bool correlativo;
     int idLibro;
     Libro *libro;
     int idCliente;
@@ -57,6 +70,7 @@ private:
     Vendedor *vendedor;
     Fecha *fecha;
     int idVendedor;
+
 };
 
 #endif	/* VENTA_H */

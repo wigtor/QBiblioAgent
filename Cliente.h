@@ -11,33 +11,49 @@
 #include <string>
 #include "ListaEnlazada.h"
 #include "ListaEstatica.h"
+#include "Venta.h"
 
 using namespace std;
 
 class Cliente {
 public:
+    // CONSTRUCTORES, COPIAS, DESTRUCTORES
     Cliente();
     Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email);
+    Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email, ListaEnlazada *comprasHechas);
     Cliente(const Cliente& orig);
     virtual ~Cliente();
-    int getIdCont();
-    void setIdCont(int idCont);
-    int getId();
+
+    // SETTERS
+    void Cliente::setIdCont(int idCont);
     void setId(int id);
-    int getRut();
     void setRut(int rut);
-    string getNombre();
     void setNombre(string nombre);
-    int getEdad();
     void setEdad(int edad);
-    string getDireccion();
     void setDireccion(string direccion);
+    void setEmail(string email);
+
+    // GETTERS
+    int getId();
+    int getRut();
+    string getNombre();
+    int getEdad();
+    string getDireccion();
     ListaEstatica *getTelefonos();
     string getEmail();
-    void setEmail(string email);
     ListaEnlazada *getComprasHechas();
+
+    // OPERADORES
+    bool operator <(Cliente *otroCliente);
+    bool operator >(Cliente *otroCliente);
+    bool operator ==(Cliente *otroCliente);
+
+    // OTROS METODOS
+    void addCompra(Venta *compra);
+
 private:
     static int idCont;
+    static int numOrder;
     int id;
     int rut;
     string nombre;
@@ -46,8 +62,8 @@ private:
     ListaEstatica *telefonos;
     string email;
     ListaEnlazada *comprasHechas;
-};
 
+};
 
 #endif	/* CLIENTE_H */
 

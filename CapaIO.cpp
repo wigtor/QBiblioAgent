@@ -17,19 +17,52 @@ int CapaIO::USUARIO = 3;
 int CapaIO::LIBRO = 4;
 
 CapaIO::CapaIO() {
-    this->fVentas->open(CapaIO::archVentas.c_str(), fstream::in | fstream::out);
-    this->fClientes->open(CapaIO::archClientes.c_str(), fstream::in | fstream::out);
-    this->fUsuarios->open(CapaIO::archUsuarios.c_str(), fstream::in | fstream::out);
-    this->fLibros->open(CapaIO::archLibros.c_str(), fstream::in | fstream::out);
-    
+    this->fUsuarios = fopen(CapaIO::archUsuarios.c_str(), "r");
+    if (this->fUsuarios == NULL)
+        this->fUsuarios = fopen(CapaIO::archUsuarios.c_str(), "w");
+    this->fVentas = fopen(CapaIO::archVentas.c_str(), "r");
+    if (this->fVentas == NULL)
+            this->fVentas = fopen(CapaIO::archVentas.c_str(), "w");
+    this->fClientes = fopen(CapaIO::archClientes.c_str(), "r");
+    if (this->fClientes == NULL)
+            this->fClientes = fopen(CapaIO::archClientes.c_str(), "w");
+    this->fLibros = fopen(CapaIO::archLibros.c_str(), "r");
+    if (this->fLibros == NULL)
+            this->fLibros = fopen(CapaIO::archLibros.c_str(), "w");
+    fclose(this->fUsuarios);
+    fclose(this->fVentas);
+    fclose(this->fClientes);
+    fclose(this->fLibros);
 }
 
 
 CapaIO::~CapaIO(){
-    this->fVentas->close();
-    this->fClientes->close();
-    this->fUsuarios->close();
-    this->fLibros->close();
+}
+
+int CapaIO::leeIdUsuarios()
+{       int idInicial = 0;
+        this->fUsuarios = fopen(CapaIO::archUsuarios.c_str(), "r");
+        stringstream lineaDatos;
+        char caracterLeido = 0;
+        unsigned long long i, j;
+
+        for (i = 0; (caracterLeido != EOF) && idInicial == 0; i++)
+        {       caracterLeido = getc(this->fUsuarios);
+                /**Comienza a leer datos desde que encuentra un caracter '<' */
+                if (caracterLeido == '<')
+                {	for (j = 0; ((caracterLeido != -1) && (caracterLeido != '>')); j++) //ver que el -1 que se almacena si llego al final del archivo. en teoria no debe ocurrir se antes compruebo sintaxis.
+                        {	lineaDatos << caracterLeido;
+                                caracterLeido = getc(this->fUsuarios);
+                        }
+                        lineaDatos << caracterLeido;//agrego el caracter '>' que no fue agregado en el bucle
+                        i += j; //sumo los caracteres que ya se han leido a i, aun no se si esto pueda ser necesario a futuro.
+                }
+                // Como se ha encontrado una linea con una especificacion de un objeto, ahora proceso esa linea y agrego el objeto que retorna el metodo analizaLinea */
+                idInicial = this->stringToId(lineaDatos.str());
+                lineaDatos.clear();
+        }
+        fclose(this->fUsuarios);
+        return idInicial;
 }
 
 int CapaIO::stringToId(string linea)
@@ -39,29 +72,59 @@ int CapaIO::stringToId(string linea)
         return atoi(linea.substr(posInicioId, posFinalId).c_str());
     }
     else
-        return 1;
+        return 0;
 }
 Venta *CapaIO::stringToVenta(string linea)
 {   if (linea.find("<Venta") != string::npos)
-    {   int id, idLibro, idCliente, idVendedor, cantidadLibros, montoTotal;
-        bool correlativo;
+    {   int idObj, idLibro, idCliente, idVendedor, cantidadLibros, montoTotal;
+        bool correlativo = false;
         Fecha *fecha;
+        //Busco el valor del idObj
+        size_t posInicioId = linea.find("idObj", 0);
+        posInicioId = linea.find("\"", posInicioId);
+        size_t posFinalId = linea.find("\"", posInicioId);
+        idObj = atoi(linea.substr(posInicioId, posFinalId).c_str());
+        //Busco el valor del idLibro
+        posInicioId = linea.find("idLibro", 0);
+        posInicioId = linea.find("\"", posInicioId);
+        posFinalId = linea.find("\"", posInicioId);
+        idLibro = atoi(linea.substr(posInicioId, posFinalId).c_str());
+        //Busco el valor del idCLiente
+        posInicioId = linea.find("idCliente", 0);
+        posInicioId = linea.find("\"", posInicioId);
+        posFinalId = linea.find("\"", posInicioId);
+        idCliente = atoi(linea.substr(posInicioId, posFinalId).c_str());
+        //Busco el valor del idVendedor
+        posInicioId = linea.find("idVendedor", 0);
+        posInicioId = linea.find("\"", posInicioId);
+        posFinalId = linea.find("\"", posInicioId);
+        idVendedor = atoi(linea.substr(posInicioId, posFinalId).c_str());
+        //Busco el valor de cantidadLibros
+        posInicioId = linea.find("cantidadLibros", 0);
+        posInicioId = linea.find("\"", posInicioId);
+        posFinalId = linea.find("\"", posInicioId);
+        cantidadLibros = atoi(linea.substr(posInicioId, posFinalId).c_str());
+        //Busco el valor de montoTotal
+        posInicioId = linea.find("montoTotal", 0);
+        posInicioId = linea.find("\"", posInicioId);
+        posFinalId = linea.find("\"", posInicioId);
+        montoTotal = atoi(linea.substr(posInicioId, posFinalId).c_str());
+        //Busco el valor de fecha
+        posInicioId = linea.find("fecha", 0);
+        posInicioId = linea.find("\"", posInicioId);
+        posFinalId = linea.find("\"", posInicioId);
+        fecha = NULL; //atoi(linea.substr(posInicioId, posFinalId).c_str()); //MALO
+        //Busco el valor de correlativo
+        posInicioId = linea.find("correlativo", 0);
+        posInicioId = linea.find("\"", posInicioId);
+        posFinalId = linea.find("\"", posInicioId);
+        correlativo = linea.substr(posInicioId, posFinalId).c_str(); //MALO
 
-
-        Venta *ventaCreada = new Venta(id, correlativo, idLibro, idCliente, idVendedor, cantidadLibros, montoTotal, fecha);
+        Venta *ventaCreada = new Venta(idObj, correlativo, idLibro, idCliente, idVendedor, cantidadLibros, montoTotal, fecha);
         return ventaCreada;
     }
     else
         return NULL;
-    /* linea << "id=\"" << venta->getId() << "\" ";
-    linea << "correlativo=\"" << venta->getCorrelativo() << "\" ";
-    linea << "idLibro=\"" << venta->getIdLibro() << "\" ";
-    linea << "idCliente=\"" << venta->getIdCliente() << "\" ";
-    linea << "cantidadLibros=\"" << venta->getCantidadLibros() << "\" ";
-    linea << "montoTotal=\"" << venta->getMontoTotal() << "\" ";
-    linea << "vendedor=\"" << venta->getIdVendedor() << "\" ";
-    //linea << "fecha=\"" << venta->getFecha();
-    linea <<  "\" >";*/
 }
 Cliente *CapaIO::stringToCliente(string linea)
 {
@@ -102,7 +165,7 @@ string CapaIO::idToString(int id, int tipoId)
 string CapaIO::ventaToString(Venta *venta)
 {   stringstream linea;
     linea << "<Venta ";
-    linea << "id=\"" << venta->getId() << "\" ";
+    linea << "idObj=\"" << venta->getId() << "\" ";
     linea << "correlativo=\"" << venta->getCorrelativo() << "\" ";
     linea << "idLibro=\"" << venta->getIdLibro() << "\" ";
     linea << "idCliente=\"" << venta->getIdCliente() << "\" ";
@@ -120,7 +183,7 @@ string CapaIO::clienteToString(Cliente *cliente)
     ListaEnlazada *listaCompras;
     ListaEstatica *listaTelefonos;
     linea << "<Cliente ";
-    linea << "id=\"" << cliente->getId() <<"\" ";
+    linea << "idObj=\"" << cliente->getId() <<"\" ";
     linea << "rut=\"" << cliente->getRut() << "\" ";
     linea << "nombre=\"" << cliente->getNombre() << "\" ";
     linea << "edad=\"" << cliente->getEdad() << "\" ";
@@ -144,7 +207,7 @@ string CapaIO::vendedorToString(Vendedor *vendedor)
     ListaEnlazada *listaVentas;
     ListaEstatica *listaTelefonos;
     linea << "Vendedor ";
-    linea << "id=\"" << vendedor->getId() << "\" ";
+    linea << "idObj=\"" << vendedor->getId() << "\" ";
     linea << "rut=\"" << vendedor->getRut() << "\" ";
     linea << "nombre=\"" << vendedor->getNombre() << "\" ";
     linea << "edad=\"" << vendedor->getEdad() << "\" ";
@@ -164,7 +227,7 @@ string CapaIO::vendedorToString(Vendedor *vendedor)
 string CapaIO::libroToString(Libro *libro)
 {   stringstream linea;
     linea << "Libro ";
-    linea << "id=\"" << libro->getId() << "\" ";
+    linea << "idObj=\"" << libro->getId() << "\" ";
     linea << "isbn=\"" << libro->getIsbn() << "\" ";
     linea << "precio=\"" << libro->getPrecio() << "\" ";
     linea << "nombre=\"" << libro->getNombre() << "\" ";

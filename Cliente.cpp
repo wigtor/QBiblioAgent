@@ -7,82 +7,123 @@
 
 #include "Cliente.h"
 
+/* Hacer:
+ * Destructor
+ */
+
+/****************************************
+ VARIABLES ESTATICAS
+ ****************************************/
+
+int Cliente::idCont = 1;
+int Cliente::numOrder = 1;
+
+/****************************************
+ CONSTRUCTORES, COPIAS, DESTRUCTORES
+ ****************************************/
+
 Cliente::Cliente() {
-    this->id = Cliente::idCont+1;
+    this->id = Cliente::idCont++;
     this->rut = 0;
     this->nombre = "";
     this->edad = 0;
     this->direccion = "";
-    this->telefonos = new ListaEstatica();
+    this->telefonos = new ListaEstatica;
     this->email = "";
-    this->comprasHechas = new ListaEnlazada();
+    this->comprasHechas = new ListaEnlazada;
 }
 
 Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email) {
-    //aunque se copie en memoria no permitir que dos clientes tengan el mismo id;
-    this->id = Cliente::idCont+1;
+    this->id = Cliente::idCont++;
     this->rut = rut;
     this->nombre = nombre;
     this->edad = edad;
     this->direccion = direccion;
     this->telefonos = telefonos;
     this->email = email;
-    this->comprasHechas = new ListaEnlazada();
+    this->comprasHechas = new ListaEnlazada;
 }
 
-Cliente::Cliente(const Cliente& orig) { // ¿Se necesita esto? Los clientes son unicos, y si se borra uno, ListaEnlazada::eliminar
-}                                       // se encargara de los nodos, así que no veo el sentido de una copia.
+Cliente::Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email, ListaEnlazada *comprasHechas) {
+    this->id = id;
+    this->rut = rut;
+    this->nombre = nombre;
+    this->edad = edad;
+    this->direccion = direccion;
+    this->telefonos = telefonos;
+    this->email = email;
+    this->comprasHechas = comprasHechas;
+}
+
+Cliente::Cliente(const Cliente& orig) {
+    this->id = orig.id;
+    this->rut = orig.rut;
+    this->nombre = orig.nombre;
+    this->edad = orig.edad;
+    this->direccion = orig.direccion;
+    this->telefonos = orig.telefonos;
+    this->comprasHechas = orig.comprasHechas;
+    this->email = orig.email;
+}
 
 Cliente::~Cliente() {
-    comprasHechas->~ListaEnlazada();
+    comprasHechas.~ListaEnlazada();
 }
 
-int Cliente::getIdCont() {
-    return idCont;
-}
+/****************************************
+ SETTERS
+ ****************************************/
 
 void Cliente::setIdCont(int idCont) {
     Cliente::idCont = idCont;
-}
-
-int Cliente::getId() {
-    return this->id;
 }
 
 void Cliente::setId(int id) {
     this->id = id;
 }
 
-int Cliente::getRut() {
-    return this->rut;
-}
-
 void Cliente::setRut(int rut) {
     this->rut = rut;
-}
-
-string Cliente::getNombre() {
-    return this->nombre;
 }
 
 void Cliente::setNombre(string nombre) {
     this->nombre = nombre;
 }
 
-int Cliente::getEdad() {
-    return this->edad;
-}
-
 void Cliente::setEdad(int edad) {
     this->edad = edad;
 }
 
-string Cliente::getDireccion() {
-    return this->direccion;
-}
-
 void Cliente::setDireccion(string direccion) {
     this->direccion = direccion;
+}
+
+void Cliente::setEmail(string email) {
+    this->email = email;
+}
+
+/****************************************
+ GETTERS
+ ****************************************/
+
+int Cliente::getId() {
+    return this->id;
+}
+
+int Cliente::getRut() {
+    return this->rut;
+}
+
+string Cliente::getNombre() {
+    return this->nombre;
+}
+
+int Cliente::getEdad() {
+    return this->edad;
+}
+
+string Cliente::getDireccion() {
+    return this->direccion;
 }
 
 ListaEstatica *Cliente::getTelefonos() {
@@ -93,12 +134,106 @@ string Cliente::getEmail() {
     return this->email;
 }
 
-void Cliente::setEmail(string email) {
-    this->email = email;
-}
-
 ListaEnlazada *Cliente::getComprasHechas() {
     return this->comprasHechas;
 }
 
-int Cliente::idCont = 1;
+/****************************************
+ OPERADORES
+ ****************************************/
+
+/* Codigos numOrder:
+ * 1 = ID
+ * 2 = RUT
+ * 3 = Nombre
+ * 4 = Cantidad de compras hechas
+ */
+
+bool Cliente::operator <(Cliente *otroCliente) {
+    switch(Cliente::numOrder) {
+        case 1:
+            if (this->id < otroCliente->id)
+                return true;
+            else
+                return false;
+        case 2:
+            if (this->rut < otroCliente->rut)
+                return true;
+            else
+                return false;
+        case 3:
+            if (this->nombre.compare(otroCliente->nombre) < 0)
+                return true;
+            else
+                return false;
+        case 4:
+            if (this->comprasHechas->longitud() < otroCliente->comprasHechas->longitud())
+                return true;
+            else
+                return false;
+        default:
+            return false;
+    }
+}
+
+bool Cliente::operator >(Cliente *otroCliente) {
+    switch(Cliente::numOrder) {
+        case 1:
+            if (this->id > otroCliente->id)
+                return true;
+            else
+                return false;
+        case 2:
+            if (this->rut > otroCliente->rut)
+                return true;
+            else
+                return false;
+        case 3:
+            if (this->nombre.compare(otroCliente->nombre) > 0)
+                return true;
+            else
+                return false;
+        case 4:
+            if (this->comprasHechas->longitud() > otroCliente->comprasHechas->longitud())
+                return true;
+            else
+                return false;
+        default:
+            return false;
+    }
+}
+
+bool Cliente::operator ==(Cliente *otroCliente) {
+    switch(Cliente::numOrder) {
+        case 1:
+            if (this->id == otroCliente->id)
+                return true;
+            else
+                return false;
+        case 2:
+            if (this->rut == otroCliente->rut)
+                return true;
+            else
+                return false;
+        case 3:
+            if (this->nombre.compare(otroCliente->nombre) == 0)
+                return true;
+            else
+                return false;
+        case 4:
+            if (this->comprasHechas->longitud() == otroCliente->comprasHechas->longitud())
+                return true;
+            else
+                return false;
+        default:
+            return false;
+    }
+}
+
+/****************************************
+ OTROS METODOS
+ ****************************************/
+
+void Cliente::addCompra(Venta *compra) {
+    this->comprasHechas->agregar(compra);
+}

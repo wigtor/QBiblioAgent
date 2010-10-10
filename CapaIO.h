@@ -9,9 +9,8 @@
 #define	CAPAIO_H
 
 #include <string>
-#include <fstream>
-#include <iostream>
 #include <sstream>
+#include <stdio.h>
 #include "ListaEstatica.h"
 #include "ListaEnlazada.h"
 #include "Cliente.h"
@@ -51,10 +50,11 @@ private:
     static int CLIENTE;
     static int USUARIO;
     static int LIBRO;
-    fstream *fVentas;
-    fstream *fClientes;
-    fstream *fUsuarios;
-    fstream *fLibros;
+
+    FILE *fUsuarios;
+    FILE *fVentas;
+    FILE *fLibros;
+    FILE *fClientes;
     int stringToId(string linea);
     Venta *stringToVenta(string linea);
     Cliente *stringToCliente(string linea);
