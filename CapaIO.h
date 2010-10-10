@@ -19,19 +19,20 @@
 #include "Vendedor.h"
 
 using namespace std;
+//#pragma GCC visibility push(default)
 
 class CapaIO {
 public:
     CapaIO();
     virtual ~CapaIO();
-    ListaEstatica *leeUsuarios();
-    ListaEnlazada *leeVentas();
-    ListaEnlazada *leeClientes();
-    ListaEnlazada *leeLibros();
-    int escribeUsuarios(ListaEstatica *listaUsuarios);
-    int escribeVentas(ListaEnlazada *listaVentas);
-    int escribeClientes(ListaEnlazada *listaClientes);
-    int escribeLibros(ListaEnlazada *listaLibros);
+    ListaEstatica<Vendedor> *leeUsuarios();
+    ListaEnlazada<Venta> *leeVentas();
+    ListaEnlazada<Cliente> *leeClientes();
+    ListaEnlazada<Libro> *leeLibros();
+    int escribeUsuarios(ListaEstatica<Vendedor> *listaUsuarios);
+    int escribeVentas(ListaEnlazada<Venta> *listaVentas);
+    int escribeClientes(ListaEnlazada<Cliente> *listaClientes);
+    int escribeLibros(ListaEnlazada<Libro> *listaLibros);
     int leeIdUsuarios();
     int leeIdVentas();
     int leeIdClientes();

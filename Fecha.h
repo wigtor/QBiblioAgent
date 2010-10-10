@@ -4,6 +4,7 @@
 #include <string>
 
 using namespace std;
+//#pragma GCC visibility push(default)
 
 class Fecha
 {
@@ -14,14 +15,14 @@ public:
     virtual ~Fecha();
 
     // SETTERS
-    void Fecha::setDia(int dia);
-    void Fecha::setMes(int mes);
-    void Fecha::setAnno(int anno);
+    void setDia(int dia);
+    void setMes(int mes);
+    void setAnno(int anno);
 
     // GETTERS
-    int Fecha::getDia();
-    int Fecha::getMes();
-    int Fecha::getAnno();
+    int getDia();
+    int getMes();
+    int getAnno();
 
 private:
     int dia;

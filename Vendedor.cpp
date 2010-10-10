@@ -36,8 +36,8 @@ Vendedor::Vendedor(){
 Vendedor::Vendedor(int numRut){
     this->id = Vendedor::idCont++;
     this->rut = numRut;
-    this->telefonos = new ListaEstatica();
-    this->ventas = new ListaEnlazada();
+    this->telefonos = new ListaEstatica<int>();
+    this->ventas = new ListaEnlazada<ventas>();
     this->nombre = "";
     this->direccion = "";
     stringstream password;

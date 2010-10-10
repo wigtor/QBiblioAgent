@@ -28,12 +28,12 @@ Cliente::Cliente() {
     this->nombre = "";
     this->edad = 0;
     this->direccion = "";
-    this->telefonos = new ListaEstatica;
+    this->telefonos = new ListaEstatica<int>();
     this->email = "";
-    this->comprasHechas = new ListaEnlazada;
+    this->comprasHechas = new ListaEnlazada<Venta>();
 }
 
-Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email) {
+Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email) {
     this->id = Cliente::idCont++;
     this->rut = rut;
     this->nombre = nombre;
@@ -41,10 +41,10 @@ Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstati
     this->direccion = direccion;
     this->telefonos = telefonos;
     this->email = email;
-    this->comprasHechas = new ListaEnlazada;
+    this->comprasHechas = new ListaEnlazada<Venta>();
 }
 
-Cliente::Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email, ListaEnlazada *comprasHechas) {
+Cliente::Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<Venta> *comprasHechas) {
     this->id = id;
     this->rut = rut;
     this->nombre = nombre;
@@ -67,7 +67,7 @@ Cliente::Cliente(const Cliente& orig) {
 }
 
 Cliente::~Cliente() {
-    comprasHechas.~ListaEnlazada();
+    comprasHechas->~ListaEnlazada();
 }
 
 /****************************************
@@ -126,7 +126,7 @@ string Cliente::getDireccion() {
     return this->direccion;
 }
 
-ListaEstatica *Cliente::getTelefonos() {
+ListaEstatica<int> *Cliente::getTelefonos() {
     return this->telefonos;
 }
 
@@ -134,7 +134,7 @@ string Cliente::getEmail() {
     return this->email;
 }
 
-ListaEnlazada *Cliente::getComprasHechas() {
+ListaEnlazada<Venta> *Cliente::getComprasHechas() {
     return this->comprasHechas;
 }
 

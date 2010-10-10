@@ -9,17 +9,14 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include "Nodo.h"
 #include "ListaEnlazada.h"
 #include "ListaEstatica.h"
-#include "Vendedor.h"
 #include "Venta.h"
 #include "CapaIO.h"
 
 using namespace std;
 
-
-//#pragma GCC visibility push(default)
+#pragma GCC visibility push(default)
 
 int main(int argc, char *argv[]) {
     //*
@@ -56,7 +53,8 @@ int main(int argc, char *argv[]) {
 
 
     cout << "probando nuevamente la lista estatica" << endl;
-    ListaEnlazada lista1 = *(new ListaEnlazada());
+
+    ListaEnlazada<int> lista1 = *(new ListaEnlazada<int>());
     for (a = 1; a<=10; a++)
     {   lista1.agregar(new int(a*10));
 

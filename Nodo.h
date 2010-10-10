@@ -10,6 +10,9 @@
 
 #include <cstdlib>
 
+using namespace std;
+//#pragma GCC visibility push(default)
+
 class Nodo {
 public:
     Nodo();

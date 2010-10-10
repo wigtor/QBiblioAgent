@@ -22,6 +22,7 @@
 #include <string>
 
 using namespace std;
+//#pragma GCC visibility push(default)
 
 class Libro{
 public:
@@ -29,7 +30,7 @@ public:
     Libro();
     Libro(int intIsbn, string strNombre, string strAutor);
     Libro(const Libro& orig);
-    ~Libro();
+    virtual ~Libro();
     bool operator<(Libro *otroLibro);
     bool operator>(Libro *otroLibro);
     bool operator==(Libro *otroLibro);

@@ -1,92 +1,51 @@
 /*
- * File:   ListaEstatica.h
+ * File:   ListaEstatica.cpp
  * Author: victor
- *
+ * 
  * Created on 14 de septiembre de 2010, 16:22
  */
 
-#ifndef LISTAESTATICA_H
-#define	LISTAESTATICA_H
-
+#include "ListaEstatica.h"
 #include <cstdlib>
-using namespace std;
-//#pragma GCC visibility push(default)
 
+int ListaEstatica::tamDefault = 10;
 
-template <class tipo>
-class ListaEstatica {
-public:
-    static int tamDefault;
-    ListaEstatica();
-    ListaEstatica(const ListaEstatica& orig);
-    virtual ~ListaEstatica();
-    int agregar(tipo *elem);
-    int insertar(tipo * elem, int pos);
-    int localizar(tipo * elem);
-    tipo *recuperar(int pos);
-    tipo *eliminar(int pos);
-    int anular();
-    int longitud();
-    int ordenar(int critOrden); // critOrden: 1 = ascendente, -1 = descendente
-
-
-
-private:
-    //una lista de punteros
-    tipo **datos;
-    //un contador del último elemento agregado
-    int cantidadElems;
-    //un tamaño por defecto
-};
-
-template <class tipo>
-int ListaEstatica<tipo>::tamDefault = 10;
-
-template <class tipo>
-ListaEstatica<tipo>::ListaEstatica() {
-    this->datos = (tipo **)malloc(tamDefault * sizeof(tipo *));
+ListaEstatica::ListaEstatica() {
+    this->datos = (void **)malloc(ListaEstatica::tamDefault * sizeof(void *));
     this->cantidadElems = 0;
 }
 
-template <class tipo>
-ListaEstatica<tipo>::ListaEstatica(const ListaEstatica& orig) {
-    this->datos = (tipo **)malloc(tamDefault * sizeof(tipo *));
+ListaEstatica::ListaEstatica(const ListaEstatica& orig) {
+    this->datos = (void **)malloc(ListaEstatica::tamDefault * sizeof(void *));
     this->cantidadElems = orig.cantidadElems;
     int i;
     for (i = 0; i < this->cantidadElems; i++)
         this->datos[i] = orig.datos[i];
 }
 
-template <class tipo>
-ListaEstatica<tipo>::~ListaEstatica() {
+ListaEstatica::~ListaEstatica() {
     free(this->datos);
     this->datos = NULL;
     this->cantidadElems = 0;
 }
 
-
-template <class tipo>
-int ListaEstatica<tipo>::agregar(tipo *elem){
-    return this->insertar(elem, this->longitud());
+int ListaEstatica::agregar(void *elem){
+    return insertar(elem, this->longitud());
 }
-
-template <class tipo>
-int ListaEstatica<tipo>::insertar(tipo *elem, int pos){
+int ListaEstatica::insertar(void * elem, int pos){
     //si la posicion no es válida o si la posicion es mas grande que la capacidad de la lista
-    if ((pos < 0) || (pos > this->cantidadElems) || (pos > tamDefault))
+    if ((pos < 0) || (pos > this->cantidadElems) || (pos > ListaEstatica::tamDefault))
         return 1;
     int i;
     //Recorro la lista de atras hacia adelante desplazando los elementos hacia la derecha
     for (i = this->cantidadElems; i > pos; i--)
-    {   this->datos[i] = this->datos[i-1];
+    {   this->datos[i] = this->datos[i-1];        
     }
     this->cantidadElems++;
     this->datos[pos] = elem;
     return 0;
 }
-
-template <class tipo>
-int ListaEstatica<tipo>::localizar(tipo * elem){
+int ListaEstatica::localizar(void * elem){
     int i;
     for (i = 0; i < this->cantidadElems; i++)
         if (elem == this->datos[i])
@@ -94,43 +53,34 @@ int ListaEstatica<tipo>::localizar(tipo * elem){
     //Retorno -1 si el elemento no es encontrado
     return -1;
 }
-
-template <class tipo>
-tipo *ListaEstatica<tipo>::recuperar(int pos){
+void *ListaEstatica::recuperar(int pos){
     if ((pos < 0) || (pos > this->cantidadElems))
         return NULL;
     else
         return this->datos[pos];
 }
-
-template <class tipo>
-tipo *ListaEstatica<tipo>::eliminar(int pos){
+int ListaEstatica::eliminar(int pos){
     int i;
     if ((pos < 0) || (pos >= this->cantidadElems))
-        return NULL;
+        return 1;
     for (i = pos; i < this->cantidadElems; i++)
         this->datos[i] = this->datos[i+1];
     this->cantidadElems--;
-    return static_cast<tipo *>(this->datos[i]);
+    return 0;
 }
-
-template <class tipo>
-int ListaEstatica<tipo>::anular(){
+int ListaEstatica::anular(void){
     free(this->datos);
     this->cantidadElems = 0;
     return 0;
 }
-
-template <class tipo>
-int ListaEstatica<tipo>::longitud(){
+int ListaEstatica::longitud(void){
     return this->cantidadElems;
 }
 
-template <class tipo>
-int ListaEstatica<tipo>::ordenar(int critOrden) {  // critOrden: 1 = ascendente, -1 = descendente
+int ListaEstatica::ordenar(int critOrden) {  // critOrden: 1 = ascendente, -1 = descendente
     int n = this->cantidadElems;
     int m;
-    tipo *datoTemp = NULL;
+    void *datoTemp;
     if (critOrden == 1) { // Orden ascendente
         while (n > 1) {
             m = 0;
@@ -163,6 +113,3 @@ int ListaEstatica<tipo>::ordenar(int critOrden) {  // critOrden: 1 = ascendente,
     }
     return -1;
 }
-
-#endif	/* LISTAESTATICA_H */
-

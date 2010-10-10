@@ -1,52 +1,21 @@
 /*
- * File:   ListaEnlazada.h
+ * File:   ListaEnlazada.cpp
  * Author: victor
  *
  * Created on 12 de septiembre de 2010, 11:50
  */
 
-#ifndef LISTAENLAZADA_H
-#define	LISTAENLAZADA_H 1
+#include "ListaEnlazada.h"
 
-#include "Nodo.h"
-using namespace std;
-//#pragma GCC visibility push(default)
-
-
-template <class tipo>
-class ListaEnlazada {
-public:
-    ListaEnlazada(void);
-    ListaEnlazada(const ListaEnlazada& orig);
-    virtual ~ListaEnlazada();
-    int agregar(tipo *elem);
-    int insertar(tipo *elem, int pos);
-    int localizar(tipo *elem);
-    tipo *recuperar(int pos);
-    tipo *eliminar(int pos);
-    int anular();
-    int longitud();
-    int ordenar(int critOrden); // critOrden: 1 = ascendente, -1 = descendente
-
-private:
-    //Se hizo un cambio en el diseño de listaEnlazada
-    //El primer nodo cabecera no contiene datos y su puntero al nodoSiguiente es ahora el primer elemento,
-    //Esto para seguir el diseño descrito en los pdf de la materia de EDA
-    //Avisar por errores producidos con este cambio
-    Nodo *cabecera;
-    int cantidadElems;
-};
-
+#pragma GCC visibility push(default)
 
 //Constructor de una lista vacia.
-template <class tipo>
-ListaEnlazada<tipo>::ListaEnlazada(void) {
+ListaEnlazada::ListaEnlazada(void) {
     this->cabecera = new Nodo(); //hago que la cabezera tenga un primer nodo sin datos
     this->cantidadElems = 0;
 }
 
-template <class tipo>
-ListaEnlazada<tipo>::ListaEnlazada(const ListaEnlazada& orig) {
+ListaEnlazada::ListaEnlazada(const ListaEnlazada& orig) {
     //no probado si funciona.
     this->cabecera = new Nodo();
     int i;
@@ -61,18 +30,15 @@ ListaEnlazada<tipo>::ListaEnlazada(const ListaEnlazada& orig) {
     this->cantidadElems = orig.cantidadElems;
 }
 
-template <class tipo>
-ListaEnlazada<tipo>::~ListaEnlazada() {
+ListaEnlazada::~ListaEnlazada(void) {
     this->anular();
 }
 
-template <class tipo>
-int ListaEnlazada<tipo>::agregar(tipo *elem) {
+int ListaEnlazada::agregar(void *elem) {
     return this->insertar(elem, this->longitud());
 }
 
-template <class tipo>
-int ListaEnlazada<tipo>::insertar(tipo *elem, int pos){
+int ListaEnlazada::insertar(void *elem, int pos){
     Nodo *nodoNuevo = new Nodo(elem);
     Nodo *nodoTemp = this->cabecera->getNodoSig();
         //Se comprueba que el índice el válido
@@ -96,8 +62,7 @@ int ListaEnlazada<tipo>::insertar(tipo *elem, int pos){
     return 0;
 }
 
-template <class tipo>
-int ListaEnlazada<tipo>::localizar(tipo *elem){
+int ListaEnlazada::localizar(void *elem){
     int i;
     Nodo *nodoTemp = this->cabecera->getNodoSig();
     for (i=0;i<this->cantidadElems;i++)
@@ -106,13 +71,12 @@ int ListaEnlazada<tipo>::localizar(tipo *elem){
             return i;
         nodoTemp = nodoTemp->getNodoSig();
     }
-
+    
     //si el elemento no es encontrado retorna -1
     return -1;
 }
 
-template <class tipo>
-tipo *ListaEnlazada<tipo>::recuperar(int pos){
+void *ListaEnlazada::recuperar(int pos){
     if ((pos > this->cantidadElems) || (pos < 0))
         return NULL;
     Nodo *temp = this->cabecera->getNodoSig();
@@ -120,15 +84,14 @@ tipo *ListaEnlazada<tipo>::recuperar(int pos){
     for(i=0;i<pos;i++)
     {   temp = temp->getNodoSig();
     }
-    return static_cast<tipo *>(temp->getDato());
+    return temp->getDato();
 }
 
-template <class tipo>
-tipo *ListaEnlazada<tipo>::eliminar(int pos) {
+int ListaEnlazada::eliminar(int pos) {
     Nodo *temp = this->cabecera->getNodoSig();
     Nodo *anterior = NULL;
     if ((pos >= this->cantidadElems) || (pos < 0))
-        return NULL;
+        return 1;
     int i = 0;
     while ((temp->getNodoSig()!=NULL) && (i < pos)){
         anterior = temp;
@@ -140,17 +103,16 @@ tipo *ListaEnlazada<tipo>::eliminar(int pos) {
     if (i==0) //en caso de ser el primer elemento el que se elimina
         this->cabecera->setNodoSig(this->cabecera->getNodoSig()->getNodoSig());
     else {
-        if (temp->getNodoSig() == NULL) //en caso del ser el ultimo elemento el que se elimina
+	if (temp->getNodoSig() == NULL) //en caso del ser el ultimo elemento el que se elimina
             anterior->setNodoSig(NULL);
         else
             anterior->setNodoSig(temp->getNodoSig());
-        }
+	}
     this->cantidadElems--;
-    return static_cast<tipo *>(temp->getDato());
+    return 0;
 }
 
-template <class tipo>
-int ListaEnlazada<tipo>::anular(){
+int ListaEnlazada::anular(){
     Nodo *nodoTemp = this->cabecera->getNodoSig();
     Nodo *nodoSig = NULL;
     int i;
@@ -165,13 +127,11 @@ int ListaEnlazada<tipo>::anular(){
     return 0;
 }
 
-template <class tipo>
-int ListaEnlazada<tipo>::longitud() {
+int ListaEnlazada::longitud() {
     return this->cantidadElems;
 }
 
-template <class tipo>
-int ListaEnlazada<tipo>::ordenar(int critOrden) {  // critOrden: 1 = ascendente, -1 = descendente
+int ListaEnlazada::ordenar(int critOrden) {  // critOrden: 1 = ascendente, -1 = descendente
     int n = this->cantidadElems;
     int m;
     Nodo *nodoAnt = this->cabecera;
@@ -217,6 +177,3 @@ int ListaEnlazada<tipo>::ordenar(int critOrden) {  // critOrden: 1 = ascendente,
     }
     return -1;
 }
-
-#endif	/* LISTAENLAZADA_H */
-

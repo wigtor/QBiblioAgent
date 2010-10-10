@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Cliente.h
  * Author: Mateo
  *
@@ -9,23 +9,24 @@
 #define	CLIENTE_H
 
 #include <string>
+#include "Venta.h"
 #include "ListaEnlazada.h"
 #include "ListaEstatica.h"
-#include "Venta.h"
 
 using namespace std;
+//#pragma GCC visibility push(default)
 
 class Cliente {
 public:
     // CONSTRUCTORES, COPIAS, DESTRUCTORES
     Cliente();
-    Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email);
-    Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica *telefonos, string email, ListaEnlazada *comprasHechas);
+    //Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email);
+    //Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<Venta> *comprasHechas);
     Cliente(const Cliente& orig);
     virtual ~Cliente();
 
     // SETTERS
-    void Cliente::setIdCont(int idCont);
+    void setIdCont(int idCont);
     void setId(int id);
     void setRut(int rut);
     void setNombre(string nombre);
@@ -39,9 +40,9 @@ public:
     string getNombre();
     int getEdad();
     string getDireccion();
-    ListaEstatica *getTelefonos();
+    ListaEstatica<int> *getTelefonos();
     string getEmail();
-    ListaEnlazada *getComprasHechas();
+    ListaEnlazada<Venta> *getComprasHechas();
 
     // OPERADORES
     bool operator <(Cliente *otroCliente);
@@ -59,11 +60,10 @@ private:
     string nombre;
     int edad;
     string direccion;
-    ListaEstatica *telefonos;
+    ListaEstatica<int> *telefonos;
     string email;
-    ListaEnlazada *comprasHechas;
+    ListaEnlazada<Venta> *comprasHechas;
 
 };
 
 #endif	/* CLIENTE_H */
-

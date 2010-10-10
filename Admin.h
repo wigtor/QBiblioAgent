@@ -13,6 +13,8 @@
 #include "ListaEnlazada.h"
 
 using namespace std;
+//#pragma GCC visibility push(default)
+
 
 class Admin : public Vendedor{
 public:

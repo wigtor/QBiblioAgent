@@ -20,12 +20,13 @@
 #include <sstream>
 #include <iostream>
 #include <cstdlib>
-#include "Cliente.h"
 #include "Libro.h"
-
-class Venta;
+#include "ListaEstatica.h"
+#include "Cliente.h"
+#include "Venta.h"
 
 using namespace std;
+//#pragma GCC visibility push(default)
 
 class Vendedor{
 public:
@@ -34,7 +35,7 @@ public:
     Vendedor();
     Vendedor(int intRut);
     Vendedor(const Vendedor& orig);
-    ~Vendedor();
+    virtual ~Vendedor();
     bool operator<(Vendedor *otroVend);
     bool operator>(Vendedor *otroVend);
     bool operator==(Vendedor *otroVend);
@@ -57,8 +58,8 @@ public:
     string getNombre();
     int getEdad();
     string getDireccion();
-    ListaEstatica *getTelefonos();
-    ListaEnlazada *getVentas();
+    ListaEstatica<int> *getTelefonos();
+    ListaEnlazada<Venta> *getVentas();
     int getIdCont();
     //////////////////////////////////
 
@@ -87,8 +88,8 @@ private:
     int edad;
     string direccion;
     string email;
-    ListaEstatica *telefonos; 
-    ListaEnlazada *ventas;
+    ListaEstatica<int> *telefonos;
+    ListaEnlazada<Venta> *ventas;
     string pass;
 };
 
