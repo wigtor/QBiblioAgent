@@ -29,7 +29,7 @@ int Admin::eliminaVendedor(Vendedor *vendedor){
     return 0;
 }
 
-ListaEnlazada *Admin::verVentas(Vendedor *vendedor){
+ListaEnlazada<Vendedor> *Admin::verVentas(Vendedor *vendedor){
     return NULL;
 }
 

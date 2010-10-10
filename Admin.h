@@ -22,7 +22,7 @@ public:
     int ingresaVendedor();
     int modificaVendedor(Vendedor *vendedor);
     int eliminaVendedor(Vendedor *vendedor);
-    ListaEnlazada *verVentas(Vendedor *vendedor);
+    ListaEnlazada<Vendedor> *verVentas(Vendedor *vendedor);
     string verInfoVendedor(Vendedor *vendedor);
     //////////////////////////////////
 };

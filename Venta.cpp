@@ -7,6 +7,7 @@
 
 #include "Venta.h"
 
+
 /* Hacer:
  * Constructor copia
  * Destructor

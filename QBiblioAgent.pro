@@ -25,6 +25,7 @@ SOURCES += main.cpp \
     Vendedor.cpp \
     Admin.cpp \
     Fecha.cpp \
+    ReferListas.cpp \
     referlistas.cpp
 
 HEADERS += \
@@ -38,4 +39,4 @@ HEADERS += \
     Vendedor.h \
     Admin.h \
     Fecha.h \
-    referlistas.h
+    ReferListas.h

@@ -180,8 +180,8 @@ string CapaIO::ventaToString(Venta *venta)
 string CapaIO::clienteToString(Cliente *cliente)
 {   stringstream linea;
     int i;
-    ListaEnlazada *listaCompras;
-    ListaEstatica *listaTelefonos;
+    ListaEnlazada<Venta> *listaCompras;
+    ListaEstatica<int> *listaTelefonos;
     linea << "<Cliente ";
     linea << "idObj=\"" << cliente->getId() <<"\" ";
     linea << "rut=\"" << cliente->getRut() << "\" ";
@@ -204,8 +204,8 @@ string CapaIO::clienteToString(Cliente *cliente)
 string CapaIO::vendedorToString(Vendedor *vendedor)
 {   stringstream linea;
     int i;
-    ListaEnlazada *listaVentas;
-    ListaEstatica *listaTelefonos;
+    ListaEnlazada<Venta> *listaVentas;
+    ListaEstatica<int> *listaTelefonos;
     linea << "Vendedor ";
     linea << "idObj=\"" << vendedor->getId() << "\" ";
     linea << "rut=\"" << vendedor->getRut() << "\" ";

@@ -14,16 +14,18 @@
 #include "Libro.h"
 #include "Fecha.h"
 
+class Vendedor;
+class Cliente;
 
-using namespace std;
+//using namespace std;
 //#pragma GCC visibility push(default)
 
 class Venta {
 public:
     // CONSTRUCTORES, COPIAS, DESTRUCTORES
     Venta();
-    //Venta(int id, bool correlativo, int idLibro, int idCliente, int idVendedor, int cantidadLibros, int montoTotal, Fecha *fecha);
-    //Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int idVendedor, Vendedor *vendedor, int cantidadLibros, int montoTotal, Fecha *fecha);
+    Venta(int id, bool correlativo, int idLibro, int idCliente, int idVendedor, int cantidadLibros, int montoTotal, Fecha *fecha);
+    Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int idVendedor, Vendedor *vendedor, int cantidadLibros, int montoTotal, Fecha *fecha);
     Venta(const Venta& orig);
     virtual ~Venta();
 

@@ -13,6 +13,8 @@
 #include "ListaEnlazada.h"
 #include "ListaEstatica.h"
 
+class Venta;
+
 using namespace std;
 //#pragma GCC visibility push(default)
 
@@ -20,8 +22,8 @@ class Cliente {
 public:
     // CONSTRUCTORES, COPIAS, DESTRUCTORES
     Cliente();
-    //Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email);
-    //Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<Venta> *comprasHechas);
+    Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email);
+    Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<Venta> *comprasHechas);
     Cliente(const Cliente& orig);
     virtual ~Cliente();
 

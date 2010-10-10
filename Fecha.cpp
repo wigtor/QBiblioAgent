@@ -6,7 +6,7 @@
  ****************************************/
 
 Fecha::Fecha(int dia, int mes, int anno) {
-    try {
+
         if (dia < 1 || dia > 31)
             throw dia;
         else if (mes < 1 || mes > 12)
@@ -18,7 +18,7 @@ Fecha::Fecha(int dia, int mes, int anno) {
             this->mes = mes;
             this->anno = anno;
         }
-    }
+
 }
 
 Fecha::Fecha(const Fecha& orig) {
@@ -35,30 +35,29 @@ Fecha::~Fecha() {
  ****************************************/
 
 void Fecha::setDia(int dia) {
-    try {
+
         if (dia < 1 || dia > 31)
             throw dia;
         else
             this->dia = dia;
-    }
+
 }
 
 void Fecha::setMes(int mes) {
-    try {
         if (mes < 1 || mes > 12)
             throw mes;
         else
             this->mes = mes;
-    }
+
 }
 
 void Fecha::setAnno(int anno) {
-    try {
+
         if (anno < 2000 || anno > 2100)
             throw anno;
         else
             this->anno = anno;
-    }
+
 }
 
 /****************************************

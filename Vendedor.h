@@ -15,18 +15,21 @@
 #define ORD_V_CANTVENT = 4;
 
 
-
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <cstdlib>
 #include "Libro.h"
 #include "ListaEstatica.h"
+#include "ListaEnlazada.h"
 #include "Cliente.h"
 #include "Venta.h"
 
+class Venta;
+class Cliente;
+
 using namespace std;
-//#pragma GCC visibility push(default)
+#pragma GCC visibility push(default)
 
 class Vendedor{
 public:

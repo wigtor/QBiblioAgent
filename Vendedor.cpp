@@ -6,7 +6,8 @@
  */
 
 #include "Vendedor.h"
-#pragma GCC visibility push(default)
+
+//#pragma GCC visibility push(default)
 
 /****************************************
  *
@@ -37,7 +38,7 @@ Vendedor::Vendedor(int numRut){
     this->id = Vendedor::idCont++;
     this->rut = numRut;
     this->telefonos = new ListaEstatica<int>();
-    this->ventas = new ListaEnlazada<ventas>();
+    this->ventas = new ListaEnlazada<Venta>();
     this->nombre = "";
     this->direccion = "";
     stringstream password;
@@ -234,11 +235,11 @@ string Vendedor::getDireccion(){
     return this->direccion;
 }
 
-ListaEstatica *Vendedor::getTelefonos(){
+ListaEstatica<int> *Vendedor::getTelefonos(){
     return this->telefonos;
 }
 
-ListaEnlazada *Vendedor::getVentas(){
+ListaEnlazada<Venta> *Vendedor::getVentas(){
     return this->ventas;
 }
 
