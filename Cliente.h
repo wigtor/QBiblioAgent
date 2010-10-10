@@ -23,7 +23,7 @@ public:
     // CONSTRUCTORES, COPIAS, DESTRUCTORES
     Cliente();
     Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email);
-    Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<Venta> *comprasHechas);
+    Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<int> *idsComprasHechas);
     Cliente(const Cliente& orig);
     virtual ~Cliente();
 
@@ -43,6 +43,7 @@ public:
     int getEdad();
     string getDireccion();
     ListaEstatica<int> *getTelefonos();
+    ListaEnlazada<int> *getListIdCompras();
     string getEmail();
     ListaEnlazada<Venta> *getComprasHechas();
 
@@ -65,6 +66,7 @@ private:
     ListaEstatica<int> *telefonos;
     string email;
     ListaEnlazada<Venta> *comprasHechas;
+    ListaEnlazada<int> *idComprasHechas;
 
 };
 

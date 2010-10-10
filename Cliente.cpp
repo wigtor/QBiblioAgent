@@ -44,7 +44,7 @@ Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstati
     this->comprasHechas = new ListaEnlazada<Venta>();
 }
 
-Cliente::Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<Venta> *comprasHechas) {
+Cliente::Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<int> *idsComprasHechas) {
     this->id = id;
     this->rut = rut;
     this->nombre = nombre;
@@ -52,7 +52,8 @@ Cliente::Cliente(int id, int rut, string nombre, int edad, string direccion, Lis
     this->direccion = direccion;
     this->telefonos = telefonos;
     this->email = email;
-    this->comprasHechas = comprasHechas;
+    this->idComprasHechas = idsComprasHechas;
+    this->comprasHechas = new ListaEnlazada<Venta>();
 }
 
 Cliente::Cliente(const Cliente& orig) {
@@ -136,6 +137,10 @@ string Cliente::getEmail() {
 
 ListaEnlazada<Venta> *Cliente::getComprasHechas() {
     return this->comprasHechas;
+}
+
+ListaEnlazada<int> *Cliente::getListIdCompras(){
+    return this->idComprasHechas;
 }
 
 /****************************************

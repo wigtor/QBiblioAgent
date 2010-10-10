@@ -2,6 +2,7 @@
 #define FECHA_H
 
 #include <string>
+#include <sstream>
 
 using namespace std;
 //#pragma GCC visibility push(default)
@@ -23,6 +24,8 @@ public:
     int getDia();
     int getMes();
     int getAnno();
+
+    string toString();
 
 private:
     int dia;

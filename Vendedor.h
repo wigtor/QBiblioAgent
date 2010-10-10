@@ -63,6 +63,7 @@ public:
     string getDireccion();
     ListaEstatica<int> *getTelefonos();
     ListaEnlazada<Venta> *getVentas();
+    ListaEnlazada<int> *getListIdVentas();
     int getIdCont();
     //////////////////////////////////
 
@@ -79,12 +80,6 @@ private:
 
     static int idCont;
     static int numOrder;    // Codigos: 1->Rut / 2->Nombre / 3-> Edad / 4-> Cantidad de Ventas
-    /*
-    static int ORD_RUT;
-    static int ORD_NOM;
-    static int ORD_EDAD;
-    static int ORD_CANTVENT;
-    */
     int id;
     int rut;
     string nombre;
@@ -93,6 +88,7 @@ private:
     string email;
     ListaEstatica<int> *telefonos;
     ListaEnlazada<Venta> *ventas;
+    ListaEnlazada<int> *listVentas;
     string pass;
 };
 

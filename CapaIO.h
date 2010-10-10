@@ -29,33 +29,29 @@ public:
     ListaEnlazada<Venta> *leeVentas();
     ListaEnlazada<Cliente> *leeClientes();
     ListaEnlazada<Libro> *leeLibros();
+    int leeIdFile(int tipoId);
     int escribeUsuarios(ListaEstatica<Vendedor> *listaUsuarios);
     int escribeVentas(ListaEnlazada<Venta> *listaVentas);
     int escribeClientes(ListaEnlazada<Cliente> *listaClientes);
     int escribeLibros(ListaEnlazada<Libro> *listaLibros);
-    int leeIdUsuarios();
-    int leeIdVentas();
-    int leeIdClientes();
-    int leeIdLibros();
-    int escribeIdUsuarios(int contId);
-    int escribeIdVentas(int contId);
-    int escribeIdClientes(int contId);
-    int escribeIdLibros(int contId);
+    int escribeIdFile(int contId, int tipoId);
+
+    static int VENTA;
+    static int CLIENTE;
+    static int USUARIO;
+    static int LIBRO;
 
 private:
     static string archVentas;
     static string archClientes;
     static string archUsuarios;
     static string archLibros;
-    static int VENTA;
-    static int CLIENTE;
-    static int USUARIO;
-    static int LIBRO;
 
     FILE *fUsuarios;
     FILE *fVentas;
     FILE *fLibros;
     FILE *fClientes;
+    FILE *file;
     int stringToId(string linea);
     Venta *stringToVenta(string linea);
     Cliente *stringToCliente(string linea);

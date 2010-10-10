@@ -35,7 +35,6 @@ private:
 
     //Otras Funciones
     int crearReferenciasVentas();
-    int crearReferenciasLibros();
     int crearReferenciasVendedores();
     int crearReferenciasClientes();
 

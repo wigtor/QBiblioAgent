@@ -22,7 +22,7 @@ int Vendedor::ORD_RUT = 1;
 int Vendedor::ORD_NOM = 2;
 int Vendedor::ORD_EDAD = 3;
 int Vendedor::ORD_CANTVENT = 4;
-/*
+*/
 
 /****************************************
  *
@@ -193,6 +193,7 @@ void Vendedor::addTelefono(int telefonoAgregado){
 
 void Vendedor::addVenta(Venta *ventaAgregada){
     this->ventas->agregar(ventaAgregada);
+    this->listVentas->agregar(new int(ventaAgregada->getId()));
 }
 
 void Vendedor::setIdCont(int intId){
@@ -242,6 +243,11 @@ ListaEstatica<int> *Vendedor::getTelefonos(){
 ListaEnlazada<Venta> *Vendedor::getVentas(){
     return this->ventas;
 }
+
+ListaEnlazada<int> *Vendedor::getListIdVentas(){
+    return this->listVentas;
+}
+
 
 int Vendedor::getIdCont(){
     return Vendedor::idCont;

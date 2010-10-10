@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
     }
 
     CapaIO *capaIO = new CapaIO();
-    a = capaIO->leeIdUsuarios();
+    a = capaIO->leeIdFile(CapaIO::USUARIO);
 
     cout << "valor leido de id: " << a<< endl;
 

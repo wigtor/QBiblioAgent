@@ -75,3 +75,9 @@ int Fecha::getMes() {
 int Fecha::getAnno() {
     return this->anno;
 }
+
+string Fecha::toString(){
+    stringstream linea;
+    linea << this->dia << "|"<<this->mes << "|" <<this->anno;
+    return linea.str();
+}
