@@ -8,7 +8,6 @@
 #ifndef VENTA_H
 #define	VENTA_H
 
-//#undef CLIENTE_H
 #include "Cliente.h"
 #include "Vendedor.h"
 #include "Libro.h"
@@ -17,7 +16,7 @@
 class Vendedor;
 class Cliente;
 
-//using namespace std;
+using namespace std;
 //#pragma GCC visibility push(default)
 
 class Venta {

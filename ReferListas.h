@@ -42,4 +42,4 @@ private:
     //////////////////////////////////
 };
 
-#endif // REFERLISTAS_H
+#endif	/* REFERLISTAS_H */

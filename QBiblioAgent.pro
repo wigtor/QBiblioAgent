@@ -25,8 +25,7 @@ SOURCES += main.cpp \
     Vendedor.cpp \
     Admin.cpp \
     Fecha.cpp \
-    ReferListas.cpp \
-    referlistas.cpp
+    ReferListas.cpp
 
 HEADERS += \
     ListaEstatica.h \

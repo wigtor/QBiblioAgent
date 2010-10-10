@@ -13,6 +13,7 @@
 #include "ListaEstatica.h"
 #include "Venta.h"
 #include "CapaIO.h"
+#include "ReferListas.h"
 
 using namespace std;
 

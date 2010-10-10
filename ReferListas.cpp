@@ -7,6 +7,8 @@
 
 #include "ReferListas.h"
 
+using namespace std;
+
 /****************************************
  *
  * Funciones Iniciadores y Obligatorios
@@ -36,10 +38,10 @@ ReferListas::~ReferListas(){
 
 int ReferListas::crearReferencias(){
     int cont = 0;
-    cont += crearReferenciasClientes();
-    cont += crearReferenciasLibros();
-    cont += crearReferenciasVendedores();
-    cont += crearReferenciasVentas();
+    cont += this->crearReferenciasClientes();
+    cont += this->crearReferenciasLibros();
+    cont += this->crearReferenciasVendedores();
+    cont += this->crearReferenciasVentas();
     if (cont != 4){
         return -1;
     }
