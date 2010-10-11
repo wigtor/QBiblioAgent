@@ -278,7 +278,6 @@ Venta *CapaIO::stringToVenta(string linea)
         posInicioId = posFinalId;
         posFinalId = linea.find("\"", posInicioId+1);
         int anno = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
-
         fecha = new Fecha(dia, mes, anno);
         //Busco el valor de correlativo
         posInicioId = linea.find("correlativo", 0);
@@ -293,7 +292,62 @@ Venta *CapaIO::stringToVenta(string linea)
 }
 
 Cliente *CapaIO::stringToCliente(string linea)
-{
+{   if (linea.find("<Cliente") != string::npos)
+    {   int idObj, rut, edad;
+        string nombre, direccion, email, stringTemp;
+        //Busco el valor del idObj
+        size_t posInicioId = linea.find("idObj", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        size_t posFinalId = linea.find("\"", posInicioId+1);
+        idObj = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+        //Busco el valor del rut
+        posInicioId = linea.find("rut", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        rut = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+        //Busco el valor de la edad
+        posInicioId = linea.find("edad", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        edad = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+        //Busco la direccion
+        posInicioId = linea.find("direccion", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        direccion = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+        //Busco el email
+        posInicioId = linea.find("email", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        direccion = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+        //Busco los telefonos
+        ListaEstatica<int> *listaTelefonos = new ListaEstatica<int>();
+        posInicioId = linea.find("telefonos", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        stringTemp = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+        posInicioId = 0;
+        while (stringTemp != "") //REVISAR SI ESTA BUENO
+        {   posFinalId = stringTemp.find("|", posInicioId+1);
+            listaTelefonos->agregar(new int(atoi(stringTemp.substr(posInicioId+1, posFinalId - posInicioId-1).c_str())));
+            stringTemp = stringTemp.substr(posFinalId - posInicioId-1, stringTemp.length()-(posFinalId - posInicioId-1));
+        }
+        //Busco los id de las ventas hechas
+        ListaEnlazada<int> *listaIdsCompras = new ListaEnlazada<int>();
+        posInicioId = linea.find("ventas", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        stringTemp = linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str();
+        posInicioId = 0;
+        while (stringTemp != "") //REVISAR SI ESTA BUENO
+        {   posFinalId = stringTemp.find("|", posInicioId+1);
+            listaIdsCompras->agregar(new int(atoi(stringTemp.substr(posInicioId+1, posFinalId - posInicioId-1).c_str())));
+            stringTemp = stringTemp.substr(posFinalId - posInicioId-1, stringTemp.length()-(posFinalId - posInicioId-1));
+        }
+
+        Cliente *clienteCreado = new Cliente( idObj, rut, nombre, edad, direccion, listaTelefonos, email, listaIdsCompras);
+        return clienteCreado;
+    }
     return NULL;
 }
 
