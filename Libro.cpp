@@ -56,46 +56,46 @@ Libro::~Libro(){
 
 }
 
-bool Libro::operator <(Libro *otroLibro){
+bool Libro::operator <(const Libro& otroLibro){
     switch(Libro::numOrder){ // Codigos: 1->Isbn / 2->Precio / 3->Nombre / 4->Autor / 5->Paginas / 6->Peso / 7->Stock
     case 1:
-        if (this->isbn < otroLibro->isbn){
+        if (this->isbn < otroLibro.isbn){
             return true;
         }
         else
             return false;
     case 2:
-        if (this->precio<otroLibro->precio){
+        if (this->precio<otroLibro.precio){
             return true;
         }
         else
             return false;
     case 3:
-        if (this->nombre.compare(otroLibro->nombre)<0){
+        if (this->nombre.compare(otroLibro.nombre)<0){
             return true;
         }
         else
             return false;
     case 4:
-        if (this->autor.compare(otroLibro->autor)<0){
+        if (this->autor.compare(otroLibro.autor)<0){
             return true;
         }
         else
             return false;
     case 5:
-        if (this->paginas<otroLibro->paginas){
+        if (this->paginas<otroLibro.paginas){
             return true;
         }
         else
             return false;
     case 6:
-        if (this->peso<otroLibro->peso){
+        if (this->peso<otroLibro.peso){
             return true;
         }
         else
             return false;
     case 7:
-        if (this->stock<otroLibro->stock){
+        if (this->stock<otroLibro.stock){
             return true;
         }
         else
@@ -105,46 +105,46 @@ bool Libro::operator <(Libro *otroLibro){
     }
 }
 
-bool Libro::operator >(Libro *otroLibro){
+bool Libro::operator >(const Libro& otroLibro){
     switch(Libro::numOrder){ // Codigos: 1->Isbn / 2->Precio / 3->Nombre / 4->Autor / 5->Paginas / 6->Peso / 7->Stock
     case 1:
-        if (this->isbn>otroLibro->isbn){
+        if (this->isbn>otroLibro.isbn){
             return true;
         }
         else
             return false;
     case 2:
-        if (this->precio>otroLibro->precio){
+        if (this->precio>otroLibro.precio){
             return true;
         }
         else
             return false;
     case 3:
-        if (this->nombre.compare(otroLibro->nombre)>0){
+        if (this->nombre.compare(otroLibro.nombre)>0){
             return true;
         }
         else
             return false;
     case 4:
-        if (this->autor.compare(otroLibro->autor)>0){
+        if (this->autor.compare(otroLibro.autor)>0){
             return true;
         }
         else
             return false;
     case 5:
-        if (this->paginas>otroLibro->paginas){
+        if (this->paginas>otroLibro.paginas){
             return true;
         }
         else
             return false;
     case 6:
-        if (this->peso>otroLibro->peso){
+        if (this->peso>otroLibro.peso){
             return true;
         }
         else
             return false;
     case 7:
-        if (this->stock>otroLibro->stock){
+        if (this->stock>otroLibro.stock){
             return true;
         }
         else
@@ -154,46 +154,46 @@ bool Libro::operator >(Libro *otroLibro){
     }
 }
 
-bool Libro::operator ==(Libro *otroLibro){
+bool Libro::operator ==(const Libro& otroLibro){
     switch(Libro::numOrder){ // Codigos: 1->Isbn / 2->Precio / 3->Nombre / 4->Autor / 5->Paginas / 6->Peso / 7->Stock
     case 1:
-        if (this->isbn==otroLibro->isbn){
+        if (this->isbn==otroLibro.isbn){
             return true;
         }
         else
             return false;
     case 2:
-        if (this->precio==otroLibro->precio){
+        if (this->precio==otroLibro.precio){
             return true;
         }
         else
             return false;
     case 3:
-        if (this->nombre.compare(otroLibro->nombre)==0){
+        if (this->nombre.compare(otroLibro.nombre)==0){
             return true;
         }
         else
             return false;
     case 4:
-        if (this->autor.compare(otroLibro->autor)==0){
+        if (this->autor.compare(otroLibro.autor)==0){
             return true;
         }
         else
             return false;
     case 5:
-        if (this->paginas==otroLibro->paginas){
+        if (this->paginas==otroLibro.paginas){
             return true;
         }
         else
             return false;
     case 6:
-        if (this->peso==otroLibro->peso){
+        if (this->peso==otroLibro.peso){
             return true;
         }
         else
             return false;
     case 7:
-        if (this->stock==otroLibro->stock){
+        if (this->stock==otroLibro.stock){
             return true;
         }
         else

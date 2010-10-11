@@ -62,28 +62,28 @@ Vendedor::~Vendedor(){
     //Revisar despues
 }
 
-bool Vendedor::operator <(Vendedor *otroVend){
+bool Vendedor::operator <(const Vendedor& otroVend){
     switch(Vendedor::numOrder){ // Codigos: 1->Rut / 2->Nombre / 3-> Edad / 4-> Cantidad de Ventas
     case 1:
-        if (this->rut < otroVend->rut){
+        if (this->rut < otroVend.rut){
             return true;
         }
         else
             return false;
     case 2:
-        if (this->nombre.compare(otroVend->nombre) < 0){
+        if (this->nombre.compare(otroVend.nombre) < 0){
             return true;
         }
         else
             return false;
     case 3:
-        if (this->edad < otroVend->edad){
+        if (this->edad < otroVend.edad){
             return true;
         }
         else
             return false;
     case 4:
-        if (this->ventas->longitud() < otroVend->ventas->longitud()){
+        if (this->ventas->longitud() < otroVend.ventas->longitud()){
             return true;
         }
         else
@@ -93,28 +93,28 @@ bool Vendedor::operator <(Vendedor *otroVend){
     }
 }
 
-bool Vendedor::operator >(Vendedor *otroVend){
+bool Vendedor::operator >(const Vendedor& otroVend){
     switch(Vendedor::numOrder){
     case 1:
-        if (this->rut>otroVend->rut){
+        if (this->rut > otroVend.rut){
             return true;
         }
         else
             return false;
     case 2:
-        if (this->nombre.compare(otroVend->nombre)>0){
+        if (this->nombre.compare(otroVend.nombre) > 0){
             return true;
         }
         else
             return false;
     case 3:
-        if (this->edad>otroVend->edad){
+        if (this->edad > otroVend.edad){
             return true;
         }
         else
             return false;
     case 4:
-        if (this->ventas->longitud()>otroVend->ventas->longitud()){
+        if (this->ventas->longitud() > otroVend.ventas->longitud()){
             return true;
         }
         else
@@ -124,28 +124,28 @@ bool Vendedor::operator >(Vendedor *otroVend){
     }
 }
 
-bool Vendedor::operator ==(Vendedor *otroVend){
+bool Vendedor::operator ==(const Vendedor& otroVend){
     switch(Vendedor::numOrder){
     case 1:
-        if (this->rut==otroVend->rut){
+        if (this->rut == otroVend.rut){
             return true;
         }
         else
             return false;
     case 2:
-        if (this->nombre.compare(otroVend->nombre)==0){
+        if (this->nombre.compare(otroVend.nombre) == 0){
             return true;
         }
         else
             return false;
     case 3:
-        if (this->edad==otroVend->edad){
+        if (this->edad == otroVend.edad){
             return true;
         }
         else
             return false;
     case 4:
-        if (this->ventas->longitud()==otroVend->ventas->longitud()){
+        if (this->ventas->longitud() == otroVend.ventas->longitud()){
             return true;
         }
         else

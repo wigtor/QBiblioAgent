@@ -39,9 +39,9 @@ public:
     Vendedor(int idObj, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *ventasHechas);
     Vendedor(const Vendedor& orig);
     virtual ~Vendedor();
-    bool operator<(Vendedor *otroVend);
-    bool operator>(Vendedor *otroVend);
-    bool operator==(Vendedor *otroVend);
+    bool operator<(const Vendedor& otroVend);
+    bool operator>(const Vendedor& otroVend);
+    bool operator==(const Vendedor& otroVend);
     //////////////////////////////////
 
     //Setters

@@ -28,7 +28,8 @@ public:
     virtual ~Cliente();
 
     // SETTERS
-    void setIdCont(int idCont);
+    static void setNumOrder(int numOrder);
+    static void setIdCont(int idCont);
     void setId(int id);
     void setRut(int rut);
     void setNombre(string nombre);
@@ -48,9 +49,9 @@ public:
     ListaEnlazada<Venta> *getComprasHechas();
 
     // OPERADORES
-    bool operator <(Cliente *otroCliente);
-    bool operator >(Cliente *otroCliente);
-    bool operator ==(Cliente *otroCliente);
+    bool operator <(const Cliente& c) const;
+    bool operator >(const Cliente& c) const;
+    bool operator ==(const Cliente& c) const;
 
     // OTROS METODOS
     void addCompra(Venta *compra);

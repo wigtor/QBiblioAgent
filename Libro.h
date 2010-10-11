@@ -31,9 +31,9 @@ public:
     Libro(int intIsbn, string strNombre, string strAutor);
     Libro(const Libro& orig);
     virtual ~Libro();
-    bool operator<(Libro *otroLibro);
-    bool operator>(Libro *otroLibro);
-    bool operator==(Libro *otroLibro);
+    bool operator<(const Libro& otroLibro);
+    bool operator>(const Libro& otroLibro);
+    bool operator==(const Libro& otroLibro);
     //////////////////////////////////
 
     //Setters

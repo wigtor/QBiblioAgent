@@ -33,7 +33,7 @@ private:
     //El primer nodo cabecera no contiene datos y su puntero al nodoSiguiente es ahora el primer elemento,
     //Esto para seguir el diseño descrito en los pdf de la materia de EDA
     //Avisar por errores producidos con este cambio
-    Nodo *cabecera;
+    Nodo<tipo> *cabecera;
     int cantidadElems;
 };
 
@@ -41,20 +41,20 @@ private:
 //Constructor de una lista vacia.
 template <class tipo>
 ListaEnlazada<tipo>::ListaEnlazada(void) {
-    this->cabecera = new Nodo(); //hago que la cabezera tenga un primer nodo sin datos
+    this->cabecera = new Nodo<tipo>(); //hago que la cabezera tenga un primer nodo sin datos
     this->cantidadElems = 0;
 }
 
 template <class tipo>
 ListaEnlazada<tipo>::ListaEnlazada(const ListaEnlazada& orig) {
     //no probado si funciona.
-    this->cabecera = new Nodo();
+    this->cabecera = new Nodo<tipo>();
     int i;
-    Nodo *nodoTemp = new Nodo((orig.cabecera)->getDato());
-    Nodo *nodoNew = NULL;
-    Nodo *nodoOrig = orig.cabecera->getNodoSig();
+    Nodo<tipo> *nodoTemp = new Nodo<tipo>((orig.cabecera)->getDato());
+    Nodo<tipo> *nodoNew = NULL;
+    Nodo<tipo> *nodoOrig = orig.cabecera->getNodoSig();
     for (i = 1; i < orig.cantidadElems; i++)
-    {   nodoNew = new Nodo(nodoOrig->getDato());
+    {   nodoNew = new Nodo<tipo>(nodoOrig->getDato());
         nodoTemp->setNodoSig(nodoNew);
         nodoOrig = nodoOrig->getNodoSig();
     }
@@ -73,8 +73,8 @@ int ListaEnlazada<tipo>::agregar(tipo *elem) {
 
 template <class tipo>
 int ListaEnlazada<tipo>::insertar(tipo *elem, int pos){
-    Nodo *nodoNuevo = new Nodo(elem);
-    Nodo *nodoTemp = this->cabecera->getNodoSig();
+    Nodo<tipo> *nodoNuevo = new Nodo<tipo>(elem);
+    Nodo<tipo> *nodoTemp = this->cabecera->getNodoSig();
         //Se comprueba que el índice el válido
         if ((pos > this->cantidadElems) || (pos < 0))
             return 1;
@@ -99,7 +99,7 @@ int ListaEnlazada<tipo>::insertar(tipo *elem, int pos){
 template <class tipo>
 int ListaEnlazada<tipo>::localizar(tipo *elem){
     int i;
-    Nodo *nodoTemp = this->cabecera->getNodoSig();
+    Nodo<tipo> *nodoTemp = this->cabecera->getNodoSig();
     for (i=0;i<this->cantidadElems;i++)
     {   //devuelve la posicion de la busqueda si el dato es el mismo(misma direccion de memoria). NO si tiene los mismos atributos!
         if (nodoTemp->getDato() == elem)
@@ -115,7 +115,7 @@ template <class tipo>
 tipo *ListaEnlazada<tipo>::recuperar(int pos){
     if ((pos > this->cantidadElems) || (pos < 0))
         return NULL;
-    Nodo *temp = this->cabecera->getNodoSig();
+    Nodo<tipo> *temp = this->cabecera->getNodoSig();
     int i;
     for(i=0;i<pos;i++)
     {   temp = temp->getNodoSig();
@@ -125,8 +125,8 @@ tipo *ListaEnlazada<tipo>::recuperar(int pos){
 
 template <class tipo>
 tipo *ListaEnlazada<tipo>::eliminar(int pos) {
-    Nodo *temp = this->cabecera->getNodoSig();
-    Nodo *anterior = NULL;
+    Nodo<tipo> *temp = this->cabecera->getNodoSig();
+    Nodo<tipo> *anterior = NULL;
     if ((pos >= this->cantidadElems) || (pos < 0))
         return NULL;
     int i = 0;
@@ -151,8 +151,8 @@ tipo *ListaEnlazada<tipo>::eliminar(int pos) {
 
 template <class tipo>
 int ListaEnlazada<tipo>::anular(){
-    Nodo *nodoTemp = this->cabecera->getNodoSig();
-    Nodo *nodoSig = NULL;
+    Nodo<tipo> *nodoTemp = this->cabecera->getNodoSig();
+    Nodo<tipo> *nodoSig = NULL;
     int i;
     for (i=0; i<this->cantidadElems;i++)
     {   nodoSig = nodoTemp->getNodoSig();
@@ -160,7 +160,7 @@ int ListaEnlazada<tipo>::anular(){
         free(nodoTemp);
         nodoTemp = nodoSig;
     }
-    this->cabecera = new Nodo();
+    this->cabecera = new Nodo<tipo>();
     this->cantidadElems = 0;
     return 0;
 }
@@ -174,16 +174,16 @@ template <class tipo>
 int ListaEnlazada<tipo>::ordenar(int critOrden) {  // critOrden: 1 = ascendente, -1 = descendente
     int n = this->cantidadElems;
     int m;
-    Nodo *nodoAnt = this->cabecera;
-    Nodo *nodoSig = this->cabecera->getNodoSig();
-    void *datoTemp;
+    Nodo<tipo> *nodoAnt = this->cabecera;
+    Nodo<tipo> *nodoSig = this->cabecera->getNodoSig();
+    tipo *datoTemp;
     if (critOrden == 1) { // Orden ascendente
         while (n > 1) {
             m = 0;
             for (int i = 0; i < n-1; i++) {
                 nodoAnt = nodoAnt->getNodoSig();
                 nodoSig = nodoSig->getNodoSig();
-                if (nodoAnt->getDato() > nodoSig->getDato()) { // REVISAR
+                if (*(nodoAnt->getDato()) > *(nodoSig->getDato())) { // REVISAR
                     datoTemp = nodoAnt->getDato();
                     nodoAnt->setDato(nodoSig->getDato());
                     nodoSig->setDato(datoTemp);
@@ -202,7 +202,7 @@ int ListaEnlazada<tipo>::ordenar(int critOrden) {  // critOrden: 1 = ascendente,
             for (int i = 0; i < n-1; i++) {
                 nodoAnt = nodoAnt->getNodoSig();
                 nodoSig = nodoSig->getNodoSig();
-                if (nodoAnt->getDato() < nodoSig->getDato()) { // REVISAR
+                if (*(nodoAnt->getDato()) < *(nodoSig->getDato())) { // REVISAR
                     datoTemp = nodoAnt->getDato();
                     nodoAnt->setDato(nodoSig->getDato());
                     nodoSig->setDato(datoTemp);

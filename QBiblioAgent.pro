@@ -18,7 +18,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     Venta.cpp \
-    Nodo.cpp \
     Cliente.cpp \
     Libro.cpp \
     CapaIO.cpp \

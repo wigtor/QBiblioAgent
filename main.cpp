@@ -9,69 +9,107 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include "Nodo.h"
 #include "ListaEnlazada.h"
 #include "ListaEstatica.h"
+#include "Vendedor.h"
 #include "Venta.h"
 #include "CapaIO.h"
-#include "ReferListas.h"
 
 using namespace std;
 
-#pragma GCC visibility push(default)
+
+//#pragma GCC visibility push(default)
 
 int main(int argc, char *argv[]) {
     //*
-    // Pruebas AirZs
+    // Pruebas Mateo
 
-    // Vendedor
+    // Ordenamiento de listas
 
-    int a;
-    Vendedor *vendPrueba1 = new Vendedor(176715804);
-    vendPrueba1->setNombre("Alexis");
-    vendPrueba1->setDireccion("Una direccion");
-    vendPrueba1->setEdad(20);
-    cout << vendPrueba1->setEmail("air_memories@etc...");
+    Cliente *c1 = new Cliente(3, 17691423, "Juan", 85, "Avenida", new ListaEstatica<int>(), "juan@gmail.com", new ListaEnlazada<int>());
+    Cliente *c2 = new Cliente(5, 17643433, "Pedro", 21, "Calle", new ListaEstatica<int>(), "pedro@gmail.com", new ListaEnlazada<int>());
+    Cliente *c3 = new Cliente(1, 21212121, "Diego", 43, "Depto.", new ListaEstatica<int>(), "diego@gmail.com", new ListaEnlazada<int>());
 
-    cout << vendPrueba1->getResumen();
+    ListaEstatica<Cliente> *L1 = new ListaEstatica<Cliente>();
+    L1->agregar(c1);
+    L1->agregar(c2);
+    L1->agregar(c3);
 
-    Vendedor *vendPrueba2 = new Vendedor(173143141);
-    vendPrueba2->setNombre("Olga");
-    vendPrueba2->setDireccion("Otra direccion");
-    vendPrueba2->setEdad(21);
-    vendPrueba2->setEmail("olgagajardo@etc...");
+    cout <<"L1 (ESTATICA) SEGUN ID"<<endl;
+    for (int i = 0; i < L1->longitud(); i++)
+        cout <<L1->recuperar(i)->getId()<<endl;
 
+    L1->ordenar(-1); // Decreciente
 
-    cout << vendPrueba2->getResumen();
+    cout <<"L1 (ESTATICA) DECRECIENTE SEGUN ID"<<endl;
+    for (int i = 0; i < L1->longitud(); i++)
+        cout <<L1->recuperar(i)->getId()<<endl;
 
-    cout << endl;
+    L1->ordenar(1); // Creciente
 
-    if (vendPrueba2 < vendPrueba1){
-        cout << vendPrueba2->getNombre() << "es Menor"<<endl;
-    }
-    else{
-        cout << vendPrueba1->getNombre() << "es Menor"<<endl;
-    }
+    cout <<"L1 (ESTATICA) CRECIENTE SEGUN ID"<<endl;
+    for (int i = 0; i < L1->longitud(); i++)
+        cout <<L1->recuperar(i)->getId()<<endl;
 
+    Cliente::setNumOrder(3);
 
-    cout << "probando nuevamente la lista estatica" << endl;
+    cout <<"L1 (ESTATICA) SEGUN NOMBRE"<<endl;
+    for (int i = 0; i < L1->longitud(); i++)
+        cout <<L1->recuperar(i)->getNombre()<<endl;
 
-    ListaEnlazada<int> lista1 = *(new ListaEnlazada<int>());
-    for (a = 1; a<=10; a++)
-    {   lista1.agregar(new int(a*10));
+    L1->ordenar(-1); // Decreciente
 
-    }
+    cout <<"L1 (ESTATICA) DECRECIENTE SEGUN NOMBRE"<<endl;
+    for (int i = 0; i < L1->longitud(); i++)
+        cout <<L1->recuperar(i)->getNombre()<<endl;
 
-    for (a = 1; a<=10; a++)
-    {   cout << "mostrando el elemento con id: " << *(static_cast<int *>(lista1.recuperar(a-1))) << endl;
+    L1->ordenar(1); // Creciente
 
-    }
+    cout <<"L1 (ESTATICA) CRECIENTE SEGUN NOMBRE"<<endl;
+    for (int i = 0; i < L1->longitud(); i++)
+        cout <<L1->recuperar(i)->getNombre()<<endl;
 
-    CapaIO *capaIO = new CapaIO();
-    a = capaIO->leeIdFile(CapaIO::USUARIO);
+    ListaEnlazada<Cliente> *L2 = new ListaEnlazada<Cliente>();
+    L2->agregar(c1);
+    L2->agregar(c2);
+    L2->agregar(c3);
 
-    cout << "valor leido de id: " << a<< endl;
+    Cliente::setNumOrder(1);
 
-    //cin >> a;
+    cout <<"L2 (ENLAZADA) ORIGINAL SEGUN ID"<<endl;
+    for (int i = 0; i < L2->longitud(); i++)
+        cout <<L2->recuperar(i)->getId()<<endl;
+
+    L2->ordenar(-1); // Decreciente
+
+    cout <<"L2 (ENLAZADA) DECRECIENTE SEGUN ID"<<endl;
+    for (int i = 0; i < L2->longitud(); i++)
+        cout <<L2->recuperar(i)->getId()<<endl;
+
+    L2->ordenar(1); // Creciente
+
+    cout <<"L2 (ENLAZADA) CRECIENTE SEGUN ID"<<endl;
+    for (int i = 0; i < L2->longitud(); i++)
+        cout <<L2->recuperar(i)->getId()<<endl;
+
+    Cliente::setNumOrder(3);
+
+    cout <<"L2 (ENLAZADA) SEGUN NOMBRE"<<endl;
+    for (int i = 0; i < L2->longitud(); i++)
+        cout <<L2->recuperar(i)->getNombre()<<endl;
+
+    L2->ordenar(-1); // Decreciente
+
+    cout <<"L2 (ENLAZADA) DECRECIENTE SEGUN NOMBRE"<<endl;
+    for (int i = 0; i < L2->longitud(); i++)
+        cout <<L2->recuperar(i)->getNombre()<<endl;
+
+    L2->ordenar(1); // Creciente
+
+    cout <<"L2 (ENLAZADA) CRECIENTE SEGUN NOMBRE"<<endl;
+    for (int i = 0; i < L2->longitud(); i++)
+        cout <<L2->recuperar(i)->getNombre()<<endl;
 
     return 0;
 }

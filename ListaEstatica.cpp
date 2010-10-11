@@ -1,7 +1,7 @@
 /*
  * File:   ListaEstatica.cpp
  * Author: victor
- * 
+ *
  * Created on 14 de septiembre de 2010, 16:22
  */
 
@@ -39,7 +39,7 @@ int ListaEstatica::insertar(void * elem, int pos){
     int i;
     //Recorro la lista de atras hacia adelante desplazando los elementos hacia la derecha
     for (i = this->cantidadElems; i > pos; i--)
-    {   this->datos[i] = this->datos[i-1];        
+    {   this->datos[i] = this->datos[i-1];
     }
     this->cantidadElems++;
     this->datos[pos] = elem;
@@ -80,7 +80,7 @@ int ListaEstatica::longitud(void){
 int ListaEstatica::ordenar(int critOrden) {  // critOrden: 1 = ascendente, -1 = descendente
     int n = this->cantidadElems;
     int m;
-    void *datoTemp;
+    tipo *datoTemp;
     if (critOrden == 1) { // Orden ascendente
         while (n > 1) {
             m = 0;
