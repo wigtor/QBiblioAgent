@@ -16,8 +16,8 @@ int CapaIO::CLIENTE = 2;
 int CapaIO::USUARIO = 3;
 int CapaIO::LIBRO = 4;
 
-CapaIO::CapaIO() {
-    this->fUsuarios = fopen(CapaIO::archUsuarios.c_str(), "r");
+CapaIO::CapaIO()
+{   this->fUsuarios = fopen(CapaIO::archUsuarios.c_str(), "r");
     if (this->fUsuarios == NULL)
         this->fUsuarios = fopen(CapaIO::archUsuarios.c_str(), "w");
     this->fVentas = fopen(CapaIO::archVentas.c_str(), "r");
@@ -36,36 +36,43 @@ CapaIO::CapaIO() {
 }
 
 
-CapaIO::~CapaIO(){
+CapaIO::~CapaIO()
+{
 }
 
 
-int CapaIO::escribeUsuarios(ListaEstatica<Vendedor> *listaUsuarios){
+int CapaIO::escribeUsuarios(ListaEstatica<Vendedor> *listaUsuarios)
+{
 
     return 0;
 }
 
-int CapaIO::escribeVentas(ListaEnlazada<Venta> *listaVentas){
+int CapaIO::escribeVentas(ListaEnlazada<Venta> *listaVentas)
+{
 
     return 0;
 }
 
-int CapaIO::escribeClientes(ListaEnlazada<Cliente> *listaClientes){
+int CapaIO::escribeClientes(ListaEnlazada<Cliente> *listaClientes)
+{
 
     return 0;
 }
 
-int CapaIO::escribeLibros(ListaEnlazada<Libro> *listaLibros){
+int CapaIO::escribeLibros(ListaEnlazada<Libro> *listaLibros)
+{
 
     return 0;
 }
 
-int CapaIO::escribeIdFile(int contId, int tipoId){
+int CapaIO::escribeIdFile(int contId, int tipoId)
+{
 
     return 0;
 }
 
-ListaEstatica<Vendedor> *CapaIO::leeUsuarios(){
+ListaEstatica<Vendedor> *CapaIO::leeUsuarios()
+{
     ListaEstatica<Vendedor> *lVendedores = new ListaEstatica<Vendedor>();
     this->fUsuarios = fopen(CapaIO::archUsuarios.c_str(), "r");
     stringstream lineaDatos;
@@ -94,8 +101,8 @@ ListaEstatica<Vendedor> *CapaIO::leeUsuarios(){
     return lVendedores;
 }
 
-ListaEnlazada<Venta> *CapaIO::leeVentas(){
-    ListaEnlazada<Venta> *lVentas = new ListaEnlazada<Venta>();
+ListaEnlazada<Venta> *CapaIO::leeVentas()
+{   ListaEnlazada<Venta> *lVentas = new ListaEnlazada<Venta>();
     this->fVentas = fopen(CapaIO::archVentas.c_str(), "r");
     stringstream lineaDatos;
     char caracterLeido = 0;
@@ -123,8 +130,8 @@ ListaEnlazada<Venta> *CapaIO::leeVentas(){
     return lVentas;
 }
 
-ListaEnlazada<Cliente> *CapaIO::leeClientes(){
-    ListaEnlazada<Cliente> *lClientes = new ListaEnlazada<Cliente>();
+ListaEnlazada<Cliente> *CapaIO::leeClientes()
+{   ListaEnlazada<Cliente> *lClientes = new ListaEnlazada<Cliente>();
     this->fClientes = fopen(CapaIO::archClientes.c_str(), "r");
     stringstream lineaDatos;
     char caracterLeido = 0;
@@ -152,8 +159,9 @@ ListaEnlazada<Cliente> *CapaIO::leeClientes(){
 
     return lClientes;
 }
-ListaEnlazada<Libro> *CapaIO::leeLibros(){
-    ListaEnlazada<Libro> *lLibros = new ListaEnlazada<Libro>();
+
+ListaEnlazada<Libro> *CapaIO::leeLibros()
+{   ListaEnlazada<Libro> *lLibros = new ListaEnlazada<Libro>();
     this->fLibros = fopen(CapaIO::archLibros.c_str(), "r");
     stringstream lineaDatos;
     char caracterLeido = 0;
@@ -223,6 +231,7 @@ int CapaIO::stringToId(string linea)
     else
         return 0;
 }
+
 Venta *CapaIO::stringToVenta(string linea)
 {   if (linea.find("<Venta") != string::npos)
     {   int idObj, idLibro, idCliente, idVendedor, cantidadLibros, montoTotal;
@@ -280,23 +289,121 @@ Venta *CapaIO::stringToVenta(string linea)
         Venta *ventaCreada = new Venta(idObj, correlativo, idLibro, idCliente, idVendedor, cantidadLibros, montoTotal, fecha);
         return ventaCreada;
     }
-    else
-        return NULL;
+    return NULL;
 }
+
 Cliente *CapaIO::stringToCliente(string linea)
 {
     return NULL;
 }
 
 Vendedor *CapaIO::stringToVendedor(string linea)
-{
+{   if (linea.find("<Vendedor") != string::npos)
+    {   int idObj, rut, edad;
+        string nombre, direccion, stringTemp;
+        //Busco el valor del idObj
+        size_t posInicioId = linea.find("idObj", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        size_t posFinalId = linea.find("\"", posInicioId+1);
+        idObj = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+        //Busco el valor del rut
+        posInicioId = linea.find("rut", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        rut = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+        //Busco el nombre
+        posInicioId = linea.find("nombre", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        nombre = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+        //Busco el valor de la edad
+        posInicioId = linea.find("edad", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        edad = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+        //Busco la direccion
+        posInicioId = linea.find("direccion", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        direccion = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+        //Busco los telefonos
+        ListaEstatica<int> *listaTelefonos = new ListaEstatica<int>();
+        posInicioId = linea.find("telefonos", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        stringTemp = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+        posInicioId = 0;
+        while (stringTemp != "") //REVISAR SI ESTA BUENO
+        {   posFinalId = stringTemp.find("|", posInicioId+1);
+            listaTelefonos->agregar(new int(atoi(stringTemp.substr(posInicioId+1, posFinalId - posInicioId-1).c_str())));
+            stringTemp = stringTemp.substr(posFinalId - posInicioId-1, stringTemp.length()-(posFinalId - posInicioId-1));
+        }
+        //Busco los id de las ventas hechas
+        ListaEnlazada<int> *listaIdsVentas = new ListaEnlazada<int>();
+        posInicioId = linea.find("ventas", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        stringTemp = linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str();
+        posInicioId = 0;
+        while (stringTemp != "") //REVISAR SI ESTA BUENO
+        {   posFinalId = stringTemp.find("|", posInicioId+1);
+            listaIdsVentas->agregar(new int(atoi(stringTemp.substr(posInicioId+1, posFinalId - posInicioId-1).c_str())));
+            stringTemp = stringTemp.substr(posFinalId - posInicioId-1, stringTemp.length()-(posFinalId - posInicioId-1));
+        }
+        return new Vendedor(idObj, rut, nombre, edad, direccion, listaTelefonos, listaIdsVentas);
+    }
     return NULL;
 }
 
 Libro *CapaIO::stringToLibro(string linea)
-{
+{   if (linea.find("<Libro") != string::npos)
+    {       int idObj, isbn, precio, paginas, peso, stock;
+            string nombre, autor;
+            //Busco el valor del idObj
+            size_t posInicioId = linea.find("idObj", 0);
+            posInicioId = linea.find("\"", posInicioId+1);
+            size_t posFinalId = linea.find("\"", posInicioId+1);
+            idObj = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+            //Busco el valor del isbn
+            posInicioId = linea.find("isbn", 0);
+            posInicioId = linea.find("\"", posInicioId+1);
+            posFinalId = linea.find("\"", posInicioId+1);
+            isbn = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+            //Busco el valor del precio
+            posInicioId = linea.find("precio", 0);
+            posInicioId = linea.find("\"", posInicioId+1);
+            posFinalId = linea.find("\"", posInicioId+1);
+            precio = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+            //Busco las paginas
+            posInicioId = linea.find("ipaginas", 0);
+            posInicioId = linea.find("\"", posInicioId+1);
+            posFinalId = linea.find("\"", posInicioId+1);
+            paginas = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+            //Busco el valor de cantidadLibros
+            posInicioId = linea.find("peso", 0);
+            posInicioId = linea.find("\"", posInicioId+1);
+            posFinalId = linea.find("\"", posInicioId+1);
+            peso = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+            //Busco el valor de montoTotal
+            posInicioId = linea.find("stock", 0);
+            posInicioId = linea.find("\"", posInicioId+1);
+            posFinalId = linea.find("\"", posInicioId+1);
+            stock = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+            //Busco el nombre
+            posInicioId = linea.find("nombre", 0);
+            posInicioId = linea.find("\"", posInicioId+1);
+            posFinalId = linea.find("\"", posInicioId+1);
+            nombre = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+            //Busco el autor
+            posInicioId = linea.find("autor", 0);
+            posInicioId = linea.find("\"", posInicioId+1);
+            posFinalId = linea.find("\"", posInicioId+1);
+            autor = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+            return new Libro(idObj, isbn, nombre, autor, precio, paginas, peso, stock);
+    }
     return NULL;
 }
+
 string CapaIO::idToString(int id, int tipoId)
 {   stringstream lineaId;
     if (tipoId == CapaIO::CLIENTE)

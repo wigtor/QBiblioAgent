@@ -35,8 +35,8 @@ class Vendedor{
 public:
 
     //Iniciadores y obligatorios
-    Vendedor();
     Vendedor(int intRut);
+    Vendedor(int idObj, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *ventasHechas);
     Vendedor(const Vendedor& orig);
     virtual ~Vendedor();
     bool operator<(Vendedor *otroVend);
@@ -88,7 +88,7 @@ private:
     string email;
     ListaEstatica<int> *telefonos;
     ListaEnlazada<Venta> *ventas;
-    ListaEnlazada<int> *listVentas;
+    ListaEnlazada<int> *listIdVentas;
     string pass;
 };
 

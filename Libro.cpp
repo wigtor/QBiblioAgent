@@ -31,6 +31,17 @@ int Libro::ORD_STOCK = 7;
  *
  ****************************************/
 
+Libro::Libro(int id, int isbn, string nombre, string autor, int precio, int paginas, int peso, int stock){
+    this->id=id;
+    this->isbn = isbn;
+    this->nombre = nombre;
+    this->autor = autor;
+    this->precio = precio;
+    this->paginas = paginas;
+    this->peso = peso;
+    this->stock = stock;
+}
+
 Libro::Libro(int intIsbn, string strNombre, string strAutor){
     this->isbn = intIsbn;
     this->nombre = strNombre;

@@ -27,7 +27,7 @@ using namespace std;
 class Libro{
 public:
     //Iniciadores y obligatorios
-    Libro();
+    Libro(int id, int isbn, string nombre, string autor, int precio, int paginas, int peso, int stock); //constructor para CapaIO
     Libro(int intIsbn, string strNombre, string strAutor);
     Libro(const Libro& orig);
     virtual ~Libro();

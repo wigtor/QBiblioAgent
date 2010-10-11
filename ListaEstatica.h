@@ -135,7 +135,7 @@ int ListaEstatica<tipo>::ordenar(int critOrden) {  // critOrden: 1 = ascendente,
         while (n > 1) {
             m = 0;
             for (int i = 0; i < n-1; i++) {
-                if (datos[i] > datos[i+1]) { // REVISAR
+                if (datos[i] > datos[i+1]) {
                     datoTemp = datos[i];
                     datos[i] = datos[i+1];
                     datos[i+1] = datoTemp;
@@ -150,7 +150,7 @@ int ListaEstatica<tipo>::ordenar(int critOrden) {  // critOrden: 1 = ascendente,
         while (n > 1) {
             m = 0;
             for (int i = 0; i < n-1; i++) {
-                if (datos[i] < datos[i+1]) { // REVISAR
+                if (datos[i] < datos[i+1]) {
                     datoTemp = datos[i];
                     datos[i] = datos[i+1];
                     datos[i+1] = datoTemp;
