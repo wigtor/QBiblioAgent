@@ -115,6 +115,10 @@ int Cliente::getId() {
     return this->id;
 }
 
+int Cliente::getIdCont(){
+    return Cliente::idCont;
+}
+
 int Cliente::getRut() {
     return this->rut;
 }

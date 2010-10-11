@@ -39,6 +39,7 @@ public:
 
     // GETTERS
     int getId();
+    static int getIdCont();
     int getRut();
     string getNombre();
     int getEdad();

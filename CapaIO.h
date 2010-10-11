@@ -34,7 +34,6 @@ public:
     int escribeVentas(ListaEnlazada<Venta> *listaVentas);
     int escribeClientes(ListaEnlazada<Cliente> *listaClientes);
     int escribeLibros(ListaEnlazada<Libro> *listaLibros);
-    int escribeIdFile(int contId, int tipoId);
 
     static int VENTA;
     static int CLIENTE;

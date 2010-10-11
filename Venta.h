@@ -29,7 +29,7 @@ public:
     virtual ~Venta();
 
     // SETTERS
-    void setIdCont(int idCont);
+    static void setIdCont(int idCont);
     void setId(int id);
     void setCorrelativo(bool correlativo);
     void setIdLibro(int idLibro);
@@ -43,6 +43,7 @@ public:
     void setIdVendedor(int idVendedor);
 
     // GETTERS
+    static int getIdCont();
     int getId();    
     bool getCorrelativo();    
     int getIdLibro();    

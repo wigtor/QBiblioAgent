@@ -128,6 +128,10 @@ void Venta::setIdVendedor(int idVendedor) {
  GETTERS
  ****************************************/
 
+int Venta::getIdCont() {
+    return Venta::idCont;
+}
+
 int Venta::getId() {
     return this->id;
 }

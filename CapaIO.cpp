@@ -42,33 +42,69 @@ CapaIO::~CapaIO()
 
 
 int CapaIO::escribeUsuarios(ListaEstatica<Vendedor> *listaUsuarios)
-{
+{   int i, idInicial;
+    stringstream stringTemp;
+    //Abro el archivo de usuarios
+    this->fUsuarios = fopen(CapaIO::archUsuarios.c_str(), "w");
+    //escribo el idInicial en el archivo de usuarios
+    idInicial = Vendedor::getIdCont();
+    stringTemp << this->idToString(idInicial, CapaIO::USUARIO) << "\n";
+    //Escribo los usuarios en el archivo de usuarios
+    for(i = 0; i < listaUsuarios->longitud(); i++)
+    {       stringTemp << this->vendedorToString(listaUsuarios->recuperar(i)) << "\n";
+    }
+    fprintf(this->fUsuarios, "%s", stringTemp.str().c_str());
 
-    return 0;
+    return fclose(this->fUsuarios);
 }
 
 int CapaIO::escribeVentas(ListaEnlazada<Venta> *listaVentas)
-{
-
-    return 0;
+{   int i, idInicial;
+    stringstream stringTemp;
+    //Abro el archivo de ventas
+    this->fVentas = fopen(CapaIO::archVentas.c_str(), "w");
+    //escribo el idInicial en el archivo de ventas
+    idInicial = Venta::getIdCont();
+    stringTemp << this->idToString(idInicial, CapaIO::VENTA) << "\n";
+    //Escribo las ventas en el archivo de ventas
+    for(i = 0; i < listaVentas->longitud(); i++)
+    {       stringTemp << this->ventaToString(listaVentas->recuperar(i)) << "\n";
+    }
+    fprintf(this->fVentas, "%s", stringTemp.str().c_str());
+    return fclose(this->fVentas);
 }
 
 int CapaIO::escribeClientes(ListaEnlazada<Cliente> *listaClientes)
-{
-
-    return 0;
+{   int i, idInicial;
+    stringstream stringTemp;
+    //Abro el archivo de clientes
+    this->fClientes = fopen(CapaIO::archClientes.c_str(), "w");
+    //escribo el idInicial en el archivo de clientes
+    idInicial = Cliente::getIdCont();
+    stringTemp << this->idToString(idInicial, CapaIO::CLIENTE) << "\n";
+    //Escribo los usuarios en el archivo de clientes
+    for(i = 0; i < listaClientes->longitud(); i++)
+    {       stringTemp << this->clienteToString(listaClientes->recuperar(i)) << "\n";
+    }
+    fprintf(this->fClientes, "%s", stringTemp.str().c_str());
+    return fclose(this->fClientes);
 }
 
 int CapaIO::escribeLibros(ListaEnlazada<Libro> *listaLibros)
-{
+{   int i, idInicial;
+    stringstream stringTemp;
+    //Abro el archivo de libros
+    this->fLibros = fopen(CapaIO::archLibros.c_str(), "w");
+    //escribo el idInicial en el archivo de libros
+    idInicial = Libro::getIdCont();
+    stringTemp << this->idToString(idInicial, CapaIO::LIBRO) << "\n";
+    //Escribo los libros en el archivo de libros
+    for(i = 0; i < listaLibros->longitud(); i++)
+    {       stringTemp << this->libroToString(listaLibros->recuperar(i)) << "\n";
+    }
+    fprintf(this->fLibros, "%s", stringTemp.str().c_str());
+    return fclose(this->fLibros);
 
-    return 0;
-}
-
-int CapaIO::escribeIdFile(int contId, int tipoId)
-{
-
-    return 0;
 }
 
 ListaEstatica<Vendedor> *CapaIO::leeUsuarios()

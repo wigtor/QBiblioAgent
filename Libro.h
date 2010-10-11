@@ -44,7 +44,7 @@ public:
     void setPaginas(int intPaginas);
     void setPeso(int peso);
     void setStock(int intStock);
-    void setIdCont(int intId);
+    static void setIdCont(int intId);
     //////////////////////////////////
 
     //Getters
@@ -56,7 +56,7 @@ public:
     int getPaginas();
     int getPeso();
     int getStock();
-    int getIdCont();
+    static int getIdCont();
     //////////////////////////////////
 
     //Otras funciones

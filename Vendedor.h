@@ -51,7 +51,7 @@ public:
     int setEmail(string strEmail);
     void addTelefono(int telefonoAgregado);
     void addVenta(Venta *ventaAgregada);
-    void setIdCont(int intId);
+    static void setIdCont(int intId);
     //////////////////////////////////
 
     //Getters
@@ -64,7 +64,7 @@ public:
     ListaEstatica<int> *getTelefonos();
     ListaEnlazada<Venta> *getVentas();
     ListaEnlazada<int> *getListIdVentas();
-    int getIdCont();
+    static int getIdCont();
     //////////////////////////////////
 
     //Otras Funciones
