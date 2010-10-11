@@ -39,35 +39,146 @@ CapaIO::CapaIO() {
 CapaIO::~CapaIO(){
 }
 
-ListaEstatica<Vendedor> *leeUsuarios(){
+
+int CapaIO::escribeUsuarios(ListaEstatica<Vendedor> *listaUsuarios){
+
+    return 0;
+}
+
+int CapaIO::escribeVentas(ListaEnlazada<Venta> *listaVentas){
+
+    return 0;
+}
+
+int CapaIO::escribeClientes(ListaEnlazada<Cliente> *listaClientes){
+
+    return 0;
+}
+
+int CapaIO::escribeLibros(ListaEnlazada<Libro> *listaLibros){
+
+    return 0;
+}
+
+int CapaIO::escribeIdFile(int contId, int tipoId){
+
+    return 0;
+}
+
+ListaEstatica<Vendedor> *CapaIO::leeUsuarios(){
     ListaEstatica<Vendedor> *lVendedores = new ListaEstatica<Vendedor>();
-
-
+    this->fUsuarios = fopen(CapaIO::archUsuarios.c_str(), "r");
+    stringstream lineaDatos;
+    char caracterLeido = 0;
+    unsigned long long i, j;
+    /** Leo el archivo de usuarios hasta el final */
+    for (i = 0; caracterLeido != -1; i++)
+    {	caracterLeido = getc(this->fUsuarios);
+    /**Comienza a leer datos desde que encuentra un caracter '<' */
+    if (caracterLeido == '<')
+    {	for (j = 0; ((caracterLeido != EOF) && (caracterLeido != '>')); j++) //ver que el -1 que se almacena si llego al final del archivo. en teoria no debe ocurrir se antes compruebo sintaxis.
+        {   lineaDatos << caracterLeido;
+            caracterLeido = getc(this->fUsuarios);
+        }
+        caracterLeido = getc(this->fUsuarios);//agrego el caracter '>' que no fue agregado en el bucle
+        i += j; //sumo los caracteres que ya se han leido a i, aun no se si esto pueda ser necesario a futuro.
+    }
+    /** Como se ha encontrado una linea con una especificacion de un objeto, ahora proceso esa linea y agrego el objeto que retorna el metodo analizaLinea */
+    Vendedor *vendedorEncontrado = this->stringToVendedor(lineaDatos.str());
+    if (vendedorEncontrado != NULL)
+        lVendedores->agregar(vendedorEncontrado);
+    lineaDatos.str("");
+    }
+    /** Cierro el archivo*/
+    fclose(this->fUsuarios);
     return lVendedores;
 }
 
-ListaEnlazada<Venta> *leeVentas(){
+ListaEnlazada<Venta> *CapaIO::leeVentas(){
     ListaEnlazada<Venta> *lVentas = new ListaEnlazada<Venta>();
-
-
+    this->fVentas = fopen(CapaIO::archVentas.c_str(), "r");
+    stringstream lineaDatos;
+    char caracterLeido = 0;
+    unsigned long long i, j;
+    /** Leo el archivo de ventas hasta el final */
+    for (i = 0; caracterLeido != -1; i++)
+    {	caracterLeido = getc(this->fVentas);
+    /**Comienza a leer datos desde que encuentra un caracter '<' */
+    if (caracterLeido == '<')
+    {	for (j = 0; ((caracterLeido != EOF) && (caracterLeido != '>')); j++) //ver que el -1 que se almacena si llego al final del archivo. en teoria no debe ocurrir se antes compruebo sintaxis.
+        {   lineaDatos << caracterLeido;
+            caracterLeido = getc(this->fVentas);
+        }
+        caracterLeido = getc(this->fVentas);//agrego el caracter '>' que no fue agregado en el bucle
+        i += j; //sumo los caracteres que ya se han leido a i, aun no se si esto pueda ser necesario a futuro.
+    }
+    /** Como se ha encontrado una linea con una especificacion de un objeto, ahora proceso esa linea y agrego el objeto que retorna el metodo analizaLinea */
+    Venta *ventaEncontrada = this->stringToVenta(lineaDatos.str());
+    if (ventaEncontrada != NULL)
+        lVentas->agregar(ventaEncontrada);
+    lineaDatos.str("");
+    }
+    /** Cierro el archivo*/
+    fclose(this->fVentas);
     return lVentas;
 }
-ListaEnlazada<Cliente> *leeClientes(){
-    ListaEnlazada<Cliente> *lClientes = new ListaEnlazada<Cliente>();
 
+ListaEnlazada<Cliente> *CapaIO::leeClientes(){
+    ListaEnlazada<Cliente> *lClientes = new ListaEnlazada<Cliente>();
+    this->fClientes = fopen(CapaIO::archClientes.c_str(), "r");
+    stringstream lineaDatos;
+    char caracterLeido = 0;
+    unsigned long long i, j;
+    /** Leo el archivo de clientes hasta el final */
+    for (i = 0; caracterLeido != -1; i++)
+    {	caracterLeido = getc(this->fClientes);
+    /**Comienza a leer datos desde que encuentra un caracter '<' */
+    if (caracterLeido == '<')
+    {	for (j = 0; ((caracterLeido != EOF) && (caracterLeido != '>')); j++) //ver que el -1 que se almacena si llego al final del archivo. en teoria no debe ocurrir se antes compruebo sintaxis.
+        {   lineaDatos << caracterLeido;
+            caracterLeido = getc(this->fClientes);
+        }
+        caracterLeido = getc(this->fClientes);//agrego el caracter '>' que no fue agregado en el bucle
+        i += j; //sumo los caracteres que ya se han leido a i, aun no se si esto pueda ser necesario a futuro.
+    }
+    /** Como se ha encontrado una linea con una especificacion de un objeto, ahora proceso esa linea y agrego el objeto que retorna el metodo analizaLinea */
+    Cliente *clienteEncontrado = this->stringToCliente(lineaDatos.str());
+    if (clienteEncontrado != NULL)
+        lClientes->agregar(clienteEncontrado);
+    lineaDatos.str("");
+    }
+    /** Cierro el archivo*/
+    fclose(this->fClientes);
 
     return lClientes;
 }
-ListaEnlazada<Libro> *leeLibros(){
+ListaEnlazada<Libro> *CapaIO::leeLibros(){
     ListaEnlazada<Libro> *lLibros = new ListaEnlazada<Libro>();
-
-
+    this->fLibros = fopen(CapaIO::archLibros.c_str(), "r");
+    stringstream lineaDatos;
+    char caracterLeido = 0;
+    unsigned long long i, j;
+    /** Leo el archivo de libros hasta el final */
+    for (i = 0; caracterLeido != -1; i++)
+    {	caracterLeido = getc(this->fLibros);
+    /**Comienza a leer datos desde que encuentra un caracter '<' */
+    if (caracterLeido == '<')
+    {	for (j = 0; ((caracterLeido != EOF) && (caracterLeido != '>')); j++) //ver que el -1 que se almacena si llego al final del archivo. en teoria no debe ocurrir se antes compruebo sintaxis.
+        {   lineaDatos << caracterLeido;
+            caracterLeido = getc(this->fLibros);
+        }
+        caracterLeido = getc(this->fLibros);//agrego el caracter '>' que no fue agregado en el bucle
+        i += j; //sumo los caracteres que ya se han leido a i, aun no se si esto pueda ser necesario a futuro.
+    }
+    /** Como se ha encontrado una linea con una especificacion de un objeto, ahora proceso esa linea y agrego el objeto que retorna el metodo analizaLinea */
+    Libro *LibroEncontrado = this->stringToLibro(lineaDatos.str());
+    if (LibroEncontrado != NULL)
+        lLibros->agregar(LibroEncontrado);
+    lineaDatos.str("");
+    }
+    /** Cierro el archivo*/
+    fclose(this->fLibros);
     return lLibros;
-}
-
-int escribeIdFile(int contId, int tipoId){
-
-    return 0;
 }
 
 int CapaIO::leeIdFile(int tipoId)
@@ -218,7 +329,7 @@ string CapaIO::ventaToString(Venta *venta)
     linea << "cantidadLibros=\"" << venta->getCantidadLibros() << "\" ";
     linea << "montoTotal=\"" << venta->getMontoTotal() << "\" ";
     linea << "vendedor=\"" << venta->getIdVendedor() << "\" ";
-    linea << "fecha=\"" << (venta->getFecha())->toString();//malo
+    linea << "fecha=\"" << (venta->getFecha())->toString();
     linea <<  "\" >";
     return linea.str();
 }
