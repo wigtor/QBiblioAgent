@@ -20,7 +20,6 @@ class ReferListas{
 public:
     //Iniciadores y obligatorios
     ReferListas(ListaEnlazada<Venta> *listaVentas, ListaEnlazada<Libro> *listaLibros, ListaEstatica<Vendedor> *listaVendedores, ListaEnlazada<Cliente> *listaClientes);
-    ReferListas(const ReferListas& orig);
     virtual ~ReferListas();
 
     //Otras Funciones

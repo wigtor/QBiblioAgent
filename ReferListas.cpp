@@ -22,10 +22,6 @@ ReferListas::ReferListas(ListaEnlazada<Venta> *listaVentas, ListaEnlazada<Libro>
     this->listClientes = listaClientes;
 }
 
-//ReferListas::ReferListas(const ReferListas& orig){
-//
-//}
-
 ReferListas::~ReferListas(){
 
 }

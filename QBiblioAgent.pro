@@ -18,13 +18,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     Venta.cpp \
+    Nodo.cpp \
     Cliente.cpp \
     Libro.cpp \
     CapaIO.cpp \
     Vendedor.cpp \
     Admin.cpp \
     Fecha.cpp \
-    ReferListas.cpp
+    ReferListas.cpp \
+    AdminListas.cpp
 
 HEADERS += \
     ListaEstatica.h \
@@ -37,4 +39,5 @@ HEADERS += \
     Vendedor.h \
     Admin.h \
     Fecha.h \
-    ReferListas.h
+    ReferListas.h \
+    AdminListas.h
