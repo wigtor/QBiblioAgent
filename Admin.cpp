@@ -15,7 +15,7 @@
 
 int ingresaVendedor(int intRut){
     Vendedor* vendedorTemp;
-    vendedorTemp = new Vendedor(intRut);
+    vendedorTemp = new Vendedor(intRut, "", "");
     // INCOMPLETA faltan detalles
 
     return 0;

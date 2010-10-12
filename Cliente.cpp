@@ -42,6 +42,7 @@ Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstati
     this->telefonos = telefonos;
     this->email = email;
     this->comprasHechas = new ListaEnlazada<Venta>();
+    this->idComprasHechas = new ListaEnlazada<int>();
 }
 
 Cliente::Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<int> *idsComprasHechas) {
@@ -155,12 +156,11 @@ ListaEnlazada<int> *Cliente::getListIdCompras(){
  OPERADORES
  ****************************************/
 
-/* Codigos numOrder:
- * 1 = ID
- * 2 = RUT
- * 3 = Nombre
- * 4 = Cantidad de compras hechas
- */
+/* Codigos numOrder: */
+int Cliente::ID = 1;
+int Cliente::RUT = 2;
+int Cliente::NOMBRE = 3;
+int Cliente::CANTCOMPRAS = 4;
 
 bool Cliente::operator <(const Cliente& otroCliente) const {
     switch(Cliente::numOrder) {
@@ -249,4 +249,8 @@ bool Cliente::operator ==(const Cliente& otroCliente) const {
 
 void Cliente::addCompra(Venta *compra) {
     this->comprasHechas->agregar(compra);
+}
+
+void Cliente::addIdCompra(int idCompra){
+    this->idComprasHechas->agregar(new int(idCompra));
 }

@@ -48,11 +48,11 @@ int main(int argc, char *argv[]) {
     referenciador->crearReferencias();
 
     //Se instancia el administrador de listas
-    ////AdminListas *administradorListas = new AdminListas( listaVentas, listaLibros, listaVendedores, listaClientes);
+    AdminListas *administradorListas = new AdminListas( listaVentas, listaLibros, listaVendedores, listaClientes);
 
     //Se ejecuta la interfaz de usuario
-    ////Menu *interfazUsuario = new Menu(administradorListas);
-    ////interfazUsuario->ejecutar();
+    Menu *interfazUsuario = new Menu(administradorListas);
+    interfazUsuario->ejecutar();
 
     //Se escriben las listas al finalizar la ejecución del programa
     entrada->escribeClientes(listaClientes);
@@ -60,6 +60,9 @@ int main(int argc, char *argv[]) {
     entrada->escribeUsuarios(listaVendedores);
     entrada->escribeVentas(listaVentas);
 
+    cout << "Presione una tecla para salir"<< endl;
+    char *unChar = NULL;
+    interfazUsuario->leeString(stdin, unChar);
     return 0;
 }
 

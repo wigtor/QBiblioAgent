@@ -9,10 +9,11 @@ void Menu::ejecutar() {
 }
 
 void Menu::menuAcceso() {
-    int opcionAcceso = 0;
+    char *opcionAcceso;
+    string opcionAccesoStr = "0";
     string user, pass;
 
-    while (opcionAcceso < 1 || opcionAcceso > 3) {
+    while (opcionAccesoStr ==  "0") {
         cout << "QBiblioAgent" << endl;
         cout << "============" << endl;
         cout << "" << endl;
@@ -23,12 +24,13 @@ void Menu::menuAcceso() {
         cout << "3. Salir" << endl;
         cout << "" << endl;
         cout << ">> ";
-        cin >> opcionAcceso;
+        opcionAcceso = leeString(stdin, opcionAcceso);
+        opcionAccesoStr = *(new string(opcionAcceso));
 
         // Si la opcion es invalida:
         // cout << "Opcion invalida. Intente de nuevo por favor." << endl;
 
-        while (opcionAcceso == 1) {
+        while (opcionAccesoStr == "1") {
             cout << "Ingrese su nombre de usuario:" << endl;
             cout << ">> ";
             cin >> user;
@@ -47,7 +49,7 @@ void Menu::menuAcceso() {
             // cout << "Usuario o contrasea incorrectos. Intente de nuevo por favor." << endl;
         }
 
-        while (opcionAcceso == 2) {
+        while (opcionAccesoStr == "2") {
             cout << "Ingrese su nombre de usuario:" << endl;
             cout << ">> ";
             cin >> user;
@@ -158,4 +160,36 @@ void Menu::menuVend() {
     }
 }
 
+
+/**
+* Esta función se encarga de leer caracteres desde un flujo y guardarlo en un vector dinámico de caracteres
+* Fue realizada pensando en que el flujo puede ser el teclado o un archivo de texto
+* Guarda en el vector dinámico todos los caracteres hasta que encuentra un salto de linea o el final del flujo
+* Fue realizada para no tener problemas de desbordamiento de buffer, ya que redimensiona el vector dinámico si es necesario
+* @param flujo es el flujo de datos de donde se quiere leer caracteres
+* @param punteroString es el puntero al vector de caracteres donde se quiere guardar los caracteres leidos
+* @return punteroString es puntero al vector dinámico despues de haber guardadó caracteres en él
+*/
+char *Menu::leeString(FILE *flujo, char *punteroString)
+{	int i = 0, espacioLibre = TAM_DEFAULT; //representa los caracteres disponibles para poner en el string
+        punteroString = (char *)malloc((TAM_DEFAULT+1)*sizeof(char));
+        if (flujo == stdin)
+            fflush(stdin);
+        punteroString[0] = '\0';
+        do
+        {	if (espacioLibre <= 2) //si falta espacio en el string, lo redimensiono
+                {	punteroString = (char *)realloc(punteroString, (strlen(punteroString) + TAM_REDIM) * sizeof(char));
+                        espacioLibre+= TAM_REDIM;
+                }
+                punteroString[i] = getc(flujo);
+                i++;
+                espacioLibre--;
+        }
+        while ((punteroString[i-1] != '\n') && (punteroString[i-1] != EOF));
+        punteroString[i-1] = '\0'; //cambio el ultimo \n por un \0
+        return punteroString;
+}
+
+int Menu::TAM_DEFAULT = 10;
+int Menu::TAM_REDIM = 5;
 

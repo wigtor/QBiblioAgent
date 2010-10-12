@@ -41,13 +41,14 @@ Vendedor::Vendedor(int idObj, int rut, string nombre, int edad, string direccion
     this->ventas = new ListaEnlazada<Venta>();
 }
 
-Vendedor::Vendedor(int numRut){
+Vendedor::Vendedor(int numRut, string nombre, string direccion){
     this->id = Vendedor::idCont++;
     this->rut = numRut;
     this->telefonos = new ListaEstatica<int>();
     this->ventas = new ListaEnlazada<Venta>();
-    this->nombre = "";
-    this->direccion = "";
+    this->listIdVentas = new ListaEnlazada<int>();
+    this->nombre = nombre;
+    this->direccion = direccion;
     stringstream password;
     password << numRut;
     int pos;

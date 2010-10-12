@@ -36,6 +36,7 @@ public:
     void setEdad(int edad);
     void setDireccion(string direccion);
     void setEmail(string email);
+    void addIdCompra(int idCompra);
 
     // GETTERS
     int getId();
@@ -60,6 +61,10 @@ public:
 private:
     static int idCont;
     static int numOrder;
+    static int ID;
+    static int RUT;
+    static int NOMBRE;
+    static int CANTCOMPRAS;
     int id;
     int rut;
     string nombre;
