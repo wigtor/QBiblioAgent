@@ -162,25 +162,25 @@ ListaEnlazada<int> *Cliente::getListIdCompras(){
  * 4 = Cantidad de compras hechas
  */
 
-bool Cliente::operator <(const Cliente& c) const {
+bool Cliente::operator <(const Cliente& otroCliente) const {
     switch(Cliente::numOrder) {
         case 1:
-            if (this->id < c.id)
+            if (this->id < otroCliente.id)
                 return true;
             else
                 return false;
         case 2:
-            if (this->rut < c.rut)
+            if (this->rut < otroCliente.rut)
                 return true;
             else
                 return false;
         case 3:
-            if (this->nombre.compare(c.nombre) < 0)
+            if (this->nombre.compare(otroCliente.nombre) < 0)
                 return true;
             else
                 return false;
         case 4:
-            if (this->comprasHechas->longitud() < c.comprasHechas->longitud())
+            if (this->comprasHechas->longitud() < otroCliente.comprasHechas->longitud())
                 return true;
             else
                 return false;
@@ -189,25 +189,25 @@ bool Cliente::operator <(const Cliente& c) const {
     }
 }
 
-bool Cliente::operator >(const Cliente& c) const {
+bool Cliente::operator >(const Cliente& otroCliente) const {
     switch(Cliente::numOrder) {
         case 1:
-            if (this->id > c.id)
+            if (this->id > otroCliente.id)
                 return true;
             else
                 return false;
         case 2:
-            if (this->rut > c.rut)
+            if (this->rut > otroCliente.rut)
                 return true;
             else
                 return false;
         case 3:
-            if (this->nombre.compare(c.nombre) > 0)
+            if (this->nombre.compare(otroCliente.nombre) > 0)
                 return true;
             else
                 return false;
         case 4:
-            if (this->comprasHechas->longitud() > c.comprasHechas->longitud())
+            if (this->comprasHechas->longitud() > otroCliente.comprasHechas->longitud())
                 return true;
             else
                 return false;
@@ -216,25 +216,25 @@ bool Cliente::operator >(const Cliente& c) const {
     }
 }
 
-bool Cliente::operator ==(const Cliente& c) const {
+bool Cliente::operator ==(const Cliente& otroCliente) const {
     switch(Cliente::numOrder) {
         case 1:
-            if (this->id == c.id)
+            if (this->id == otroCliente.id)
                 return true;
             else
                 return false;
         case 2:
-            if (this->rut == c.rut)
+            if (this->rut == otroCliente.rut)
                 return true;
             else
                 return false;
         case 3:
-            if (this->nombre.compare(c.nombre) == 0)
+            if (this->nombre.compare(otroCliente.nombre) == 0)
                 return true;
             else
                 return false;
         case 4:
-            if (this->comprasHechas->longitud() == c.comprasHechas->longitud())
+            if (this->comprasHechas->longitud() == otroCliente.comprasHechas->longitud())
                 return true;
             else
                 return false;

@@ -26,7 +26,7 @@ public:
 
 private:
     tipo *dato;
-    Nodo *nodoSig;
+    Nodo<tipo> *nodoSig;
 };
 
 template <class tipo>

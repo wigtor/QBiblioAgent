@@ -50,9 +50,9 @@ public:
     ListaEnlazada<Venta> *getComprasHechas();
 
     // OPERADORES
-    bool operator <(const Cliente& c) const;
-    bool operator >(const Cliente& c) const;
-    bool operator ==(const Cliente& c) const;
+    bool operator <(const Cliente& otroCliente) const;
+    bool operator >(const Cliente& otroCliente) const;
+    bool operator ==(const Cliente& otroCliente) const;
 
     // OTROS METODOS
     void addCompra(Venta *compra);

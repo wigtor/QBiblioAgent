@@ -365,20 +365,20 @@ Cliente *CapaIO::stringToCliente(string linea)
         posInicioId = 0;
         while (stringTemp != "") //REVISAR SI ESTA BUENO
         {   posFinalId = stringTemp.find("|", posInicioId+1);
-            listaTelefonos->agregar(new int(atoi(stringTemp.substr(posInicioId+1, posFinalId - posInicioId-1).c_str())));
-            stringTemp = stringTemp.substr(posFinalId - posInicioId-1, stringTemp.length()-(posFinalId - posInicioId-1));
+            listaTelefonos->agregar(new int(atoi(stringTemp.substr(posInicioId, posFinalId - posInicioId).c_str())));
+            stringTemp = stringTemp.substr(posFinalId - posInicioId + 1, stringTemp.length()-(posFinalId - posInicioId-1));
         }
         //Busco los id de las ventas hechas
         ListaEnlazada<int> *listaIdsCompras = new ListaEnlazada<int>();
-        posInicioId = linea.find("ventas", 0);
+        posInicioId = linea.find("idComprasHechas", 0);
         posInicioId = linea.find("\"", posInicioId+1);
         posFinalId = linea.find("\"", posInicioId+1);
         stringTemp = linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str();
         posInicioId = 0;
         while (stringTemp != "") //REVISAR SI ESTA BUENO
         {   posFinalId = stringTemp.find("|", posInicioId+1);
-            listaIdsCompras->agregar(new int(atoi(stringTemp.substr(posInicioId+1, posFinalId - posInicioId-1).c_str())));
-            stringTemp = stringTemp.substr(posFinalId - posInicioId-1, stringTemp.length()-(posFinalId - posInicioId-1));
+            listaIdsCompras->agregar(new int(atoi(stringTemp.substr(posInicioId, posFinalId - posInicioId).c_str())));
+            stringTemp = stringTemp.substr(posFinalId - posInicioId+1, stringTemp.length()-(posFinalId - posInicioId-1));
         }
 
         Cliente *clienteCreado = new Cliente( idObj, rut, nombre, edad, direccion, listaTelefonos, email, listaIdsCompras);
@@ -425,8 +425,8 @@ Vendedor *CapaIO::stringToVendedor(string linea)
         posInicioId = 0;
         while (stringTemp != "") //REVISAR SI ESTA BUENO
         {   posFinalId = stringTemp.find("|", posInicioId+1);
-            listaTelefonos->agregar(new int(atoi(stringTemp.substr(posInicioId+1, posFinalId - posInicioId-1).c_str())));
-            stringTemp = stringTemp.substr(posFinalId - posInicioId-1, stringTemp.length()-(posFinalId - posInicioId-1));
+            listaTelefonos->agregar(new int(atoi(stringTemp.substr(posInicioId, posFinalId - posInicioId).c_str())));
+            stringTemp = stringTemp.substr(posFinalId - posInicioId+1, stringTemp.length()-(posFinalId - posInicioId-1));
         }
         //Busco los id de las ventas hechas
         ListaEnlazada<int> *listaIdsVentas = new ListaEnlazada<int>();
@@ -437,8 +437,8 @@ Vendedor *CapaIO::stringToVendedor(string linea)
         posInicioId = 0;
         while (stringTemp != "") //REVISAR SI ESTA BUENO
         {   posFinalId = stringTemp.find("|", posInicioId+1);
-            listaIdsVentas->agregar(new int(atoi(stringTemp.substr(posInicioId+1, posFinalId - posInicioId-1).c_str())));
-            stringTemp = stringTemp.substr(posFinalId - posInicioId-1, stringTemp.length()-(posFinalId - posInicioId-1));
+            listaIdsVentas->agregar(new int(atoi(stringTemp.substr(posInicioId, posFinalId - posInicioId).c_str())));
+            stringTemp = stringTemp.substr(posFinalId - posInicioId+1, stringTemp.length()-(posFinalId - posInicioId-1));
         }
         return new Vendedor(idObj, rut, nombre, edad, direccion, listaTelefonos, listaIdsVentas);
     }
@@ -465,7 +465,7 @@ Libro *CapaIO::stringToLibro(string linea)
             posFinalId = linea.find("\"", posInicioId+1);
             precio = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
             //Busco las paginas
-            posInicioId = linea.find("ipaginas", 0);
+            posInicioId = linea.find("paginas", 0);
             posInicioId = linea.find("\"", posInicioId+1);
             posFinalId = linea.find("\"", posInicioId+1);
             paginas = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
@@ -558,9 +558,9 @@ string CapaIO::clienteToString(Cliente *cliente)
 string CapaIO::vendedorToString(Vendedor *vendedor)
 {   stringstream linea;
     int i;
-    ListaEnlazada<Venta> *listaVentas;
+    ListaEnlazada<int> *listaIdVentas;
     ListaEstatica<int> *listaTelefonos;
-    linea << "Vendedor ";
+    linea << "<Vendedor ";
     linea << "idObj=\"" << vendedor->getId() << "\" ";
     linea << "rut=\"" << vendedor->getRut() << "\" ";
     linea << "nombre=\"" << vendedor->getNombre() << "\" ";
@@ -569,18 +569,18 @@ string CapaIO::vendedorToString(Vendedor *vendedor)
     linea << "telefonos=\"";
     listaTelefonos = vendedor->getTelefonos();
     for (i = 0; i < listaTelefonos->longitud(); i++)
-        linea << *(static_cast<int *>(listaTelefonos->recuperar(i))) << "|";
+        linea << *(listaTelefonos->recuperar(i)) << "|";
     linea << "\" "<< "ventas=\"";
-    listaVentas = vendedor->getVentas();
-    for (i = 0; i < listaVentas->longitud(); i++)
-        linea << (static_cast<Venta *>(listaVentas->recuperar(i)))->getId() << "|";
+    listaIdVentas = vendedor->getListIdVentas();
+    for (i = 0; i < listaIdVentas->longitud(); i++)
+        linea << *(listaIdVentas->recuperar(i))<< "|";
     linea << "\" >";
     return linea.str();
 }
 
 string CapaIO::libroToString(Libro *libro)
 {   stringstream linea;
-    linea << "Libro ";
+    linea << "<Libro ";
     linea << "idObj=\"" << libro->getId() << "\" ";
     linea << "isbn=\"" << libro->getIsbn() << "\" ";
     linea << "precio=\"" << libro->getPrecio() << "\" ";

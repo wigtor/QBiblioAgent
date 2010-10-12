@@ -23,93 +23,88 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     //*
-    // Pruebas Mateo
+    // Pruebas entrada
 
-    // Ordenamiento de listas
+    CapaIO *entrada = new CapaIO;
+    int i;
+    //Se setean los contadores de id iniciales:
+    Libro::setIdCont(entrada->leeIdFile(CapaIO::LIBRO));
+    Cliente::setIdCont(entrada->leeIdFile(CapaIO::CLIENTE));
+    Vendedor::setIdCont(entrada->leeIdFile(CapaIO::USUARIO));
+    Venta::setIdCont(entrada->leeIdFile(CapaIO::VENTA));
 
-    Cliente *c1 = new Cliente(3, 17691423, "Juan", 85, "Avenida", new ListaEstatica<int>(), "juan@gmail.com", new ListaEnlazada<int>());
-    Cliente *c2 = new Cliente(5, 17643433, "Pedro", 21, "Calle", new ListaEstatica<int>(), "pedro@gmail.com", new ListaEnlazada<int>());
-    Cliente *c3 = new Cliente(1, 21212121, "Diego", 43, "Depto.", new ListaEstatica<int>(), "diego@gmail.com", new ListaEnlazada<int>());
+    // Libros
+    ListaEnlazada<Libro> *libros = entrada->leeLibros();
+    cout << "LIBROS:" << endl;
 
-    ListaEstatica<Cliente> *L1 = new ListaEstatica<Cliente>();
-    L1->agregar(c1);
-    L1->agregar(c2);
-    L1->agregar(c3);
+    for (i = 0; i < libros->longitud(); i++) {
+        cout << "Autor: " << libros->recuperar(i)->getAutor() << endl;
+        cout << "ID: " << libros->recuperar(i)->getId() << endl;
+        cout << "ISBN: " << libros->recuperar(i)->getIsbn() << endl;
+        cout << "Nombre: " << libros->recuperar(i)->getNombre() << endl;
+        cout << "Paginas: " << libros->recuperar(i)->getPaginas() << endl;
+        cout << "Peso: " << libros->recuperar(i)->getPeso() << endl;
+        cout << "Precio: " << libros->recuperar(i)->getPrecio() << endl;
+        cout << "Stock: " << libros->recuperar(i)->getStock() << endl;
+        cout << "" << endl;
+    }
 
-    cout <<"L1 (ESTATICA) SEGUN ID"<<endl;
-    for (int i = 0; i < L1->longitud(); i++)
-        cout <<L1->recuperar(i)->getId()<<endl;
+    // Ventas
 
-    L1->ordenar(-1); // Decreciente
+    ListaEnlazada<Venta> *ventas = entrada->leeVentas();
+    cout << "VENTAS:" << endl;
 
-    cout <<"L1 (ESTATICA) DECRECIENTE SEGUN ID"<<endl;
-    for (int i = 0; i < L1->longitud(); i++)
-        cout <<L1->recuperar(i)->getId()<<endl;
+    for (i = 0; i < ventas->longitud(); i++) {
+        cout << "ID: " << ventas->recuperar(i)->getId() << endl;
+        cout << "Correlativo: " << ventas->recuperar(i)->getCorrelativo() << endl;
+        cout << "ID Libro: " << ventas->recuperar(i)->getIdLibro() << endl;
+        cout << "ID Cliente: " << ventas->recuperar(i)->getIdCliente() << endl;
+        cout << "Cantidad Libros: " << ventas->recuperar(i)->getCantidadLibros() << endl;
+        cout << "Monto Total: " << ventas->recuperar(i)->getMontoTotal() << endl;
+        cout << "ID Vendedor: " << ventas->recuperar(i)->getIdVendedor() << endl;
+        cout << "" << endl;
+    }
 
-    L1->ordenar(1); // Creciente
+    // Clientes
 
-    cout <<"L1 (ESTATICA) CRECIENTE SEGUN ID"<<endl;
-    for (int i = 0; i < L1->longitud(); i++)
-        cout <<L1->recuperar(i)->getId()<<endl;
+    ListaEnlazada<Cliente> *clientes = entrada->leeClientes();
+    cout << "CLIENTES:" << endl;
 
-    Cliente::setNumOrder(3);
+    for (i = 0; i<clientes->longitud(); i++) {
+        cout << "ID: " << clientes->recuperar(i)->getId() << endl;
+        cout << "RUT: " << clientes->recuperar(i)->getRut() << endl;
+        cout << "Nombre: " << clientes->recuperar(i)->getNombre() << endl;
+        cout << "Edad: " << clientes->recuperar(i)->getEdad() << endl;
+        cout << "Direccion: " << clientes->recuperar(i)->getDireccion() << endl;
+        for (int j = 0; j<clientes->recuperar(i)->getTelefonos()->longitud(); j++)
+            cout << "Telefono " << j << " : " << clientes->recuperar(i)->getTelefonos()->recuperar(j) << endl;
+            cout << "Email: " << clientes->recuperar(i)->getEmail() << endl;
+        for (int j = 0; j<clientes->recuperar(i)->getListIdCompras()->longitud(); j++)
+            cout << "ID Compra " << j << " : " << clientes->recuperar(i)->getListIdCompras()->recuperar(j) << endl;
+            cout << "" << endl;
+    }
 
-    cout <<"L1 (ESTATICA) SEGUN NOMBRE"<<endl;
-    for (int i = 0; i < L1->longitud(); i++)
-        cout <<L1->recuperar(i)->getNombre()<<endl;
+    // Usuarios
 
-    L1->ordenar(-1); // Decreciente
+    ListaEstatica<Vendedor> *usuarios = entrada->leeUsuarios();
+    cout << "USUARIOS:" << endl;
 
-    cout <<"L1 (ESTATICA) DECRECIENTE SEGUN NOMBRE"<<endl;
-    for (int i = 0; i < L1->longitud(); i++)
-        cout <<L1->recuperar(i)->getNombre()<<endl;
+    for (i = 0; i<usuarios->longitud(); i++) {
+        cout << "ID: " << usuarios->recuperar(i)->getId() << endl;
+        cout << "RUT: " << usuarios->recuperar(i)->getRut() << endl;
+        cout << usuarios->recuperar(i)->getResumen();
+        for (int j = 0; j<usuarios->recuperar(i)->getTelefonos()->longitud(); j++)
+            cout << "Telefono " << j << " : " << *(usuarios->recuperar(i)->getTelefonos()->recuperar(j)) << endl;
+        for (int j = 0; j<usuarios->recuperar(i)->getListIdVentas()->longitud(); j++)
+            cout << "ID Venta " << j << " : " << *(usuarios->recuperar(i)->getListIdVentas()->recuperar(j)) << endl;
+        cout << "" << endl;
+    }
 
-    L1->ordenar(1); // Creciente
-
-    cout <<"L1 (ESTATICA) CRECIENTE SEGUN NOMBRE"<<endl;
-    for (int i = 0; i < L1->longitud(); i++)
-        cout <<L1->recuperar(i)->getNombre()<<endl;
-
-    ListaEnlazada<Cliente> *L2 = new ListaEnlazada<Cliente>();
-    L2->agregar(c1);
-    L2->agregar(c2);
-    L2->agregar(c3);
-
-    Cliente::setNumOrder(1);
-
-    cout <<"L2 (ENLAZADA) ORIGINAL SEGUN ID"<<endl;
-    for (int i = 0; i < L2->longitud(); i++)
-        cout <<L2->recuperar(i)->getId()<<endl;
-
-    L2->ordenar(-1); // Decreciente
-
-    cout <<"L2 (ENLAZADA) DECRECIENTE SEGUN ID"<<endl;
-    for (int i = 0; i < L2->longitud(); i++)
-        cout <<L2->recuperar(i)->getId()<<endl;
-
-    L2->ordenar(1); // Creciente
-
-    cout <<"L2 (ENLAZADA) CRECIENTE SEGUN ID"<<endl;
-    for (int i = 0; i < L2->longitud(); i++)
-        cout <<L2->recuperar(i)->getId()<<endl;
-
-    Cliente::setNumOrder(3);
-
-    cout <<"L2 (ENLAZADA) SEGUN NOMBRE"<<endl;
-    for (int i = 0; i < L2->longitud(); i++)
-        cout <<L2->recuperar(i)->getNombre()<<endl;
-
-    L2->ordenar(-1); // Decreciente
-
-    cout <<"L2 (ENLAZADA) DECRECIENTE SEGUN NOMBRE"<<endl;
-    for (int i = 0; i < L2->longitud(); i++)
-        cout <<L2->recuperar(i)->getNombre()<<endl;
-
-    L2->ordenar(1); // Creciente
-
-    cout <<"L2 (ENLAZADA) CRECIENTE SEGUN NOMBRE"<<endl;
-    for (int i = 0; i < L2->longitud(); i++)
-        cout <<L2->recuperar(i)->getNombre()<<endl;
+    //Se prueba la escritua de la capaIO
+    entrada->escribeClientes(clientes);
+    entrada->escribeLibros(libros);
+    entrada->escribeUsuarios(usuarios);
+    entrada->escribeVentas(ventas);
 
     return 0;
 }

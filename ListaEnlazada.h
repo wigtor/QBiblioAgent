@@ -16,7 +16,7 @@ using namespace std;
 template <class tipo>
 class ListaEnlazada {
 public:
-    ListaEnlazada(void);
+    ListaEnlazada();
     ListaEnlazada(const ListaEnlazada& orig);
     virtual ~ListaEnlazada();
     int agregar(tipo *elem);
@@ -40,7 +40,7 @@ private:
 
 //Constructor de una lista vacia.
 template <class tipo>
-ListaEnlazada<tipo>::ListaEnlazada(void) {
+ListaEnlazada<tipo>::ListaEnlazada() {
     this->cabecera = new Nodo<tipo>(); //hago que la cabezera tenga un primer nodo sin datos
     this->cantidadElems = 0;
 }

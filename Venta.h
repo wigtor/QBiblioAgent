@@ -30,6 +30,7 @@ public:
 
     // SETTERS
     static void setIdCont(int idCont);
+    static void setNumOrder(int numOrder);
     void setId(int id);
     void setCorrelativo(bool correlativo);
     void setIdLibro(int idLibro);
@@ -57,9 +58,9 @@ public:
     int getIdVendedor();
 
     // OPERADORES
-    bool operator <(Venta *otraVenta);
-    bool operator >(Venta *otraVenta);
-    bool operator ==(Venta *otraVenta);
+    bool operator <(const Venta& otraVenta) const;
+    bool operator >(const Venta& otraVenta) const;
+    bool operator ==(const Venta& otraVenta) const;
     
 private:
     static int idCont;

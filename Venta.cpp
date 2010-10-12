@@ -76,6 +76,10 @@ Venta::~Venta() {
  SETTERS
  ****************************************/
 
+void Venta::setNumOrder(int numOrder) {
+    Venta::numOrder = numOrder;
+}
+
 void Venta::setIdCont(int idCont) {
     Venta::idCont = idCont;
 }
@@ -189,35 +193,35 @@ int Venta::getIdVendedor() {
  * 6 = Nombre del vendedor
  */
 
-bool Venta::operator <(Venta *otraVenta){
+bool Venta::operator <(const Venta& otraVenta) const {
     switch(Venta::numOrder) {
         case 1:
-            if (this->id < otraVenta->id)
+            if (this->id < otraVenta.id)
                 return true;
             else
                 return false;
         case 2:
-            if (this->libro->getNombre().compare(otraVenta->libro->getNombre()) < 0)
+            if (this->libro->getNombre().compare(otraVenta.libro->getNombre()) < 0)
                 return true;
             else
                 return false;
         case 3:
-            if (this->cliente->getNombre().compare(otraVenta->cliente->getNombre()) < 0)
+            if (this->cliente->getNombre().compare(otraVenta.cliente->getNombre()) < 0)
                 return true;
             else
                 return false;
         case 4:
-            if (this->cantidadLibros < otraVenta->cantidadLibros)
+            if (this->cantidadLibros < otraVenta.cantidadLibros)
                 return true;
             else
                 return false;
         case 5:
-            if (this->montoTotal < otraVenta->montoTotal)
+            if (this->montoTotal < otraVenta.montoTotal)
                 return true;
             else
                 return false;
         case 6:
-            if (this->vendedor->getNombre().compare(otraVenta->vendedor->getNombre()) < 0)
+            if (this->vendedor->getNombre().compare(otraVenta.vendedor->getNombre()) < 0)
                 return true;
             else
                 return false;
@@ -226,35 +230,35 @@ bool Venta::operator <(Venta *otraVenta){
     }
 }
 
-bool Venta::operator >(Venta *otraVenta){
+bool Venta::operator >(const Venta& otraVenta) const {
     switch(Venta::numOrder) {
         case 1:
-            if (this->id > otraVenta->id)
+            if (this->id > otraVenta.id)
                 return true;
             else
                 return false;
         case 2:
-            if (this->libro->getNombre().compare(otraVenta->libro->getNombre()) > 0)
+            if (this->libro->getNombre().compare(otraVenta.libro->getNombre()) > 0)
                 return true;
             else
                 return false;
         case 3:
-            if (this->cliente->getNombre().compare(otraVenta->cliente->getNombre()) > 0)
+            if (this->cliente->getNombre().compare(otraVenta.cliente->getNombre()) > 0)
                 return true;
             else
                 return false;
         case 4:
-            if (this->cantidadLibros > otraVenta->cantidadLibros)
+            if (this->cantidadLibros > otraVenta.cantidadLibros)
                 return true;
             else
                 return false;
         case 5:
-            if (this->montoTotal > otraVenta->montoTotal)
+            if (this->montoTotal > otraVenta.montoTotal)
                 return true;
             else
                 return false;
         case 6:
-            if (this->vendedor->getNombre().compare(otraVenta->vendedor->getNombre()) > 0)
+            if (this->vendedor->getNombre().compare(otraVenta.vendedor->getNombre()) > 0)
                 return true;
             else
                 return false;
@@ -263,35 +267,35 @@ bool Venta::operator >(Venta *otraVenta){
     }
 }
 
-bool Venta::operator ==(Venta *otraVenta){
+bool Venta::operator ==(const Venta& otraVenta) const {
     switch(Venta::numOrder) {
         case 1:
-            if (this->id == otraVenta->id)
+            if (this->id == otraVenta.id)
                 return true;
             else
                 return false;
         case 2:
-            if (this->libro->getNombre().compare(otraVenta->libro->getNombre()) == 0)
+            if (this->libro->getNombre().compare(otraVenta.libro->getNombre()) == 0)
                 return true;
             else
                 return false;
         case 3:
-            if (this->cliente->getNombre().compare(otraVenta->cliente->getNombre()) == 0)
+            if (this->cliente->getNombre().compare(otraVenta.cliente->getNombre()) == 0)
                 return true;
             else
                 return false;
         case 4:
-            if (this->cantidadLibros == otraVenta->cantidadLibros)
+            if (this->cantidadLibros == otraVenta.cantidadLibros)
                 return true;
             else
                 return false;
         case 5:
-            if (this->montoTotal == otraVenta->montoTotal)
+            if (this->montoTotal == otraVenta.montoTotal)
                 return true;
             else
                 return false;
         case 6:
-            if (this->vendedor->getNombre().compare(otraVenta->vendedor->getNombre()) == 0)
+            if (this->vendedor->getNombre().compare(otraVenta.vendedor->getNombre()) == 0)
                 return true;
             else
                 return false;
