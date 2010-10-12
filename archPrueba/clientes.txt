@@ -1,0 +1,3 @@
+<idCliente="3" >
+<Cliente idObj="1" rut="12345678" nombre="abelardo perez" edad="21" direccion="calle tanto n244" telefonos="1234567|6056322|7777045|" email="abelardo@sesamo.com" idComprasHechas="1|3|" >
+<Cliente idObj="2" rut="14345678" nombre="elmo perez" edad="11" direccion="calle tinto n11" telefonos="3333333|4444444|8888888|" email="elmo@sesamo.com" idComprasHechas="2|" >

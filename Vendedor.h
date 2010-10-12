@@ -51,6 +51,7 @@ public:
     int setEmail(string strEmail);
     void addTelefono(int telefonoAgregado);
     void addVenta(Venta *ventaAgregada);
+    void addIdVenta(int idVenta);
     static void setIdCont(int intId);
     //////////////////////////////////
 

@@ -1,0 +1,5 @@
+<idLibro="5" >
+<Libro idObj="1" isbn="6045" precio="5000" nombre="Un cuento de dos ciudades" autor="Charles Dickens" paginas="342" peso="150" stock="8" >
+<Libro idObj="2" isbn="7034" precio="8000" nombre="Tom Jones" autor="Henry Fielding" paginas="121" peso="100" stock="16" >
+<Libro idObj="3" isbn="3598" precio="5000" nombre="Los Jefes y los Cachorros" autor="Mario Vargas Llosa" paginas="101" peso="90" stock="2" >
+<Libro idObj="4" isbn="3511" precio="10000" nombre="La Odisea" autor="Homero" paginas="1029" peso="200" stock="14" >

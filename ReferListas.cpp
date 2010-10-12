@@ -76,7 +76,7 @@ int ReferListas::crearReferenciasVentas(){
         }
     }
     if (valid == -4){
-        return 0; //Referencias Correctas
+        return 1; //Referencias Correctas
     }
     else{
         return valid; //Codigos de Error: -1 -> No existen ninguna de las referencias, -2 -> No existe el cliente, -3 -> No existe el vendedor;
@@ -87,20 +87,18 @@ int ReferListas::crearReferenciasVentas(){
 int ReferListas::crearReferenciasVendedores(){
     Vendedor *vendActual;
     ListaEnlazada<int> *listIdVentActual;
-    int idVentActual;
+    int idVentActual, validTotal = 0, validParcial = 0, i, j, k;
     Venta *ventActual;
-    int validTotal = 0, validParcial = 0;
-    for (int i = 0; i < this->listVendedores->longitud(); i++){ //Recorremos todos los ventedores
+    for (i = 0; i < this->listVendedores->longitud(); i++){ //Recorremos todos los ventedores
         vendActual = this->listVendedores->recuperar(i);
         listIdVentActual = vendActual->getListIdVentas(); //Sacamos la lista de id de ventas del vendedor
-        for (int j = 0; j < listIdVentActual->longitud(); j++){ //Recorremos todos los id de ventas
+        for (j = 0; j < listIdVentActual->longitud(); j++){ //Recorremos todos los id de ventas
             idVentActual = *listIdVentActual->recuperar(j);
-            for (int k = 0; k < this->listVentas->longitud();k++){ //Buscamos en la lista de ventas global el id actual
+            for (k = 0; k < (this->listVentas->longitud()); k++){ //Buscamos en la lista de ventas global el id actual
                 ventActual = listVentas->recuperar(k);
                 if (ventActual->getId() == idVentActual){
                     vendActual->addVenta(ventActual);
                     validParcial++;
-                    break;
                 }
             }
         }
@@ -109,7 +107,7 @@ int ReferListas::crearReferenciasVendedores(){
         }
     }
     if (validTotal == this->listVendedores->longitud()){
-        return 0; //Sin errores
+        return 1; //Sin errores
     }
 
     return -1; //Codigos de Error: -1 -> No existe alguna de las referencias
@@ -140,7 +138,7 @@ int ReferListas::crearReferenciasClientes(){
         }
     }
     if (validTotal == this->listClientes->longitud()){
-        return 0; //Sin errores
+        return 1; //Sin errores
     }
 
     return -1; //Codigos de Error: -1 -> No existe alguna de las referencias

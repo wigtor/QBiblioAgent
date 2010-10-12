@@ -1,0 +1,4 @@
+<idVenta="4" >
+<Venta idObj="1" correlativo="1" idLibro="3" idCliente="1" cantidadLibros="1" montoTotal="5000" idVendedor="1" fecha="14|4|2012" >
+<Venta idObj="2" correlativo="1" idLibro="1" idCliente="2" cantidadLibros="2" montoTotal="10000" idVendedor="2" fecha="17|8|2015" >
+<Venta idObj="3" correlativo="1" idLibro="2" idCliente="1" cantidadLibros="2" montoTotal="16000" idVendedor="1" fecha="17|8|2015" >

@@ -18,6 +18,8 @@
 #include "Admin.h"
 #include "Libro.h"
 #include "ReferListas.h"
+#include "AdminListas.h"
+#include "Menu.h"
 
 using namespace std;
 
@@ -46,17 +48,18 @@ int main(int argc, char *argv[]) {
     referenciador->crearReferencias();
 
     //Se instancia el administrador de listas
-    //ACÁ DEBE SER LLAMADO EL ADMINISTRADOR DE LISTAS
+    ////AdminListas *administradorListas = new AdminListas( listaVentas, listaLibros, listaVendedores, listaClientes);
 
     //Se ejecuta la interfaz de usuario
-    //ACA DEBE IR LA LLAMADA A LA INTERFAZ DE USUARIO, SE LE PASA COMO PARAMETRO EL ADMINISTRADOR DE LISTAS
-
+    ////Menu *interfazUsuario = new Menu(administradorListas);
+    ////interfazUsuario->ejecutar();
 
     //Se escriben las listas al finalizar la ejecución del programa
     entrada->escribeClientes(listaClientes);
     entrada->escribeLibros(listaLibros);
     entrada->escribeUsuarios(listaVendedores);
     entrada->escribeVentas(listaVentas);
+
     return 0;
 }
 

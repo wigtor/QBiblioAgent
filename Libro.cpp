@@ -279,7 +279,7 @@ int Libro::getStock(){
     return this->stock;
 }
 
-int Libro::getIdCont(){
+int Libro::getIdCont(){ 
     return Libro::idCont;
 }
 

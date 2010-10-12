@@ -38,6 +38,7 @@ Vendedor::Vendedor(int idObj, int rut, string nombre, int edad, string direccion
     this->direccion = direccion;
     this->telefonos = telefonos;
     this->listIdVentas = idsVentasHechas;
+    this->ventas = new ListaEnlazada<Venta>();
 }
 
 Vendedor::Vendedor(int numRut){
@@ -199,7 +200,9 @@ void Vendedor::addTelefono(int telefonoAgregado){
 
 void Vendedor::addVenta(Venta *ventaAgregada){
     this->ventas->agregar(ventaAgregada);
-    this->listIdVentas->agregar(new int(ventaAgregada->getId()));
+}
+void Vendedor::addIdVenta(int idVenta){
+    this->listIdVentas->agregar(new int (idVenta));
 }
 
 void Vendedor::setIdCont(int intId){
@@ -223,7 +226,7 @@ int Vendedor::getRut(){
 string Vendedor::getResumen(){
     stringstream resumen;
     resumen << "Nombre: " << this->nombre << endl;
-    resumen << "Dirección: " << this->direccion << endl;
+    resumen << "DirecciÃ³n: " << this->direccion << endl;
     resumen << "Edad: " << this->edad << endl;
     resumen << "E-Mail: " << this->email << endl;
     resumen << "Password: " << this->pass << endl;

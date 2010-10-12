@@ -319,7 +319,7 @@ Venta *CapaIO::stringToVenta(string linea)
         posInicioId = linea.find("correlativo", 0);
         posInicioId = linea.find("\"", posInicioId+1);
         posFinalId = linea.find("\"", posInicioId+1);
-        correlativo = linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str(); //MALO
+        correlativo = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
 
         Venta *ventaCreada = new Venta(idObj, correlativo, idLibro, idCliente, idVendedor, cantidadLibros, montoTotal, fecha);
         return ventaCreada;
@@ -336,6 +336,11 @@ Cliente *CapaIO::stringToCliente(string linea)
         posInicioId = linea.find("\"", posInicioId+1);
         size_t posFinalId = linea.find("\"", posInicioId+1);
         idObj = atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str());
+        //Busco el nombre
+        posInicioId = linea.find("nombre", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        nombre = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
         //Busco el valor del rut
         posInicioId = linea.find("rut", 0);
         posInicioId = linea.find("\"", posInicioId+1);
@@ -355,7 +360,7 @@ Cliente *CapaIO::stringToCliente(string linea)
         posInicioId = linea.find("email", 0);
         posInicioId = linea.find("\"", posInicioId+1);
         posFinalId = linea.find("\"", posInicioId+1);
-        direccion = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+        email = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
         //Busco los telefonos
         ListaEstatica<int> *listaTelefonos = new ListaEstatica<int>();
         posInicioId = linea.find("telefonos", 0);
@@ -525,7 +530,7 @@ string CapaIO::ventaToString(Venta *venta)
     linea << "idCliente=\"" << venta->getIdCliente() << "\" ";
     linea << "cantidadLibros=\"" << venta->getCantidadLibros() << "\" ";
     linea << "montoTotal=\"" << venta->getMontoTotal() << "\" ";
-    linea << "vendedor=\"" << venta->getIdVendedor() << "\" ";
+    linea << "idVendedor=\"" << venta->getIdVendedor() << "\" ";
     linea << "fecha=\"" << (venta->getFecha())->toString();
     linea <<  "\" >";
     return linea.str();
@@ -534,7 +539,7 @@ string CapaIO::ventaToString(Venta *venta)
 string CapaIO::clienteToString(Cliente *cliente)
 {   stringstream linea;
     int i;
-    ListaEnlazada<Venta> *listaCompras;
+    ListaEnlazada<int> *listIdsCompras;
     ListaEstatica<int> *listaTelefonos;
     linea << "<Cliente ";
     linea << "idObj=\"" << cliente->getId() <<"\" ";
@@ -547,10 +552,10 @@ string CapaIO::clienteToString(Cliente *cliente)
     for (i = 0; i < listaTelefonos->longitud(); i++)
         linea << *(static_cast<int *>(listaTelefonos->recuperar(i))) << "|";
     linea << "\" "<< "email=\"" << cliente->getEmail() << "\" ";
-    listaCompras = cliente->getComprasHechas();
+    listIdsCompras = cliente->getListIdCompras();
     linea << "idComprasHechas=\"";
-    for (i = 0; i < listaCompras->longitud(); i++)
-        linea << (static_cast<Venta *>(listaCompras->recuperar(i)))->getId() << "|";
+    for (i = 0; i < listIdsCompras->longitud(); i++)
+        linea << *(listIdsCompras->recuperar(i)) << "|";
     linea  << "\" >";
     return linea.str();
 }
@@ -588,7 +593,7 @@ string CapaIO::libroToString(Libro *libro)
     linea << "autor=\"" << libro->getAutor() << "\" ";
     linea << "paginas=\"" << libro->getPaginas() << "\" ";
     linea << "peso=\"" << libro->getPeso() << "\" ";
-    linea << "stock=\"" << libro->getStock() << "\" ";
+    linea << "stock=\"" << libro->getStock() << "\"";
     linea << " >";
     return linea.str();
 }
