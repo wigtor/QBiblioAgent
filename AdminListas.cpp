@@ -111,12 +111,11 @@ void AdminListas::agregarVenta(string correlativo, int posLibro, int posCliente,
     if (tempLibro == NULL)
         throw new ErrorExcep(E_POS_LIBRO_NO_EXISTE);
 
-    //SE DEBE COMPROBAR QUE CANTLIBROS Y MONTO TOTAL SON VALORES ENTEROS
     bool boolCorrelativo;
     if (correlativo == "1"){
         boolCorrelativo = true;
     }
-    else{
+    else {
         boolCorrelativo = false;
     }
 
@@ -134,14 +133,18 @@ void AdminListas::agregarVenta(string correlativo, int posLibro, int posCliente,
 
 void AdminListas::agregarCliente(string rut, string strNombre, string edad, string direccion, string listTelefonos, string email){
     int intEdad, intRut, i;
+    Cliente *clienteTemp;
     if ((intEdad = atoi(rut.c_str())) == 0)
         throw new ErrorExcep(E_EDAD);
     if ((intRut = atoi(edad.c_str())) == 0)
         throw new ErrorExcep(E_RUT);
-    for (i = 0; i < this->listBaseLibros->longitud();i++){
-        if (this->listBaseLibros->recuperar(i)->getNombre() == strNombre){
+    for (i = 0; i < this->listBaseClientes->longitud();i++){
+        clienteTemp = this->listBaseClientes->recuperar(i);
+        if (clienteTemp->getNombre() == strNombre){
             throw new ErrorExcep(E_NOMB_REP);
         }
+        if (clienteTemp->getRut() == intRut)
+            throw new ErrorExcep(E_RUT_REP);
     }
 
     string strTel;
@@ -149,29 +152,54 @@ void AdminListas::agregarCliente(string rut, string strNombre, string edad, stri
     int pos = 0; //WTF!
     ListaEstatica<int> *tempListTelefonos = new ListaEstatica<int>();
 
-    pos = listTelefonos.find_first_not_of(' ',pos);
+    pos = listTelefonos.find_first_not_of(' ', pos);
     while(listTelefonos.length() != 0){
-        pos = listTelefonos.find_first_not_of(' ',pos);
-        strTel = listTelefonos.substr(0,pos);
-        intTel = atoi(strTel.substr(0,pos).c_str());
+        pos = listTelefonos.find_first_not_of(' ', pos);
+        strTel = listTelefonos.substr( 0, pos);
+        if ((intTel = atoi(strTel.substr( 0, pos).c_str())) == 0)
+            throw new ErrorExcep(E_TELEFONO);
         tempListTelefonos->agregar(new int (intTel));
     }
-
-    //Se debe comrpobar que edad y rut son convertibles a entero
-    //Se debe comprobar que el rut no esté repetido y que el nombre no esté repetido
 
     Cliente *nuevoCliente = new Cliente(intRut, strNombre, intEdad, direccion, tempListTelefonos, email);
     this->listBaseClientes->agregar(nuevoCliente);
 }
 
-void AdminListas::agregarVendedor(string strRut, string nombre, string direccion){
-    int rut;
-
-    if ((rut = atoi(strRut.c_str())) == 0)
+void AdminListas::agregarVendedor(string strRut, string strNombre, string direccion, string strEdad, string strEmail, string listTelefonos){
+    int i, intRut, intEdad;
+    Vendedor *vendedorTemp;
+    if ((intRut = atoi(strRut.c_str())) == 0)
         throw new ErrorExcep(E_RUT);
+    if ((intEdad = atoi(strEdad.c_str())) == 0)
+            throw new ErrorExcep(E_EDAD);
+    for (i = 0; i < this->listBaseVendedores->longitud();i++){
+        vendedorTemp = this->listBaseVendedores->recuperar(i);
+        if (vendedorTemp->getNombre() == strNombre){
+            throw new ErrorExcep(E_NOMB_REP);
+        }
+        if (vendedorTemp->getRut() == intRut)
+            throw new ErrorExcep(E_RUT_REP);
+    }
 
-    //Se debe comprobar que el rut y el nombre del vendedor no esten repetidos
-    Vendedor *nuevoVendedor = new Vendedor(rut, nombre, direccion);
+    string strTel;
+    int intTel;
+    int pos = 0; //WTF!
+    ListaEstatica<int> *tempListTelefonos = new ListaEstatica<int>();
+
+    pos = listTelefonos.find_first_not_of(' ', pos);
+    while(listTelefonos.length() != 0){
+        pos = listTelefonos.find_first_not_of(' ', pos);
+        strTel = listTelefonos.substr( 0, pos);
+        if ((intTel = atoi(strTel.substr( 0, pos).c_str())) == 0)
+            throw new ErrorExcep(E_TELEFONO);
+        tempListTelefonos->agregar(new int (intTel));
+    }
+
+    //Comprobar validez de telefonos
+    Vendedor *nuevoVendedor = new Vendedor(intRut, strNombre, direccion);
+    nuevoVendedor->setEdad(intEdad);
+    nuevoVendedor->setEmail(strEmail);
+    nuevoVendedor->setListaTelefonos(tempListTelefonos);
     this->listBaseVendedores->agregar(nuevoVendedor);
 }
 
@@ -198,25 +226,5 @@ void AdminListas::editarVendedor(){
 
 }
 
-void AdminListas::eliminarLibro(int id){
-    int pos = -1;
-    for (int i; i < this->listBaseLibros->longitud(); i++){
-        if (this->listBaseLibros->recuperar(i)->getId() == id){
-            pos = i;
-        }
-    }
-    this->listBaseLibros->eliminar(pos);
-}
 
-void AdminListas::eliminarVenta(int id){
-
-}
-
-void AdminListas::eliminarCliente(int id){
-
-}
-
-void AdminListas::eliminarVendedor(int id){
-
-}
 

@@ -61,8 +61,7 @@ int main(int argc, char *argv[]) {
     entrada->escribeVentas(listaVentas);
 
     cout << "Presione una tecla para salir"<< endl;
-    char *unChar = NULL;
-    interfazUsuario->leeString(stdin, unChar);
+    cin.get();
     return 0;
 }
 

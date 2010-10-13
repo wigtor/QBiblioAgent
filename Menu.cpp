@@ -508,7 +508,7 @@ bool Menu::compruebaUsuario( string user, string pass) {
             else
                 return false;
         }
-        rutStrea = "";
+        rutStream.str("");
     }
     return false;
 }

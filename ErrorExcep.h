@@ -104,8 +104,10 @@ using namespace std;
 #define E_POS_VEND_NO_EXISTE    0x1A
 
 #define E_NOMB_REP              0x1B
-#define E_ISBN_REP              0x1C
-#define E_MONTO                 0x1D
+#define E_RUT_REP               0x1C
+#define E_ISBN_REP              0x1D
+#define E_MONTO                 0x1E
+#define E_TELEFONO              0x1F
 
 //Constantes ReferListas
 #define E_REFERT                0x90

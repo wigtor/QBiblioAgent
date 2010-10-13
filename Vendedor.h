@@ -49,6 +49,7 @@ public:
     void setEdad(int intEdad);
     void setDireccion(string strDireccion);
     int setEmail(string strEmail);
+    void setListaTelefonos(ListaEstatica<int> *listaTelefonos);
     void addTelefono(int telefonoAgregado);
     void addVenta(Venta *ventaAgregada);
     void addIdVenta(int idVenta);
