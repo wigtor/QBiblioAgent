@@ -184,43 +184,29 @@ int Venta::getIdVendedor() {
  OPERADORES
  ****************************************/
 
-/* Codigos numOrder:
- * 1 = ID
- * 2 = Nombre del libro
- * 3 = Nombre del cliente
- * 4 = Cantidad de libros
- * 5 = Monto total
- * 6 = Nombre del vendedor
- */
-
 bool Venta::operator <(const Venta& otraVenta) const {
     switch(Venta::numOrder) {
-        case 1:
-            if (this->id < otraVenta.id)
-                return true;
-            else
-                return false;
-        case 2:
+        case ORD_VENT_NOMBRELIB:
             if (this->libro->getNombre().compare(otraVenta.libro->getNombre()) < 0)
                 return true;
             else
                 return false;
-        case 3:
+        case ORD_VENT_CLIENTE:
             if (this->cliente->getNombre().compare(otraVenta.cliente->getNombre()) < 0)
                 return true;
             else
                 return false;
-        case 4:
+        case ORD_VENT_LIBRO:
             if (this->cantidadLibros < otraVenta.cantidadLibros)
                 return true;
             else
                 return false;
-        case 5:
+        case ORD_VENT_MONTO:
             if (this->montoTotal < otraVenta.montoTotal)
                 return true;
             else
                 return false;
-        case 6:
+        case ORD_VENT_VENDEDOR:
             if (this->vendedor->getNombre().compare(otraVenta.vendedor->getNombre()) < 0)
                 return true;
             else

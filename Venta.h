@@ -13,6 +13,14 @@
 #include "Libro.h"
 #include "Fecha.h"
 
+// Codigos numOrder:
+ #define ORD_VENT_NOMBRELIB 0x30
+ #define ORD_VENT_CLIENTE 0x31
+ #define ORD_VENT_LIBRO 0x32
+ #define ORD_VENT_MONTO 0x33
+ #define ORD_VENT_VENDEDOR 0x34
+
+
 class Vendedor;
 class Cliente;
 

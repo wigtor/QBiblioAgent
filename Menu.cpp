@@ -67,10 +67,10 @@ int Menu::encuentraCliente(string nombre) { // No se si necesito esto, o ya habi
 }
 
 bool Menu::verificarOpcion(string entrada, int nroOpciones) {
-    bool valido = false;
+    bool valido = true;
     for (int i = 1; i <= nroOpciones; i++) {
         if (entrada == intAString(i)) {
-            valido = true;
+            valido = false;
             break;
         }
     }
@@ -98,7 +98,7 @@ void Menu::menuAcceso() {
         opcionAccesoStr = *(new string(opcionAcceso));
         cout << "" << endl;
 
-        if (this->verificarOpcion(opcionAccesoStr, 3) == false) {
+        if (this->verificarOpcion(opcionAccesoStr, 3)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor.";
             cout << "" << endl;
             opcionAccesoStr = "0";
@@ -183,13 +183,13 @@ void Menu::menuAdmin() {
         opcionAdminStr = *(new string(opcionAdmin));
         cout << endl;
 
-        if ((verificarOpcion(opcionAdminStr, 6))  == false) {
+        if (this->verificarOpcion(opcionAdminStr, 6)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor." << endl;
             opcionAdminStr = "0";
         }
 
         if (opcionAdminStr == "1") {
-            menuListVendedores(); //NO REALIZADA TRAZA DE ESTA LLAMADA AUN
+            menuListVendedores();
             opcionAdminStr == "0";
         }
 
@@ -209,8 +209,10 @@ void Menu::menuAdmin() {
                 nombre = Menu::leeString(stdin, nombre);
                 nombreStr = *(new string(nombre));
                 cout << endl;
-                if (nombreStr == "")
-                    return ;
+                if (nombreStr == ""){
+                    opcionAdminStr = "0";
+                    continue;
+                }
                 pos = encuentraUsuario(nombreStr);
             }
             opcionAdminStr = "0";
@@ -262,7 +264,7 @@ void Menu::menuAdmin() {
         }
 
         if (opcionAdminStr == "5") {
-            menuListVentas(); //NO REALIZADA TRAZA DE ESTA LLAMADA AUN
+            menuListVentas();
             opcionAdminStr = "0";
         }
         if (opcionAdminStr == "6")
@@ -271,7 +273,7 @@ void Menu::menuAdmin() {
 }
 
 void Menu::menuListVendedores() {
-    char *opcionListVend;
+    char *opcionListVend = NULL;
     int critOrden;
     string opcionListVendStr = "0";
 
@@ -286,47 +288,52 @@ void Menu::menuListVendedores() {
         cout << "3. Ordenar por RUT" << endl;
         cout << "4. Ordenar por edad" << endl;
         cout << "5. Ordenar por cantidad de ventas" << endl;
-        cout << "6. Volver" << endl;
-        cout << "" << endl;
+        cout << "6. Volver" << endl << endl;
         cout << ">> ";
         opcionListVend = Menu::leeString(stdin, opcionListVend);
         opcionListVendStr = *(new string(opcionListVend));
         cout << "" << endl;
 
-        if (verificarOpcion(opcionListVendStr, 6)) {
+        if (this->verificarOpcion(opcionListVendStr, 6)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor.";
             cout << "" << endl;
             opcionListVendStr = "0";
         }
 
         if (opcionListVendStr == "1") {
-            // Mostrar lista
+            //MOSTRAR LISTAS DE VENDEDORES ACÁ
             opcionListVendStr = "0";
         }
 
         if (opcionListVendStr == "2") {
             critOrden = menuOrden();
-            // Ordenar por nombre, pasar critOrden
+            Vendedor::setNumOrder(ORD_VEND_NOM);
+            this->adminListas->getListaVendedores()->ordenar(critOrden);
             opcionListVendStr = "0";
         }
 
         if (opcionListVendStr == "3") {
             critOrden = menuOrden();
-            // Ordenar por RUT, pasar critOrden
+            Vendedor::setNumOrder(ORD_VEND_RUT);
+            this->adminListas->getListaVendedores()->ordenar(critOrden);
             opcionListVendStr = "0";
         }
 
         if (opcionListVendStr == "4") {
             critOrden = menuOrden();
-            // Ordenar por edad, pasar critOrden
+            Vendedor::setNumOrder(ORD_VEND_EDAD);
+            this->adminListas->getListaVendedores()->ordenar(critOrden);
             opcionListVendStr = "0";
         }
 
         if (opcionListVendStr == "5") {
             critOrden = menuOrden();
-            // Ordenar por cantidad de ventas, pasar critOrden
+            Vendedor::setNumOrder(ORD_VEND_CANTVENT);
+            this->adminListas->getListaVendedores()->ordenar(critOrden);
             opcionListVendStr = "0";
         }
+        if (opcionListVendStr == "6")
+            return ;
     }
 }
 
@@ -346,16 +353,14 @@ int Menu::menuOrden() { // MENU GENERAL PARA DETERMINAR EL CRITERIO DE ORDENAMIE
         opcionOrdStr = *(new string(opcionOrdStr));
         cout << "" << endl;
 
-        if (verificarOpcion(opcionOrdStr, 2)) {
-            cout << "Opcion incorrecta. Intente de nuevo por favor.";
-            cout << "" << endl;
+        if (this->verificarOpcion(opcionOrdStr, 2)) {
+            cout << "Opcion incorrecta. Intente de nuevo por favor." << endl;
             opcionOrdStr = "0";
         }
 
         if (opcionOrdStr == "1") {
             // Ordenar crecientemente
-            cout << "Se ha ordenado crecientemente." << endl;
-            cout << "" << endl;
+            cout << "Se ha ordenado crecientemente." << endl << endl;
             opcionOrdStr=="";
             critOrden = 1;
         }
@@ -408,7 +413,7 @@ void Menu::menuModVend() {
         opModVendStr = *(new string(opModVendStr));
         cout << "" << endl;
 
-        if (verificarOpcion(opModVendStr, 6)) {
+        if (this->verificarOpcion(opModVendStr, 6)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor.";
             cout << "" << endl;
             opModVendStr = "0";
@@ -504,61 +509,63 @@ void Menu::menuListVentas() {
 
     while (opcionListVentStr == "0") {
         cout << "Lista de ventas" << endl;
-        cout << "===============" << endl;
-        cout << "" << endl;
-        cout << "Escoja una opcion:" << endl;
-        cout << "" << endl;
+        cout << "===============" << endl << endl;
+        cout << "Escoja una opcion:" << endl << endl;
         cout << "1. Ver lista" << endl;
         cout << "2. Ordenar por nombre del libro" << endl;
         cout << "3. Ordenar por nombre del cliente" << endl;
         cout << "4. Ordenar por cantidad de libros" << endl;
         cout << "5. Ordenar por monto total" << endl;
         cout << "6. Ordenar por nombre del vendedor" << endl;
-        cout << "7. Volver" << endl;
-        cout << "" << endl;
+        cout << "7. Volver" << endl << endl;
         cout << ">> ";
-        opcionListVent =Menu::leeString(stdin, opcionListVent);
+        opcionListVent = Menu::leeString(stdin, opcionListVent);
         opcionListVentStr = *(new string(opcionListVent));
         cout << "" << endl;
 
-        if (verificarOpcion(opcionListVentStr, 7)) {
+        if (this->verificarOpcion(opcionListVentStr, 7)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor.";
             cout << "" << endl;
             opcionListVentStr = "0";
         }
 
         if (opcionListVentStr == "1") {
-            // Mostrar lista
+            //  FALTA MOSTRAR LISTA DE VENTAS ACÁ
             opcionListVentStr = "0";
         }
 
         if (opcionListVentStr == "2") {
             critOrden = menuOrden();
-            // Ordenar por nombre del libro, pasar critOrden
+            Venta::setNumOrder(ORD_VENT_NOMBRELIB);
+            this->adminListas->getListaVentas()->ordenar(critOrden);
             opcionListVentStr = "0";
         }
 
         if (opcionListVentStr == "3") {
             critOrden = menuOrden();
-            // Ordenar por nombre del cliente, pasar critOrden
+            Venta::setNumOrder(ORD_VENT_CLIENTE);
+            this->adminListas->getListaVentas()->ordenar(critOrden);
             opcionListVentStr = "0";
         }
 
         if (opcionListVentStr == "4") {
             critOrden = menuOrden();
-            // Ordenar por cantidad de libros, pasar critOrden
+            Venta::setNumOrder(ORD_VENT_LIBRO);
+            this->adminListas->getListaVentas()->ordenar(critOrden);
             opcionListVentStr = "0";
         }
 
         if (opcionListVentStr == "5") {
             critOrden = menuOrden();
-            // Ordenar por monto total, pasar critOrden
+            Venta::setNumOrder(ORD_VENT_MONTO);
+            this->adminListas->getListaVentas()->ordenar(critOrden);
             opcionListVentStr = "0";
         }
 
         if (opcionListVentStr == "6") {
             critOrden = menuOrden();
-            // Ordenar por nombre del vendedor, pasar critOrden
+            Venta::setNumOrder(ORD_VENT_VENDEDOR);
+            this->adminListas->getListaVentas()->ordenar(critOrden);
             opcionListVentStr = "0";
         }
     }
@@ -592,13 +599,13 @@ void Menu::menuVend() {
         opcionVendStr = *(new string(opcionVendStr));
         cout << endl;
 
-        if ((verificarOpcion(opcionVendStr, 7)) == false) {
+        if (this->verificarOpcion(opcionVendStr, 7)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor." << endl;
             opcionVendStr = "0";
         }
 
         if (opcionVendStr == "1") {
-            menuListClientes();  //NO REALIZADA TRAZA DE ESTA LLAMADA AUN
+            menuListClientes();
             opcionVendStr = "0";
         }
 
@@ -618,8 +625,10 @@ void Menu::menuVend() {
                 nombre = Menu::leeString(stdin, nombre);
                 nombreStr = *(new string(nombre));
                 cout << endl;
-                if (nombreStr == "")
-                    return ;
+                if (nombreStr == ""){
+                    opcionVendStr = "";
+                    continue ;
+                }
                 pos = this->encuentraCliente(nombreStr);
             }
             opcionVendStr = "0";
@@ -753,32 +762,35 @@ void Menu::menuListClientes() {
         opcionListClienteStr = *(new string(opcionListCliente));
         cout << "" << endl;
 
-        if (verificarOpcion(opcionListClienteStr, 5)) {
+        if (this->verificarOpcion(opcionListClienteStr, 5)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor.";
             cout << "" << endl;
             opcionListClienteStr = "0";
         }
 
         if (opcionListClienteStr == "1") {
-            // Mostrar lista
+            // MOSTRAR LA LISTA DE CLIENTES ACÁ
             opcionListClienteStr = "0";
         }
 
         if (opcionListClienteStr == "2") {
             critOrden = menuOrden();
-            // Ordenar por nombre del cliente, pasar critOrden
+            Cliente::setNumOrder(ORD_CLIENT_NOMBRE);
+            this->adminListas->getListaClientes()->ordenar(critOrden);
             opcionListClienteStr = "0";
         }
 
         if (opcionListClienteStr == "3") {
             critOrden = menuOrden();
-            // Ordenar por RUT del cliente, pasar critOrden
+            Cliente::setNumOrder(ORD_CLIENT_RUT);
+            this->adminListas->getListaClientes()->ordenar(critOrden);
             opcionListClienteStr = "0";
         }
 
         if (opcionListClienteStr == "4") {
             critOrden = menuOrden();
-            // Ordenar por cantidad de libros del cliente, pasar critOrden
+            Cliente::setNumOrder(ORD_CLIENT_CANTCOMPRAS);
+            this->adminListas->getListaClientes()->ordenar(critOrden);
             opcionListClienteStr = "0";
         }
     }
@@ -823,7 +835,7 @@ void Menu::menuModCliente() {
         opModClienteStr = *(new string(opModClienteStr));
         cout << "" << endl;
 
-        if (verificarOpcion(opModClienteStr, 8)) {
+        if (this->verificarOpcion(opModClienteStr, 8)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor.";
             cout << "" << endl;
             opModClienteStr = "0";

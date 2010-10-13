@@ -195,6 +195,10 @@ int Vendedor::setEmail(string strEmail){
     return 0;
 }
 
+void Vendedor::setNumOrder(int numOrder){
+    Vendedor::numOrder = numOrder;
+}
+
 void Vendedor::setListaTelefonos(ListaEstatica<int> *listaTelefonos){
     this->telefonos = listaTelefonos;
 }
@@ -226,6 +230,10 @@ int Vendedor::getId(){
 
 int Vendedor::getRut(){
     return this->rut;
+}
+
+int Vendedor::getNumOrder(){
+    return Vendedor::numOrder;
 }
 
 string Vendedor::getResumen(){
@@ -272,39 +280,3 @@ ListaEnlazada<int> *Vendedor::getListIdVentas(){
 int Vendedor::getIdCont(){
     return Vendedor::idCont;
 }
-
-/****************************************
- *
- * Funciones Adicionales
- *
- ****************************************/
-
-Cliente *Vendedor::ingresaCliente(){
-
-    return NULL;
-}
-
-string Vendedor::verInfoCliente(Cliente *cliente){
-
-    return NULL;
-}
-
-Venta *Vendedor::verHistorialCliente(Cliente  *cliente){
-
-    return NULL;
-}
-
-Cliente *Vendedor::editarCliente(Cliente *cliente){
-
-    return NULL;
-}
-
-Libro *Vendedor::ingresaLibro(){
-
-    return NULL;
-}
-
-void Vendedor::realizarVenta(){
-
-}
-

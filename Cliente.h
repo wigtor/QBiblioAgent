@@ -13,6 +13,11 @@
 #include "ListaEnlazada.h"
 #include "ListaEstatica.h"
 
+
+#define ORD_CLIENT_RUT 2
+#define ORD_CLIENT_NOMBRE 3
+#define ORD_CLIENT_CANTCOMPRAS 4
+
 class Venta;
 
 using namespace std;

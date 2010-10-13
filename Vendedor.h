@@ -9,10 +9,10 @@
 #define	VENDEDOR_H
 
 //Constantes
-#define ORD_V_RUT = 1;
-#define ORD_V_NOM = 2;
-#define ORD_V_EDAD = 3;
-#define ORD_V_CANTVENT = 4;
+#define ORD_VEND_RUT 1
+#define ORD_VEND_NOM 2
+#define ORD_VEND_EDAD 3
+#define ORD_VEND_CANTVENT 4
 
 
 #include <string>
@@ -46,6 +46,7 @@ public:
 
     //Setters
     void setNombre(string strNombre);
+    static void setNumOrder(int numOrder);
     void setEdad(int intEdad);
     void setDireccion(string strDireccion);
     int setEmail(string strEmail);
@@ -59,6 +60,7 @@ public:
     //Getters
     int getId();
     int getRut();
+    static int getNumOrder();
     string getResumen();
     string getNombre();
     int getEdad();
@@ -67,15 +69,6 @@ public:
     ListaEnlazada<Venta> *getVentas();
     ListaEnlazada<int> *getListIdVentas();
     static int getIdCont();
-    //////////////////////////////////
-
-    //Otras Funciones
-    Cliente *ingresaCliente();
-    string verInfoCliente(Cliente *Cliente);
-    Venta *verHistorialCliente(Cliente *cliente); 
-    Cliente *editarCliente(Cliente *cliente);
-    Libro *ingresaLibro(); 
-    void realizarVenta();
     //////////////////////////////////
 
 private:

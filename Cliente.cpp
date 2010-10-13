@@ -171,30 +171,19 @@ ListaEnlazada<int> *Cliente::getListIdCompras(){
  OPERADORES
  ****************************************/
 
-/* Codigos numOrder: */
-int Cliente::ID = 1;
-int Cliente::RUT = 2;
-int Cliente::NOMBRE = 3;
-int Cliente::CANTCOMPRAS = 4;
-
 bool Cliente::operator <(const Cliente& otroCliente) const {
     switch(Cliente::numOrder) {
-        case 1:
-            if (this->id < otroCliente.id)
-                return true;
-            else
-                return false;
-        case 2:
+        case ORD_CLIENT_RUT:
             if (this->rut < otroCliente.rut)
                 return true;
             else
                 return false;
-        case 3:
+        case ORD_CLIENT_NOMBRE:
             if (this->nombre.compare(otroCliente.nombre) < 0)
                 return true;
             else
                 return false;
-        case 4:
+        case ORD_CLIENT_CANTCOMPRAS:
             if (this->comprasHechas->longitud() < otroCliente.comprasHechas->longitud())
                 return true;
             else
