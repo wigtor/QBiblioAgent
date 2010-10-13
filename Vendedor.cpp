@@ -230,11 +230,17 @@ int Vendedor::getRut(){
 
 string Vendedor::getResumen(){
     stringstream resumen;
+    int i;
     resumen << "Nombre: " << this->nombre << endl;
-    resumen << "Direccin: " << this->direccion << endl;
+    resumen << "Rut: " << this->rut << endl;
+    resumen << "Direccion: " << this->direccion << endl;
     resumen << "Edad: " << this->edad << endl;
     resumen << "E-Mail: " << this->email << endl;
-    resumen << "Password: " << this->pass << endl;
+    //resumen << "Password: " << this->pass << endl;
+    resumen << "Telefonos: ";
+    for (i = 0; i < this->telefonos->longitud(); i++)
+        resumen << this->telefonos->recuperar(i) << ", ";
+    resumen << endl << "Cantidad de compras: " << this->ventas->longitud() << endl;
     return resumen.str();
 }
 

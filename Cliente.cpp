@@ -112,6 +112,21 @@ void Cliente::setEmail(string email) {
  GETTERS
  ****************************************/
 
+string Cliente::getResumen(){
+    stringstream resumen;
+    int i;
+    resumen << "Nombre: " << this->nombre << endl;
+    resumen << "Rut: " << this->rut << endl;
+    resumen << "Direccion: " << this->direccion << endl;
+    resumen << "Edad: " << this->edad << endl;
+    resumen << "E-Mail: " << this->email << endl;
+    resumen << "Telefonos: ";
+    for (i = 0; i < this->telefonos->longitud(); i++)
+        resumen << this->telefonos->recuperar(i) << ", ";
+    resumen << endl << "Cantidad de compras: " << this->comprasHechas->longitud() << endl;
+    return resumen.str();
+}
+
 int Cliente::getId() {
     return this->id;
 }

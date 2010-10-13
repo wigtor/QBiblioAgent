@@ -24,8 +24,11 @@ ErrorExcep::ErrorExcep(int m, string strNombre, int id){
 
 const char* ErrorExcep::descError() const throw(){
     switch (this->motivo){
-    case E_REFERT: return "Error en la creacion de las referencias";break;
+        case E_REFERT:
+            return "Error en la creacion de las referencias"; break;
 
+        default:
+            return "Error desconocido;"; break;
     }
 }
 

@@ -39,7 +39,8 @@ int ReferListas::crearReferencias(){
         cont += this->crearReferenciasClientes();
         cont += this->crearReferenciasVendedores();
         cont += this->crearReferenciasVentas();
-        if (cont != 3) throw (ErrorExcep(E_REFERT));
+        if (cont != 3)
+            throw (new ErrorExcep(E_REFERT));
     }
     catch(ErrorExcep *e){
         /*e.descError() con esto se describe el error, se supone que es un string, pero se le pasa
@@ -94,7 +95,7 @@ int ReferListas::crearReferenciasVentas(){
         /*e.descError() con esto se describe el error, se supone que es un string, pero se le pasa
         a la parte de interfaz*/
     }
-    return 0;
+    return 1;
 }
 
 int ReferListas::crearReferenciasVendedores(){
@@ -125,7 +126,7 @@ int ReferListas::crearReferenciasVendedores(){
         /*e.descError() con esto se describe el error, se supone que es un string, pero se le pasa
         a la parte de interfaz*/
     }
-    return 0;
+    return 1;
 }
 
 int ReferListas::crearReferenciasClientes(){
@@ -157,7 +158,7 @@ int ReferListas::crearReferenciasClientes(){
         /*e.descError() con esto se describe el error, se supone que es un string, pero se le pasa
         a la parte de interfaz*/
     }
-    return 0;
+    return 1;
 
 }
 

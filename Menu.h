@@ -14,26 +14,24 @@ public:
     static char *leeString(FILE *flujo, char *punteroString);
     static int TAM_DEFAULT;
     static int TAM_REDIM;
-    static int NRO_OP_ACCESO_ORDEN;
-    static int NRO_OP_ADMIN_VEND_LISTVEND;
-    static int NRO_OP_CRITORD;
-    static int NRO_OP_LISTVEND_MODVEND;
-    static int NRO_OP_ADMIN;
-    static int NRO_OP_VEND;
     int menuOrden();
     string intAString(int i);
     bool verificarOpcion(string entrada, int nroOpciones);
 
 private:
     void menuAcceso();
+    void menuRealizarVenta();
     void menuAdmin();
     void menuVend();
+    void menuListClientes();
     void menuListVendedores();
     void menuListVentas();
-    void modificarVend();
-    bool compruebaUsuario( string user, string pass);
+    void menuModCliente();
+    void menuModVend();
+    bool compruebaUsuario(string user, string pass);
+    int encuentraUsuario(string nombre);
+    int encuentraCliente(string nombre);
     AdminListas *adminListas;
-    string userStr, passStr; // SI NO ES NECESARIO, ESTAN VOLVERAN A SER LOCALES EN LOS METODOS
 
 };
 

@@ -42,6 +42,7 @@ public:
     int getId();
     static int getIdCont();
     int getRut();
+    string getResumen();
     string getNombre();
     int getEdad();
     string getDireccion();
