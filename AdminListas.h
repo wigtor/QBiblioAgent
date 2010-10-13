@@ -14,6 +14,7 @@
 #include "Venta.h"
 #include "Libro.h"
 #include "Vendedor.h"
+#include "ErrorExcep.h"
 
 class AdminListas{
 
@@ -32,9 +33,9 @@ public:
 
     //Setters
     void agregarLibro(string strNombre, string isbn, string strAutor, string paginas, string peso, string precio, string stock);
-    void agregarVenta(bool boolCorrelativo, Libro *libro, Cliente *cliente, Vendedor *vendedor, string cantLibros, string montoTotal, Fecha *fecha);
-    void agregarCliente(string rut, string nombre, string edad, string direccion, ListaEstatica<int> *telefonos, string email);
-    void agregarVendedor(string rutStr, string nombre, string direccion);
+    void agregarVenta(string boolCorrelativo, int posLibro, int posCliente, int posVendedor, string cantLibros, string montoTotal);
+    void agregarCliente(string rut, string nombre, string edad, string direccion, string listTelefonos, string email);
+    void agregarVendedor(string strRut, string nombre, string direccion);
     //////////////////////////////////
 
     //Funciones adicionales
@@ -43,10 +44,10 @@ public:
     void editarCliente();
     void editarVendedor();
 
-    void eliminarLibro();
-    void eliminarVenta();
-    void eliminarCliente();
-    void eliminarVendedor();
+    void eliminarLibro(int id);
+    void eliminarVenta(int id);
+    void eliminarCliente(int id);
+    void eliminarVendedor(int id);
     //////////////////////////////////
 
 private:

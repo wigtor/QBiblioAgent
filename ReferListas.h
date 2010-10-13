@@ -15,6 +15,7 @@
 #include "Libro.h"
 #include "Vendedor.h"
 #include "Cliente.h"
+#include "ErrorExcep.h"
 
 class ReferListas{
 public:

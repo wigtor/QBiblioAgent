@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     Fecha.cpp \
     ReferListas.cpp \
     AdminListas.cpp \
-    Menu.cpp
+    Menu.cpp \
+    ErrorExcep.cpp
 
 HEADERS += \
     ListaEstatica.h \
@@ -41,4 +42,5 @@ HEADERS += \
     Fecha.h \
     ReferListas.h \
     AdminListas.h \
-    Menu.h
+    Menu.h \
+    ErrorExcep.h

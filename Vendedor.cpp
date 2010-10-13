@@ -30,7 +30,8 @@ int Vendedor::ORD_CANTVENT = 4;
  *
  ****************************************/
  
-Vendedor::Vendedor(int idObj, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *idsVentasHechas){
+Vendedor::Vendedor(int idObj, int rut, string nombre, int edad, string direccion, ListaEstatica<int> 
+*telefonos, ListaEnlazada<int> *idsVentasHechas){
     this->id= idObj;
     this->rut = rut;
     this->nombre = nombre;
@@ -227,7 +228,7 @@ int Vendedor::getRut(){
 string Vendedor::getResumen(){
     stringstream resumen;
     resumen << "Nombre: " << this->nombre << endl;
-    resumen << "Dirección: " << this->direccion << endl;
+    resumen << "Direccin: " << this->direccion << endl;
     resumen << "Edad: " << this->edad << endl;
     resumen << "E-Mail: " << this->email << endl;
     resumen << "Password: " << this->pass << endl;
@@ -297,5 +298,4 @@ Libro *Vendedor::ingresaLibro(){
 void Vendedor::realizarVenta(){
 
 }
-
 
