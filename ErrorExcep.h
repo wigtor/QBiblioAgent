@@ -108,6 +108,7 @@ using namespace std;
 #define E_ISBN_REP              0x1D
 #define E_MONTO                 0x1E
 #define E_TELEFONO              0x1F
+#define E_MAIL                  0x20
 
 //Constantes ReferListas
 #define E_REFERT                0x90
@@ -124,6 +125,7 @@ public:
     ErrorExcep(int m);
     ErrorExcep(int m, string strNombre);
     ErrorExcep(int m, string strNombre, int id);
+    int getMotivo();
     const char* descError() const throw();
 
 private:

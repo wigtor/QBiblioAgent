@@ -22,6 +22,10 @@ ErrorExcep::ErrorExcep(int m, string strNombre, int id){
 
 }
 
+int ErrorExcep::getMotivo(){
+    return this->motivo;
+}
+
 const char* ErrorExcep::descError() const throw(){
     switch (this->motivo){
         case E_REFERT:

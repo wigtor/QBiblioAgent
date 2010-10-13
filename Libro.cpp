@@ -15,15 +15,6 @@
 
 int Libro::idCont = 1;
 int Libro::numOrder = 3;
-/*
-int Libro::ORD_ISBN = 1;
-int Libro::ORD_PRECIO = 2;
-int Libro::ORD_NOM = 3;
-int Libro::ORD_AUTOR = 4;
-int Libro::ORD_PAG = 5;
-int Libro::ORD_PESO = 6;
-int Libro::ORD_STOCK = 7;
-*/
 
 /****************************************
  *
@@ -48,53 +39,49 @@ Libro::Libro(int intIsbn, string strNombre, string strAutor){
     this->autor = strAutor;
 }
 
-Libro::Libro(const Libro& orig){
-
-}
-
 Libro::~Libro(){
 
 }
 
 bool Libro::operator <(const Libro& otroLibro){
     switch(Libro::numOrder){ // Codigos: 1->Isbn / 2->Precio / 3->Nombre / 4->Autor / 5->Paginas / 6->Peso / 7->Stock
-    case 1:
+    case ORD_L_ISBN:
         if (this->isbn < otroLibro.isbn){
             return true;
         }
         else
             return false;
-    case 2:
+    case ORD_L_PRECIO:
         if (this->precio<otroLibro.precio){
             return true;
         }
         else
             return false;
-    case 3:
+    case ORD_L_NOM:
         if (this->nombre.compare(otroLibro.nombre)<0){
             return true;
         }
         else
             return false;
-    case 4:
+    case ORD_L_AUTOR:
         if (this->autor.compare(otroLibro.autor)<0){
             return true;
         }
         else
             return false;
-    case 5:
+    case ORD_L_PAG:
         if (this->paginas<otroLibro.paginas){
             return true;
         }
         else
             return false;
-    case 6:
+    case ORD_L_PESO:
         if (this->peso<otroLibro.peso){
             return true;
         }
         else
             return false;
-    case 7:
+    case ORD_L_STOCK:
         if (this->stock<otroLibro.stock){
             return true;
         }

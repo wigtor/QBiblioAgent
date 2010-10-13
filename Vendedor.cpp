@@ -56,10 +56,6 @@ Vendedor::Vendedor(int numRut, string nombre, string direccion){
     this->pass = (password.str()).substr(pos-3);
 }
 
-Vendedor::Vendedor(const Vendedor& orig){
-
-}
-
 Vendedor::~Vendedor(){
     //Revisar despues
 }

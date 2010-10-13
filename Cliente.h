@@ -26,7 +26,7 @@ using namespace std;
 class Cliente {
 public:
     // CONSTRUCTORES, COPIAS, DESTRUCTORES
-    Cliente();
+    Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos);
     Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email);
     Cliente(int id, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email, ListaEnlazada<int> *idsComprasHechas);
     Cliente(const Cliente& orig);
@@ -40,7 +40,7 @@ public:
     void setNombre(string nombre);
     void setEdad(int edad);
     void setDireccion(string direccion);
-    void setEmail(string email);
+    int setEmail(string email);
     void addIdCompra(int idCompra);
 
     // GETTERS
@@ -67,10 +67,6 @@ public:
 private:
     static int idCont;
     static int numOrder;
-    static int ID;
-    static int RUT;
-    static int NOMBRE;
-    static int CANTCOMPRAS;
     int id;
     int rut;
     string nombre;

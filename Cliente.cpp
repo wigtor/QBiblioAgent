@@ -22,17 +22,6 @@ int Cliente::numOrder = 1;
  CONSTRUCTORES, COPIAS, DESTRUCTORES
  ****************************************/
 
-Cliente::Cliente() {
-    this->id = Cliente::idCont++;
-    this->rut = 0;
-    this->nombre = "";
-    this->edad = 0;
-    this->direccion = "";
-    this->telefonos = new ListaEstatica<int>();
-    this->email = "";
-    this->comprasHechas = new ListaEnlazada<Venta>();
-}
-
 Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, string email) {
     this->id = Cliente::idCont++;
     this->rut = rut;
@@ -41,6 +30,18 @@ Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstati
     this->direccion = direccion;
     this->telefonos = telefonos;
     this->email = email;
+    this->comprasHechas = new ListaEnlazada<Venta>();
+    this->idComprasHechas = new ListaEnlazada<int>();
+}
+
+Cliente::Cliente(int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos) {
+    this->id = Cliente::idCont++;
+    this->rut = rut;
+    this->nombre = nombre;
+    this->edad = edad;
+    this->direccion = direccion;
+    this->email = "";
+    this->telefonos = telefonos;
     this->comprasHechas = new ListaEnlazada<Venta>();
     this->idComprasHechas = new ListaEnlazada<int>();
 }
@@ -104,7 +105,26 @@ void Cliente::setDireccion(string direccion) {
     this->direccion = direccion;
 }
 
-void Cliente::setEmail(string email) {
+int Cliente::setEmail(string strEmail) {
+    size_t pos;
+        if (strEmail[0] == '@'){
+            this->email = "";
+            return 1;
+        }
+        pos = strEmail.find("@");
+        if (pos == string::npos){
+            this->email = "";
+            return 1;
+        }
+        pos = strEmail.find("@", pos+1);
+        if (pos != string::npos){
+            this->email = "";
+            return 1;
+        }
+        this->email = strEmail;
+        return 0;
+
+
     this->email = email;
 }
 

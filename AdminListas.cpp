@@ -161,7 +161,9 @@ void AdminListas::agregarCliente(string rut, string strNombre, string edad, stri
         tempListTelefonos->agregar(new int (intTel));
     }
 
-    Cliente *nuevoCliente = new Cliente(intRut, strNombre, intEdad, direccion, tempListTelefonos, email);
+    Cliente *nuevoCliente = new Cliente(intRut, strNombre, intEdad, direccion, tempListTelefonos);
+    if ((nuevoCliente->setEmail(email)) != 0)
+            throw new ErrorExcep(E_MAIL);
     this->listBaseClientes->agregar(nuevoCliente);
 }
 
@@ -194,11 +196,11 @@ void AdminListas::agregarVendedor(string strRut, string strNombre, string direcc
             throw new ErrorExcep(E_TELEFONO);
         tempListTelefonos->agregar(new int (intTel));
     }
-
-    //Comprobar validez de telefonos
     Vendedor *nuevoVendedor = new Vendedor(intRut, strNombre, direccion);
     nuevoVendedor->setEdad(intEdad);
-    nuevoVendedor->setEmail(strEmail);
+
+    if ((nuevoVendedor->setEmail(strEmail)) != 0)
+        throw new ErrorExcep(E_MAIL);
     nuevoVendedor->setListaTelefonos(tempListTelefonos);
     this->listBaseVendedores->agregar(nuevoVendedor);
 }

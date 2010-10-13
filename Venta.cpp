@@ -66,9 +66,6 @@ Venta::Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente
     this->idVendedor = idVendedor;
 }
 
-Venta::Venta(const Venta& orig) {
-}
-
 Venta::~Venta() {
 }
 

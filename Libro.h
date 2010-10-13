@@ -9,13 +9,13 @@
 #define	LIBRO_H
 
 //Constantes
-#define	ORD_L_ISBN = 1;
-#define	ORD_L_PRECIO = 2;
-#define	ORD_L_NOM = 3;
-#define	ORD_L_AUTOR = 4;
-#define	ORD_L_PAG = 5;
-#define	ORD_L_PESO = 6;
-#define	ORD_L_STOCK = 7;
+#define	ORD_L_ISBN 1
+#define	ORD_L_PRECIO 2
+#define	ORD_L_NOM 3
+#define	ORD_L_AUTOR 4
+#define	ORD_L_PAG 5
+#define	ORD_L_PESO 6
+#define	ORD_L_STOCK 7
 
 
 
@@ -29,7 +29,6 @@ public:
     //Iniciadores y obligatorios
     Libro(int id, int isbn, string nombre, string autor, int precio, int paginas, int peso, int stock); //constructor para CapaIO
     Libro(int intIsbn, string strNombre, string strAutor);
-    Libro(const Libro& orig);
     virtual ~Libro();
     bool operator<(const Libro& otroLibro);
     bool operator>(const Libro& otroLibro);

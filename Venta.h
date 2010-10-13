@@ -33,7 +33,6 @@ public:
     Venta();
     Venta(int id, bool correlativo, int idLibro, int idCliente, int idVendedor, int cantidadLibros, int montoTotal, Fecha *fecha);
     Venta(bool correlativo, int idLibro, Libro *libro, int idCliente, Cliente *cliente, int idVendedor, Vendedor *vendedor, int cantidadLibros, int montoTotal, Fecha *fecha);
-    Venta(const Venta& orig);
     virtual ~Venta();
 
     // SETTERS
