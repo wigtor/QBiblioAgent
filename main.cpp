@@ -15,7 +15,6 @@
 #include "Vendedor.h"
 #include "Venta.h"
 #include "Cliente.h"
-#include "Admin.h"
 #include "Libro.h"
 #include "ReferListas.h"
 #include "AdminListas.h"

@@ -22,7 +22,6 @@ SOURCES += main.cpp \
     Libro.cpp \
     CapaIO.cpp \
     Vendedor.cpp \
-    Admin.cpp \
     Fecha.cpp \
     ReferListas.cpp \
     AdminListas.cpp \
@@ -38,7 +37,6 @@ HEADERS += \
     CapaIO.h \
     Cliente.h \
     Vendedor.h \
-    Admin.h \
     Fecha.h \
     ReferListas.h \
     AdminListas.h \
