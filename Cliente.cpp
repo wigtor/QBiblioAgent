@@ -122,7 +122,7 @@ string Cliente::getResumen(){
     resumen << "E-Mail: " << this->email << endl;
     resumen << "Telefonos: ";
     for (i = 0; i < this->telefonos->longitud(); i++)
-        resumen << this->telefonos->recuperar(i) << ", ";
+        resumen << *(this->telefonos->recuperar(i)) << ", ";
     resumen << endl << "Cantidad de compras: " << this->comprasHechas->longitud() << endl;
     return resumen.str();
 }

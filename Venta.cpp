@@ -176,6 +176,19 @@ Fecha *Venta::getFecha() {
     return this->fecha;
 }
 
+string Venta::getResumen(){
+    stringstream resumen;
+    resumen << "corretalivo: " << this->correlativo << endl;
+    resumen << "Libro: " << this->libro->getNombre() << endl;
+    resumen << "Cliente: " << this->cliente->getNombre() << endl;
+    resumen << "Rut Cliente: " << this->cliente->getRut() << endl;
+    resumen << "Vendedor: " << this->vendedor->getNombre() << endl;
+    resumen << "Rut vendedor: " << this->vendedor->getRut() << endl;
+    resumen << "Cantidad de libros: " << this->cantidadLibros << endl;
+    resumen << "Monto total: " << this->montoTotal << endl;
+    return resumen.str();
+    }
+
 int Venta::getIdVendedor() {
     return this->idVendedor;
 }

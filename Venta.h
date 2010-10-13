@@ -60,7 +60,8 @@ public:
     int getIdCliente();    
     Cliente *getCliente();    
     int getCantidadLibros();   
-    int getMontoTotal();   
+    int getMontoTotal();
+    string getResumen();
     Vendedor *getVendedor();   
     Fecha *getFecha();   
     int getIdVendedor();

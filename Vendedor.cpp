@@ -247,7 +247,7 @@ string Vendedor::getResumen(){
     //resumen << "Password: " << this->pass << endl;
     resumen << "Telefonos: ";
     for (i = 0; i < this->telefonos->longitud(); i++)
-        resumen << this->telefonos->recuperar(i) << ", ";
+        resumen << *(this->telefonos->recuperar(i)) << ", ";
     resumen << endl << "Cantidad de compras: " << this->ventas->longitud() << endl;
     return resumen.str();
 }

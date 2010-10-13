@@ -71,7 +71,7 @@ bool Menu::verificarOpcion(string entrada, int nroOpciones) {
     for (int i = 1; i <= nroOpciones; i++) {
         if (entrada == intAString(i)) {
             valido = false;
-            break;
+            return valido;
         }
     }
     return valido;
@@ -81,7 +81,7 @@ void Menu::menuAcceso() {
     char *opcionAcceso, *user, *pass;
     string opcionAccesoStr = "0";
     string userStr, passStr;
-    int contPass;
+    int contPass = 0;
 
     while (opcionAccesoStr ==  "0") {
         cout << "QBiblioAgent" << endl;
@@ -91,8 +91,7 @@ void Menu::menuAcceso() {
         cout << "" << endl;
         cout << "1. Ingresar como administrador" << endl;
         cout << "2. Ingresar como vendedor" << endl;
-        cout << "3. Salir" << endl;
-        cout << "" << endl;
+        cout << "3. Salir" << endl << endl;
         cout << ">> ";
         opcionAcceso = Menu::leeString(stdin, opcionAcceso);
         opcionAccesoStr = *(new string(opcionAcceso));
@@ -105,9 +104,10 @@ void Menu::menuAcceso() {
         }
 
         while (opcionAccesoStr == "1") {
-            if (contPass++ == 3){
+            if (contPass++ >= 3){
                 cout << "Demasiados intentos de contraseña..." << endl;
                 opcionAccesoStr = "0";
+                contPass = 0;
                 continue;
             }
             cout << "Ingrese su nombre de usuario:" << endl;
@@ -133,8 +133,9 @@ void Menu::menuAcceso() {
         }
 
         while (opcionAccesoStr == "2") {
-            if (contPass++ == 3){
+            if (contPass++ >= 3){
                 opcionAccesoStr = "0";
+                contPass = 0;
                 continue;
             }
 
@@ -190,7 +191,7 @@ void Menu::menuAdmin() {
 
         if (opcionAdminStr == "1") {
             menuListVendedores();
-            opcionAdminStr == "0";
+            opcionAdminStr = "0";
         }
 
         while (opcionAdminStr == "2") {
@@ -211,7 +212,7 @@ void Menu::menuAdmin() {
                 cout << endl;
                 if (nombreStr == ""){
                     opcionAdminStr = "0";
-                    continue;
+                    break;
                 }
                 pos = encuentraUsuario(nombreStr);
             }
@@ -274,8 +275,9 @@ void Menu::menuAdmin() {
 
 void Menu::menuListVendedores() {
     char *opcionListVend = NULL;
-    int critOrden;
+    int critOrden, i;
     string opcionListVendStr = "0";
+    ListaEstatica<Vendedor> *lVendedoresTemp;
 
     while (opcionListVendStr == "0") {
         cout << "Lista de vendedores" << endl;
@@ -292,16 +294,20 @@ void Menu::menuListVendedores() {
         cout << ">> ";
         opcionListVend = Menu::leeString(stdin, opcionListVend);
         opcionListVendStr = *(new string(opcionListVend));
-        cout << "" << endl;
+        cout << endl;
 
         if (this->verificarOpcion(opcionListVendStr, 6)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor.";
-            cout << "" << endl;
+            cout << endl;
             opcionListVendStr = "0";
         }
 
         if (opcionListVendStr == "1") {
-            //MOSTRAR LISTAS DE VENDEDORES ACÁ
+            lVendedoresTemp = this->adminListas->getListaVendedores();
+            cout << "Se va a mostrar un listado de las vendedores: " <<endl;
+            for (i = 0; i < lVendedoresTemp->longitud(); i++) {
+                cout << endl << lVendedoresTemp->recuperar(i)->getResumen() << endl;
+            }
             opcionListVendStr = "0";
         }
 
@@ -338,20 +344,18 @@ void Menu::menuListVendedores() {
 }
 
 int Menu::menuOrden() { // MENU GENERAL PARA DETERMINAR EL CRITERIO DE ORDENAMIENTO
-    char *opcionOrd;
+    char *opcionOrd = NULL;
     int critOrden;
     string opcionOrdStr = "0";
 
     while (opcionOrdStr == "0") {
-        cout << "Escoja una opcion:" << endl;
-        cout << "" << endl;
+        cout << "Escoja una opcion:" << endl << endl;
         cout << "1. Orden creciente" << endl;
-        cout << "2. Orden decreciente" << endl;
-        cout << "" << endl;
+        cout << "2. Orden decreciente" << endl << endl;
         cout << ">> ";
-        opcionOrd =Menu::leeString(stdin, opcionOrd);
-        opcionOrdStr = *(new string(opcionOrdStr));
-        cout << "" << endl;
+        opcionOrd = Menu::leeString(stdin, opcionOrd);
+        opcionOrdStr = *(new string(opcionOrd));
+        cout << endl;
 
         if (this->verificarOpcion(opcionOrdStr, 2)) {
             cout << "Opcion incorrecta. Intente de nuevo por favor." << endl;
@@ -504,8 +508,9 @@ void Menu::menuModVend() {
 
 void Menu::menuListVentas() {
     char *opcionListVent;
-    int critOrden;
+    int critOrden, i;
     string opcionListVentStr = "0";
+    ListaEnlazada<Venta> *lVentasTemp;
 
     while (opcionListVentStr == "0") {
         cout << "Lista de ventas" << endl;
@@ -530,7 +535,11 @@ void Menu::menuListVentas() {
         }
 
         if (opcionListVentStr == "1") {
-            //  FALTA MOSTRAR LISTA DE VENTAS ACÁ
+            lVentasTemp = this->adminListas->getListaVentas();
+            cout << "Se va a mostrar un listado de las ventas: " <<endl;
+            for (i = 0; i < lVentasTemp->longitud(); i++) {
+                cout << endl << lVentasTemp->recuperar(i)->getResumen() << endl;
+            }
             opcionListVentStr = "0";
         }
 
@@ -627,7 +636,7 @@ void Menu::menuVend() {
                 cout << endl;
                 if (nombreStr == ""){
                     opcionVendStr = "";
-                    continue ;
+                    break ;
                 }
                 pos = this->encuentraCliente(nombreStr);
             }
@@ -742,8 +751,9 @@ void Menu::menuVend() {
 
 void Menu::menuListClientes() {
     char *opcionListCliente;
-    int critOrden;
+    int critOrden, i;
     string opcionListClienteStr = "0";
+    ListaEnlazada<Cliente> *lClienteTemp;
 
     while (opcionListClienteStr == "0") {
         cout << "Lista de clientes" << endl;
@@ -763,13 +773,16 @@ void Menu::menuListClientes() {
         cout << "" << endl;
 
         if (this->verificarOpcion(opcionListClienteStr, 5)) {
-            cout << "Opcion incorrecta. Intente de nuevo por favor.";
-            cout << "" << endl;
+            cout << "Opcion incorrecta. Intente de nuevo por favor." << endl;
             opcionListClienteStr = "0";
         }
 
         if (opcionListClienteStr == "1") {
-            // MOSTRAR LA LISTA DE CLIENTES ACÁ
+            lClienteTemp = this->adminListas->getListaClientes();
+            cout << "Se va a mostrar un listado de los clientes: " <<endl;
+            for (i = 0; i < lClienteTemp->longitud(); i++) {
+                cout << endl << lClienteTemp->recuperar(i)->getResumen() << endl;
+            }
             opcionListClienteStr = "0";
         }
 
