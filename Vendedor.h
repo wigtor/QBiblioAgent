@@ -63,6 +63,7 @@ public:
     string getResumen();
     string getNombre();
     int getEdad();
+    string getEmail();
     string getDireccion();
     ListaEstatica<int> *getTelefonos();
     ListaEnlazada<Venta> *getVentas();

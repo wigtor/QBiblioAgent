@@ -608,10 +608,10 @@ void Menu::menuListVentas() {
 
 void Menu::menuVend() {
     char *opcionVend=NULL, *charTemp=NULL,*nombre=NULL, *isbn=NULL, *autor=NULL, *paginas=NULL, *direccion=NULL;
-    char *precio=NULL, *stock=NULL, *rut=NULL, *edad=NULL, *dir=NULL, *email=NULL, *nroTel=NULL;
+    char *precio=NULL, *stock=NULL, *rut=NULL, *edad=NULL, *dir=NULL, *email=NULL, *nroTel=NULL, *peso = NULL;
     int pos;
     string opcionVendStr = "0";
-    string nombreStr, isbnStr, autorStr, paginasStr, precioStr, stockStr, rutStr, edadStr, dirStr, emailStr, nroTelStr;
+    string nombreStr, isbnStr, autorStr, paginasStr, precioStr, stockStr, rutStr, edadStr, dirStr, emailStr, nroTelStr, pesoStr;
 
     while (opcionVendStr == "0") {
         cout << "Vendedor" << endl;
@@ -736,50 +736,71 @@ void Menu::menuVend() {
             opcionVendStr = "0";
         }
 
-        while (opcionVendStr == "5") { // CONTROLAR DATOS
+        while (opcionVendStr == "5") {
             cout << "Ingrese el nombre del libro:" << endl;
             cout << ">> ";
-            nombre =Menu::leeString(stdin, nombre);
+            nombre = Menu::leeString(stdin, nombre);
             nombreStr = *(new string(nombre));
-            cout << "" << endl;
+            cout << endl;
 
             cout << "Ingrese el ISBN del libro:" << endl;
             cout << ">> ";
-            isbn =Menu::leeString(stdin, rut);
-            isbnStr = *(new string(rut));
-            cout << "" << endl;
+            isbn = Menu::leeString(stdin, isbn);
+            isbnStr = *(new string(isbn));
+            cout << endl;
 
             cout << "Ingrese el autor del libro:" << endl;
             cout << ">> ";
-            autor =Menu::leeString(stdin, direccion);
-            autorStr = *(new string(direccion));
-            cout << "" << endl;
+            autor = Menu::leeString(stdin, autor);
+            autorStr = *(new string(autor));
+            cout << endl;
 
             cout << "Ingrese el precio del libro:" << endl;
             cout << ">> ";
-            precio =Menu::leeString(stdin, edad);
-            precioStr = *(new string(edad));
-            cout << "" << endl;
+            precio = Menu::leeString(stdin, precio);
+            precioStr = *(new string(precio));
+            cout << endl;
 
             cout << "Ingrese el numero de paginas del libro:" << endl;
             cout << ">> ";
-            paginas =Menu::leeString(stdin, edad);
-            paginasStr = *(new string(edad));
-            cout << "" << endl;
+            paginas = Menu::leeString(stdin, paginas);
+            paginasStr = *(new string(paginas));
+            cout << endl;
 
             cout << "Ingrese el peso del libro:" << endl;
             cout << ">> ";
-            precio =Menu::leeString(stdin, edad);
-            precioStr = *(new string(edad));
-            cout << "" << endl;
+            peso = Menu::leeString(stdin, peso);
+            pesoStr = *(new string(peso));
+            cout << endl;
 
             cout << "Ingrese el stock del libro:" << endl;
             cout << ">> ";
-            stock =Menu::leeString(stdin, edad);
-            stockStr = *(new string(edad));
-            cout << "" << endl;
+            stock = Menu::leeString(stdin, stock);
+            stockStr = *(new string(stock));
+            cout << endl;
 
-            // Controlar datos
+            try {
+                this->adminListas->agregarLibro(nombreStr, isbnStr, autorStr, paginasStr, pesoStr, precioStr, stockStr);
+            }
+            catch (ErrorExcep e) {
+                if (e.getMotivo() == E_NOMB_REP)
+                    cout << "El nombre del libro esta repetido, intente ingresar otro nombre" << endl;
+                if (e.getMotivo() == E_ISBN_REP)
+                    cout << "El isbn del libro esta repetido, intente denuevo" << endl;
+                if (e.getMotivo() == E_ISBN)
+                    cout << "El numero isbn introducido no es valido, intente con otro rut" << endl;
+                if (e.getMotivo() == E_PAGINAS)
+                    cout << "El numero de paginas introducidas no es valida, intente nuevamente" << endl;
+                if (e.getMotivo() == E_PESO)
+                    cout << "El peso introducido no es valido, intente nuevamente" << endl;
+                if (e.getMotivo() == E_PRECIO)
+                    cout << "El precio introducido no es valido, intente nuevamente" << endl;
+                if (e.getMotivo() == E_STOCK)
+                    cout << "El stock introducido no es valido, intente nuevamente" << endl;
+                cout << "presione ENTER para volver al menu de vendedor" << endl;
+                charTemp = Menu::leeString(stdin, charTemp);
+                opcionVendStr = "0";
+            }
 
             opcionVendStr = "0";
         }
@@ -1036,8 +1057,7 @@ char *Menu::leeString(FILE *flujo, char *punteroString)
         punteroString[0] = '\0';
         do
         {	if (espacioLibre <= 2) //si falta espacio en el string, lo redimensiono
-                {	punteroString = (char *)realloc(punteroString, (strlen(punteroString) + TAM_REDIM) * 
-sizeof(char));
+                {	punteroString = (char *)realloc(punteroString, (strlen(punteroString) + TAM_REDIM) * sizeof(char));
                         espacioLibre+= TAM_REDIM;
                 }
                 punteroString[i] = getc(flujo);

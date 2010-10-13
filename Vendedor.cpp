@@ -232,6 +232,10 @@ int Vendedor::getNumOrder(){
     return Vendedor::numOrder;
 }
 
+string Vendedor::getEmail(){
+    return this->email;
+}
+
 string Vendedor::getResumen(){
     stringstream resumen;
     int i;
