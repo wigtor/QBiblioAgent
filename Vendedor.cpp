@@ -203,6 +203,10 @@ void Vendedor::setActivo(bool activo){
     this->activo = activo;
 }
 
+void Vendedor::setRut(int intRut){
+    this->rut = intRut;
+}
+
 void Vendedor::setListaTelefonos(ListaEstatica<int> *listaTelefonos){
     this->telefonos = listaTelefonos;
 }

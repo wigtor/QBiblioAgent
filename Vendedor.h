@@ -50,6 +50,7 @@ public:
     void setDireccion(string strDireccion);
     int setEmail(string strEmail);
     void setActivo(bool activo);
+    void setRut(int intRut);
     void setListaTelefonos(ListaEstatica<int> *listaTelefonos);
     void addTelefono(int telefonoAgregado);
     void addVenta(Venta *ventaAgregada);

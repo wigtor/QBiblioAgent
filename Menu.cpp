@@ -795,7 +795,7 @@ int Menu::menuOrden() { // MENU GENERAL PARA DETERMINAR EL CRITERIO DE ORDENAMIE
 void Menu::menuModVend() {
     char *opModVend=NULL, *nombre=NULL, *nvoNombre=NULL, *nvoRut=NULL, *nvaDir=NULL;
     char *nvoTel=NULL, *borrTel=NULL, *nvoEmail=NULL, *nvaEdad=NULL, *charTemp=NULL;
-    string opModVendStr = "0", direccionStr, rutStr, edadStr, emailStr;
+    string opModVendStr = "0";
     string nombreStr, nvoNombreStr, nvoTelStr, borrTelStr, nvoRutStr, nvaDirStr;
     string nvaEdadStr, nvoEmailStr, nrosTelStr;
     stringstream srtTel;
@@ -807,11 +807,10 @@ void Menu::menuModVend() {
         cout << ">> ";
         nombre = Menu::leeString(stdin, nombre);
         nombreStr = *(new string(nombre));
-        cout << "" << endl;
+        cout << endl;
 
-        if (encuentraUsuario(nombreStr) != -1) {
+        if ((pos = encuentraUsuario(nombreStr)) != -1) {
             nombreValido = true;
-            pos = encuentraUsuario(nombreStr);
             id = adminListas->getListaVendedores()->recuperar(pos)->getId();
         }
         else {
@@ -830,11 +829,10 @@ void Menu::menuModVend() {
         cout << "5. Agregar telefono" << endl;
         cout << "6. Quitar telefono" << endl;
         cout << "7. Email" << endl;
-        cout << "8. Volver" << endl;
-        cout << "" << endl;
+        cout << "8. Volver" << endl << endl;
         cout << ">> ";
         opModVend = Menu::leeString(stdin, opModVend);
-        opModVendStr = *(new string(opModVendStr));
+        opModVendStr = *(new string(opModVend));
         cout << endl;
 
         if (this->verificarOpcion(opModVendStr, 8)) {
@@ -855,19 +853,6 @@ void Menu::menuModVend() {
             nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
             nrosTelStr = getNrosTelVend(pos);
             cout << endl;
-            try {
-                this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-                cout << "Se ha modificado el nombre del vendedor." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_NOMB_REP)
-                    cout << "El nombre del vendedor esta repetido; intente ingresar otro nombre." << endl;
-                cout << "Presione ENTER para volver al menu de administrador" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModVendStr = "0";
         }
 
@@ -882,19 +867,6 @@ void Menu::menuModVend() {
             nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
             nrosTelStr = Menu::getNrosTelVend(pos);
             cout << endl;
-            try {
-                this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-                cout << "Se ha modificado el rut del vendedor." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_RUT)
-                    cout << "El rut no es valido; intente de nuevo por favor." << endl;
-                cout << "Presione ENTER para volver al menu de administrador" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModVendStr = "0";
         }
 
@@ -909,11 +881,7 @@ void Menu::menuModVend() {
             nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
             nrosTelStr = Menu::getNrosTelVend(pos);
             cout << endl;
-            this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
             opModVendStr = "0";
-            cout << endl;
-            cout << "Se ha modificado la direccion del vendedor." << endl;
-            cout << endl;
         }
 
         if (opModVendStr == "4") {
@@ -927,19 +895,6 @@ void Menu::menuModVend() {
             nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
             nrosTelStr = Menu::getNrosTelVend(pos);
             cout << endl;
-            try {
-                this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-                cout << "Se ha modificado la edad del vendedor." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_EDAD)
-                    cout << "La edad no es valida; intente de nuevo por favor." << endl;
-                cout << "Presione ENTER para volver al menu de administrador" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModVendStr = "0";
         }
 
@@ -957,21 +912,6 @@ void Menu::menuModVend() {
             nvaEdadStr = adminListas->getListaVendedores()->recuperar(pos)->getEdad();
             nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
             cout << endl;
-            try {
-                this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-                cout << "Se ha agregado el telefono del vendedor." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_TEL_REP)
-                    cout << "El telefono ya existe; intente de nuevo por favor." << endl;
-                if (e.getMotivo() == E_TELEFONO)
-                    cout << "El telefono no es valido; intente de nuevo por favor." << endl;
-                cout << "Presione ENTER para volver al menu de administrador" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModVendStr = "0";
         }
 
@@ -989,21 +929,6 @@ void Menu::menuModVend() {
             nvaEdadStr = adminListas->getListaVendedores()->recuperar(pos)->getEdad();
             nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
             cout << endl;
-            try {
-                this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-                cout << "Se ha eliminado el telefono del vendedor." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_TEL_NO_EXISTE) // FALTA EXCEPCION
-                    cout << "El telefono no existe; intente de nuevo por favor." << endl;
-                if (e.getMotivo() == E_TELEFONO) // FALTA EXCEPCION
-                    cout << "El telefono no es valido; intente de nuevo por favor." << endl;
-                cout << "Presione ENTER para volver al menu de administrador" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModVendStr = "0";
         }
 
@@ -1017,11 +942,31 @@ void Menu::menuModVend() {
             nvaEdadStr = adminListas->getListaVendedores()->recuperar(pos)->getEdad();
             nrosTelStr = Menu::getNrosTelVend(pos);
             cout << endl;
-            this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-            cout << "Se ha modificado el email del vendedor." << endl;
-            cout << endl;
             opModVendStr = "0";
         }
+        try {
+            this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
+            cout << "Se ha modificado el vendedor." << endl;
+            cout << endl;
+            cout << "Presione ENTER para volver al menu de administrador" << endl;
+            cout << endl;
+            charTemp = Menu::leeString(stdin, charTemp);
+        }
+        catch (ErrorExcep &e) {
+            if (e.getMotivo() == E_NOMB_REP)
+                cout << "El nombre del vendedor esta repetido; intente ingresar otro nombre." << endl;
+            if (e.getMotivo() == E_EDAD)
+                cout << "La edad no es valida; intente de nuevo por favor." << endl;
+            if (e.getMotivo() == E_RUT)
+                cout << "El rut no es valido; intente de nuevo por favor." << endl;
+            if (e.getMotivo() == E_TEL_NO_EXISTE)
+                cout << "El telefono no existe; intente de nuevo por favor." << endl;
+            if (e.getMotivo() == E_TELEFONO)
+                cout << "El telefono no es valido; intente de nuevo por favor." << endl;
+            if (e.getMotivo() == E_MAIL)
+                cout << "El mail no es valido; intente de nuevo por favor." << endl;
+        }
+
     }
 }
 

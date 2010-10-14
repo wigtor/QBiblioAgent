@@ -40,7 +40,6 @@ public:
     //////////////////////////////////
 
     //Funciones adicionales
-    void editarLibro(int idOrig ,string precio, string stock);
     void editarCliente(int idOrig, string rut, string nombre, string edad, string direccion, string listTelefonos, string email);
     void editarVendedor(int idOrig, string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos);
     string quitarEspacioExtremos(string texto);

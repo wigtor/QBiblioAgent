@@ -222,16 +222,98 @@ void AdminListas::agregarVendedor(string strRut, string strNombre, string direcc
  *
  ****************************************/
 
-void AdminListas::editarLibro(int idOrig ,string precio, string stock){
+void AdminListas::editarCliente(int idOrig, string rut, string strNombre, string edad, string direccion, string listTelefonos, string email){
+    int intEdad, intRut, i;
+    Cliente *clienteTemp = NULL, *clienteAct = NULL;
+    //Busco el cliente que estoy modificando en la lista de clientes:
+    for (i = 0; i < this->listBaseVendedores->longitud(); i++) {
+        clienteTemp = this->listBaseClientes->recuperar(i);
+        if (clienteTemp->getId() == idOrig)
+                clienteAct = clienteTemp;
+    }
 
+    if ((intEdad = atoi(edad.c_str())) == 0)
+        throw ErrorExcep(E_EDAD);
+    if ((intRut = atoi(rut.c_str())) == 0)
+        throw ErrorExcep(E_RUT);
+    for (i = 0; i < this->listBaseClientes->longitud();i++){
+        clienteTemp = this->listBaseClientes->recuperar(i);
+        if ((clienteTemp->getNombre() == strNombre)  && (clienteTemp != clienteAct))
+            throw ErrorExcep(E_NOMB_REP);
+        if ((clienteTemp->getRut() == intRut)  && (clienteTemp != clienteAct))
+            throw ErrorExcep(E_RUT_REP);
+    }
 
+    ListaEstatica<int> *tempListTelefonos = new ListaEstatica<int>();
+        int intTel;
+        int posInicio = 0, posFinal;
+        listTelefonos = AdminListas::quitarEspacioExtremos(listTelefonos);
+        posFinal = listTelefonos.find(" ", posInicio+1);
+        while (listTelefonos != "") //REVISAR SI ESTA BUENO
+        {   posFinal = listTelefonos.find(" ", posInicio+1);
+            if ((intTel = atoi(listTelefonos.substr(posInicio, posFinal - posInicio).c_str())) == 0)
+                throw ErrorExcep(E_TELEFONO);
+            if (posFinal == -1)
+                         listTelefonos = "";
+            tempListTelefonos->agregar(new int (intTel));
+            listTelefonos = listTelefonos.substr(posFinal - posInicio+1, listTelefonos.length()-(posFinal - posInicio-1));
+        }
+
+    clienteAct->setRut(intRut);
+    clienteAct->setNombre(strNombre);
+    clienteAct->setEdad(intEdad);
+    clienteAct->setDireccion(direccion);
+    if ((clienteAct->setEmail(email)) != 0)
+            throw ErrorExcep(E_MAIL);
+    //clienteAct->setListaTelefonos(tempListTelefonos);
 }
 
-void AdminListas::editarCliente(int idOrig, string rut, string nombre, string edad, string direccion, string listTelefonos, string email){
+void AdminListas::editarVendedor(int idOrig, string strRut, string strNombre, string direccion, string strEdad, string strEmail, string listTelefonos){
+    int i, intRut, intEdad;
+    Vendedor *vendedorTemp = NULL, *vendedorAct = NULL;
+    //Busco el vendedor que estoy modificando en la lista de vendedores:
+    for (i = 0; i < this->listBaseVendedores->longitud(); i++) {
+        vendedorTemp = this->listBaseVendedores->recuperar(i);
+        if (vendedorTemp->getId() == idOrig)
+            vendedorAct = vendedorTemp;
+    }
 
-}
+    //Compruebo que el rut, edad y nombre son validos y no repetidos
+    if ((intRut = atoi(strRut.c_str())) == 0)
+        throw ErrorExcep(E_RUT);
+    if ((intEdad = atoi(strEdad.c_str())) == 0)
+            throw ErrorExcep(E_EDAD);
+    for (i = 0; i < this->listBaseVendedores->longitud();i++){
+        vendedorTemp = this->listBaseVendedores->recuperar(i);
+        if ((vendedorTemp->getNombre() == strNombre) && (vendedorTemp != vendedorAct))
+            throw ErrorExcep(E_NOMB_REP);
+        if ((vendedorTemp->getRut() == intRut) && (vendedorTemp != vendedorAct))
+            throw ErrorExcep(E_RUT_REP);
+    }
 
-void AdminListas::editarVendedor(int idOrig, string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos){
+
+    ListaEstatica<int> *tempListTelefonos = new ListaEstatica<int>();
+    int intTel;
+    int posInicio = 0, posFinal;
+    listTelefonos = AdminListas::quitarEspacioExtremos(listTelefonos);
+    posFinal = listTelefonos.find(" ", posInicio+1);
+    while (listTelefonos != "") //REVISAR SI ESTA BUENO
+    {   posFinal = listTelefonos.find(" ", posInicio+1);
+        if ((intTel = atoi(listTelefonos.substr(posInicio, posFinal - posInicio).c_str())) == 0)
+            throw ErrorExcep(E_TELEFONO);
+        if (posFinal == -1)
+            listTelefonos = "";
+        tempListTelefonos->agregar(new int (intTel));
+        listTelefonos = listTelefonos.substr(posFinal - posInicio+1, listTelefonos.length()-(posFinal - posInicio-1));
+    }
+
+    vendedorAct->setEdad(intEdad);
+    vendedorAct->setDireccion(direccion);
+    vendedorAct->setNombre(strNombre);
+    vendedorAct->setRut(intRut);
+    if ((vendedorAct->setEmail(strEmail)) != 0)
+        throw ErrorExcep(E_MAIL);
+    vendedorAct->setListaTelefonos(tempListTelefonos);
 
 }
 
