@@ -132,6 +132,10 @@ ListaEstatica<Vendedor> *CapaIO::leeUsuarios()
         lVendedores->agregar(vendedorEncontrado);
     lineaDatos.str("");
     }
+    if (lVendedores->longitud() == 0) { //Si está vacia falta agregar el administrador
+        Vendedor *admin = new Vendedor(0, false, 111111, "admin", 1, "admin@admin", "admin", new ListaEstatica<int>(), new ListaEnlazada<int>());
+        lVendedores->agregar(admin);
+    }
     /** Cierro el archivo*/
     fclose(this->fUsuarios);
     return lVendedores;

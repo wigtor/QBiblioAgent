@@ -8,6 +8,7 @@
 #ifndef ADMINLISTAS_H
 #define ADMINLISTAS_H
 
+#include <ctime>
 #include "ListaEstatica.h"
 #include "ListaEnlazada.h"
 #include "Cliente.h"
@@ -42,7 +43,6 @@ public:
     void editarLibro(int idOrig ,string precio, string stock);
     void editarCliente(int idOrig, string rut, string nombre, string edad, string direccion, string listTelefonos, string email);
     void editarVendedor(int idOrig, string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos);
-    void eliminarVendedor(int idVendedor);
     string quitarEspacioExtremos(string texto);
     //////////////////////////////////
 

@@ -63,7 +63,7 @@ int ReferListas::crearReferenciasVentas(){
         Cliente *cActual;
         Vendedor *vendActual;
         Libro *libroActual;
-        int id, valid=-1;
+        int id;
         for (int i = 0; i < this->listVentas->longitud(); i++){
             ventActual = this->listVentas->recuperar(i);
             id = ventActual->getIdCliente();
@@ -71,7 +71,6 @@ int ReferListas::crearReferenciasVentas(){
                 cActual = listClientes->recuperar(j);
                 if (cActual->getId() == id){
                     ventActual->setCliente(cActual);
-                    valid -= 2;
                     break;
                 }
             }
@@ -88,16 +87,10 @@ int ReferListas::crearReferenciasVentas(){
                 vendActual = listVendedores->recuperar(k);
                 if (vendActual->getId() == id){
                     ventActual->setVendedor(vendActual);
-                    valid--;
                     break; //Si no quieres break avisame !!!!!!!!!!
                 }
             }
         }
-
-
-        if (valid == -1) throw ErrorExcep(E_VENTASINREFERENCIAS);
-        if (valid == -2) throw ErrorExcep(E_VENTASINCLIENTE);
-        if (valid == -3) throw ErrorExcep(E_VENTASINVENDEDOR);
     }
 
     catch(ErrorExcep *e){
