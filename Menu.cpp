@@ -1513,19 +1513,6 @@ void Menu::menuModCliente() {
             nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
             nrosTelStr = getNrosTelClient(pos);
             cout << endl;
-            try {
-                this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-                cout << "Se ha modificado el nombre del cliente." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_NOMB_REP)
-                    cout << "El nombre del cliente esta repetido; intente ingresar otro nombre." << endl;
-                cout << "Presione ENTER para volver al menu de vendedor" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModClienteStr = "0";
         }
 
@@ -1541,19 +1528,6 @@ void Menu::menuModCliente() {
             nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
             nrosTelStr = getNrosTelClient(pos);
             cout << endl;
-            try {
-                this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-                cout << "Se ha modificado el rut del cliente." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_RUT)
-                    cout << "El rut del cliente no es valido; intente de nuevo por favor." << endl;
-                cout << "Presione ENTER para volver al menu de vendedor" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModClienteStr = "0";
         }
 
@@ -1568,9 +1542,6 @@ void Menu::menuModCliente() {
             nvaEdadStr = adminListas->getListaClientes()->recuperar(pos)->getEdad();
             nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
             nrosTelStr = getNrosTelClient(pos);
-            cout << endl;
-            this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-            cout << "Se ha modificado la direccion del cliente." << endl;
             cout << endl;
             opModClienteStr = "0";
         }
@@ -1587,19 +1558,6 @@ void Menu::menuModCliente() {
             nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
             nrosTelStr = getNrosTelClient(pos);
             cout << endl;
-            try {
-                this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-                cout << "Se ha modificado la edad del cliente." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_EDAD)
-                    cout << "La edad del cliente no es valida; intente de nuevo por favor." << endl;
-                cout << "Presione ENTER para volver al menu de vendedor" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModClienteStr = "0";
         }
 
@@ -1617,21 +1575,6 @@ void Menu::menuModCliente() {
             nvaEdadStr = adminListas->getListaClientes()->recuperar(pos)->getEdad();
             nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
             cout << endl;
-            try {
-                this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaEdadStr, nvaDirStr, nrosTelStr, nvoEmailStr);
-                cout << "Se ha agregado el telefono del vendedor." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_TEL_REP)
-                    cout << "El telefono ya existe; intente de nuevo por favor." << endl;
-                if (e.getMotivo() == E_TELEFONO)
-                    cout << "El telefono no es valido; intente de nuevo por favor." << endl;
-                cout << "Presione ENTER para volver al menu de vendedor" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModClienteStr = "0";
         }
 
@@ -1649,21 +1592,6 @@ void Menu::menuModCliente() {
             nvaEdadStr = adminListas->getListaClientes()->recuperar(pos)->getEdad();
             nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
             cout << endl;
-            try {
-                this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaEdadStr, nvaDirStr, nrosTelStr, nvoEmailStr);
-                cout << "Se ha eliminado el telefono del vendedor." << endl;
-                cout << endl;
-            }
-            catch (ErrorExcep &e) {
-                if (e.getMotivo() == E_TEL_NO_EXISTE) // FALTA EXCEPCION
-                    cout << "El telefono no existe; intente de nuevo por favor." << endl;
-                if (e.getMotivo() == E_TELEFONO) // FALTA EXCEPCION
-                    cout << "El telefono no es valido; intente de nuevo por favor." << endl;
-                cout << "Presione ENTER para volver al menu de vendedor" << endl;
-                cout << endl;
-                Menu::leeString(stdin, charTemp);
-            }
-
             opModClienteStr = "0";
         }
 
@@ -1679,10 +1607,31 @@ void Menu::menuModCliente() {
             nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
             nrosTelStr = getNrosTelClient(pos);
             cout << endl;
-            this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
-            cout << "Se ha modificado el email del cliente." << endl;
-            cout << endl;
             opModClienteStr = "0";
+        }
+
+        try {
+            this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
+            cout << "Se ha modificado el cliente." << endl;
+            cout << endl;
+        }
+        catch (ErrorExcep &e) {
+            if (e.getMotivo() == E_NOMB_REP)
+                cout << "El nombre del cliente esta repetido; intente ingresar otro nombre." << endl;
+            if (e.getMotivo() == E_RUT)
+                cout << "El rut del cliente no es valido; intente de nuevo por favor." << endl;
+            if (e.getMotivo() == E_MAIL)
+                cout << "El mail introducido no es valido; intente ingresar otro mail." << endl;
+            if (e.getMotivo() == E_TEL_NO_EXISTE) // FALTA EXCEPCION
+                cout << "El telefono no existe; intente de nuevo por favor." << endl;
+            if (e.getMotivo() == E_TELEFONO) // FALTA EXCEPCION
+                cout << "El telefono no es valido; intente de nuevo por favor." << endl;
+            if (e.getMotivo() == E_EDAD)
+                cout << "La edad del cliente no es valida; intente de nuevo por favor." << endl;
+
+            cout << "Presione ENTER para volver al menu de vendedor" << endl;
+            cout << endl;
+            charTemp = Menu::leeString(stdin, charTemp);
         }
     }
 }
