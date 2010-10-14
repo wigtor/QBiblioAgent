@@ -105,7 +105,7 @@ int ReferListas::crearReferenciasVendedores(){
         Vendedor *vendActual;
         ListaEnlazada<int> *listIdVentActual;
         int idVentActual, i, j, k, encontrado;
-        Venta *ventActual;
+        Venta *ventActual=NULL;
         for (i = 0; i < this->listVendedores->longitud(); i++){ //Recorremos todos los ventedores
             vendActual = this->listVendedores->recuperar(i);
             listIdVentActual = vendActual->getListIdVentas(); //Sacamos la lista de id de ventas del vendedor
@@ -134,7 +134,7 @@ int ReferListas::crearReferenciasVendedores(){
 int ReferListas::crearReferenciasClientes(){
     try{
         Cliente *cActual;
-        Venta *vActual;
+        Venta *vActual=NULL;
         ListaEnlazada<int> *listIdVentActual;
         int idVentActual;
         int encontrado;

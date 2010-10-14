@@ -11,7 +11,7 @@ void Menu::ejecutar() {
 string Menu::getNrosTelVend(int pos) { // REVISAR FUNCIONAMIENTO
     stringstream strStream;
     for (int i=0; i<this->adminListas->getListaVendedores()->recuperar(pos)->getTelefonos()->longitud(); i++)
-        strStream << this->adminListas->getListaVendedores()->recuperar(pos)->getTelefonos()->recuperar(i) << " ";
+        strStream << *(this->adminListas->getListaVendedores()->recuperar(pos)->getTelefonos()->recuperar(i)) << " ";
     return strStream.str();
 }
 
@@ -113,7 +113,7 @@ bool Menu::verificarOpcion(string entrada, int nroOpciones) {
 }
 
 void Menu::menuAcceso() {
-    char *opcionAcceso, *user, *pass;
+    char *opcionAcceso=NULL, *user=NULL, *pass=NULL;
     string opcionAccesoStr = "0";
     string userStr, passStr;
     int contPass = 0;
@@ -749,14 +749,14 @@ void Menu::menuListVendedores() {
 
         if (opcionListVendStr == "7")
             return ;
-        cout << "Presione ENTER para volver al menu de vendedores" << endl;
+        cout << "Presione ENTER para volver al menu de listado de vendedores" << endl;
         charTemp = Menu::leeString(stdin, charTemp);
     }
 }
 
 int Menu::menuOrden() { // MENU GENERAL PARA DETERMINAR EL CRITERIO DE ORDENAMIENTO
     char *opcionOrd = NULL;
-    int critOrden;
+    int critOrden = 1;
     string opcionOrdStr = "0";
 
     while (opcionOrdStr == "0") {
@@ -794,7 +794,7 @@ int Menu::menuOrden() { // MENU GENERAL PARA DETERMINAR EL CRITERIO DE ORDENAMIE
 
 void Menu::menuModVend() {
     char *opModVend=NULL, *nombre=NULL, *nvoNombre=NULL, *nvoRut=NULL, *nvaDir=NULL;
-    char *nvoTel=NULL, *borrTel=NULL, *nvoEmail=NULL, *nvaEdad=NULL, *charTemp=NULL;
+    char *nvoTel=NULL, *borrTel=NULL, *nvoEmail=NULL, *nvaEdad=NULL;
     string opModVendStr = "0";
     string nombreStr, nvoNombreStr, nvoTelStr, borrTelStr, nvoRutStr, nvaDirStr;
     string nvaEdadStr, nvoEmailStr, nrosTelStr;
@@ -820,6 +820,14 @@ void Menu::menuModVend() {
     }
 
     while (opModVendStr == "0") {
+        nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
+        nvoNombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
+        streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getRut();
+        nvoRutStr = streamTemp.str(); streamTemp.str("");
+        nvaDirStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
+        streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getEdad();
+        nvaEdadStr = streamTemp.str(); streamTemp.str("");
+        nrosTelStr = Menu::getNrosTelVend(pos);
         cout << "Que atributo desea modificar? Escoja una opcion:" << endl;
         cout << "" << endl;
         cout << "1. Nombre" << endl;
@@ -847,123 +855,76 @@ void Menu::menuModVend() {
             cout << ">> ";
             nvoNombre = Menu::leeString(stdin, nvoNombre);
             nvoNombreStr = *(new string(nvoNombre));
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            nvaDirStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
-            nrosTelStr = getNrosTelVend(pos);
             cout << endl;
             opModVendStr = "0";
         }
 
         if (opModVendStr == "2") {
-            cout << "Ingrese el nuevo rut del vendedor:";
+            cout << "Ingrese el nuevo rut del vendedor:" << endl;
             cout << ">> ";
             nvoRut = Menu::leeString(stdin, nvoRut);
             nvoRutStr = *(new string(nvoRut));
-            nvoNombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
-            nvaDirStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
-            nrosTelStr = Menu::getNrosTelVend(pos);
             cout << endl;
             opModVendStr = "0";
         }
 
         if (opModVendStr == "3") {
-            cout << "Ingrese la nueva direccion del vendedor:";
+            cout << "Ingrese la nueva direccion del vendedor:" << endl;
             cout << ">> ";
             nvaDir = Menu::leeString(stdin, nvaDir);
             nvaDirStr = *(new string(nvaDir));
-            nvoNombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
-            nrosTelStr = Menu::getNrosTelVend(pos);
             cout << endl;
             opModVendStr = "0";
         }
 
         if (opModVendStr == "4") {
-            cout << "Ingrese la nueva edad del vendedor:";
+            cout << "Ingrese la nueva edad del vendedor:" << endl;
             cout << ">> ";
             nvaEdad = Menu::leeString(stdin, nvaEdad);
             nvaEdadStr = *(new string(nvaEdad));
-            nvoNombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            nvaDirStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
-            nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
-            nrosTelStr = Menu::getNrosTelVend(pos);
             cout << endl;
             opModVendStr = "0";
         }
 
         if (opModVendStr == "5") { // REVISAR
-            cout << "Ingrese el numero de telefono a agregar:";
+            cout << "Ingrese el numero de telefono a agregar:" << endl;
             cout << ">> ";
             stringstream strTel;
             nvoTel = Menu::leeString(stdin, nvoTel);
             nvoTelStr = *(new string(nvoTel));
             srtTel << getNrosTelVend(pos) << nvoTelStr;
-            nrosTelStr = strTel.str();
-            nvaDirStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
-            nvoNombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
+            nrosTelStr = strTel.str(); strTel.str("");
             cout << endl;
             opModVendStr = "0";
         }
 
         if (opModVendStr == "6") { // REVISAR
-            cout << "Ingrese el numero de telefono a eliminar:";
+            cout << "Ingrese el numero de telefono a eliminar:" << endl;
             cout << ">> ";
             stringstream strTel;
             borrTel = Menu::leeString(stdin, borrTel);
             borrTelStr = *(new string(borrTel));
             srtTel << getNrosTelVend(pos) << borrTelStr;
-            nrosTelStr = strTel.str();
-            nvaDirStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
-            nvoNombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
+            nrosTelStr = strTel.str(); strTel.str("");
             cout << endl;
             opModVendStr = "0";
         }
 
         if (opModVendStr == "7") {
-            cout << "Ingrese el nuevo email del vendedor:";
+            cout << "Ingrese el nuevo email del vendedor:" << endl;
             cout << ">> ";
             nvoEmail = Menu::leeString(stdin, nvoEmail);
             nvoEmailStr = *(new string(nvoEmail));
-            nvoNombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            nvaDirStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
-            streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nrosTelStr = Menu::getNrosTelVend(pos);
             cout << endl;
             opModVendStr = "0";
         }
+        if (opModVendStr == "8") {
+            return ;
+        }
         try {
-            this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
+            this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nvoTelStr);
             cout << "Se ha modificado el vendedor." << endl;
             cout << endl;
-            cout << "Presione ENTER para volver al menu de administrador" << endl;
-            cout << endl;
-            charTemp = Menu::leeString(stdin, charTemp);
             return ;
         }
         catch (ErrorExcep &e) {
@@ -1053,6 +1014,10 @@ void Menu::menuListVentas() {
             Venta::setNumOrder(ORD_VENT_VENDEDOR);
             this->adminListas->getListaVentas()->ordenar(critOrden);
             opcionListVentStr = "0";
+        }
+
+        if (opcionListVentStr == "7") {
+            return ;
         }
         cout << "Presione ENTER para volver al menu" << endl;
         charTemp = Menu::leeString(stdin, charTemp);
@@ -1492,6 +1457,14 @@ void Menu::menuModCliente() {
     }
 
     while (opModClienteStr == "0") {
+        nvoNombreStr = adminListas->getListaClientes()->recuperar(pos)->getNombre();
+        streamTemp << adminListas->getListaClientes()->recuperar(pos)->getRut();
+        nvoRutStr = streamTemp.str(); streamTemp.str("");
+        nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
+        streamTemp << adminListas->getListaClientes()->recuperar(pos)->getEdad();
+        nvaEdadStr = streamTemp.str(); streamTemp.str("");
+        nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
+        nrosTelStr = getNrosTelClient(pos);
         cout << "Que atributo desea modificar? Escoja una opcion:" << endl;
         cout << endl;
         cout << "1. Nombre" << endl;
@@ -1515,18 +1488,10 @@ void Menu::menuModCliente() {
         }
 
         if (opModClienteStr == "1") {
-            cout << "Ingrese el nuevo nombre del cliente:";
-            cout << endl;
+            cout << "Ingrese el nuevo nombre del cliente:" << endl;
             cout << ">> ";
             nvoNombre = Menu::leeString(stdin, nvoNombre);
             nvoNombreStr = *(new string(nvoNombre));
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
-            nrosTelStr = getNrosTelClient(pos);
             cout << endl;
             opModClienteStr = "0";
         }
@@ -1537,12 +1502,6 @@ void Menu::menuModCliente() {
             cout << ">> ";
             nvoRut = Menu::leeString(stdin, nvoNombre);
             nvoRutStr = *(new string(nvoRut));
-            nvoNombreStr = adminListas->getListaClientes()->recuperar(pos)->getNombre();
-            nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
-            nrosTelStr = getNrosTelClient(pos);
             cout << endl;
             opModClienteStr = "0";
         }
@@ -1553,13 +1512,6 @@ void Menu::menuModCliente() {
             cout << ">> ";
             nvaDir = Menu::leeString(stdin, nvaDir);
             nvaDirStr = *(new string(nvaDir));
-            nvoNombre = Menu::leeString(stdin, nvoNombre);
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
-            nrosTelStr = getNrosTelClient(pos);
             cout << endl;
             opModClienteStr = "0";
         }
@@ -1570,31 +1522,18 @@ void Menu::menuModCliente() {
             cout << ">> ";
             nvaEdad = Menu::leeString(stdin, nvaEdad);
             nvaEdadStr = *(new string(nvaEdad));
-            nvoNombreStr = adminListas->getListaClientes()->recuperar(pos)->getNombre();
-            nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
-            nrosTelStr = getNrosTelClient(pos);
             cout << endl;
             opModClienteStr = "0";
         }
 
         if (opModClienteStr == "5") { // REVISAR
-            cout << "Ingrese el numero de telefono a agregar:";
+            cout << "Ingrese el numero de telefono a agregar:" << endl;
             cout << ">> ";
             stringstream strTel;
             nvoTel = Menu::leeString(stdin, nvoTel);
             nvoTelStr = *(new string(nvoTel));
             srtTel << getNrosTelVend(pos) << nvoTelStr;
-            nrosTelStr = strTel.str();
-            nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
-            nvoNombreStr = adminListas->getListaClientes()->recuperar(pos)->getNombre();
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
+            nrosTelStr = strTel.str(); strTel.str("");
             cout << endl;
             opModClienteStr = "0";
         }
@@ -1606,14 +1545,7 @@ void Menu::menuModCliente() {
             borrTel = Menu::leeString(stdin, borrTel);
             borrTelStr = *(new string(borrTel));
             srtTel << getNrosTelVend(pos) << borrTelStr;
-            nrosTelStr = strTel.str();
-            nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
-            nvoNombreStr = adminListas->getListaClientes()->recuperar(pos)->getNombre();
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
+            nrosTelStr = strTel.str(); strTel.str("");
             cout << endl;
             opModClienteStr = "0";
         }
@@ -1624,15 +1556,11 @@ void Menu::menuModCliente() {
             cout << ">> ";
             nvoEmail = Menu::leeString(stdin, nvoEmail);
             nvoEmailStr = *(new string(nvoEmail));
-            nvoNombreStr = adminListas->getListaClientes()->recuperar(pos)->getNombre();
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getRut();
-            nvoRutStr = streamTemp.str(); streamTemp.str("");
-            streamTemp << adminListas->getListaClientes()->recuperar(pos)->getEdad();
-            nvaEdadStr = streamTemp.str(); streamTemp.str("");
-            nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
-            nrosTelStr = getNrosTelClient(pos);
             cout << endl;
             opModClienteStr = "0";
+        }
+        if (opModClienteStr == "8") {
+            return ;
         }
 
         try {

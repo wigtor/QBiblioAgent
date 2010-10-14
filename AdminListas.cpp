@@ -232,7 +232,7 @@ void AdminListas::editarCliente(int idOrig, string rut, string strNombre, string
     int intEdad, intRut, i;
     Cliente *clienteTemp = NULL, *clienteAct = NULL;
     //Busco el cliente que estoy modificando en la lista de clientes:
-    for (i = 0; i < this->listBaseVendedores->longitud(); i++) {
+    for (i = 0; i < this->listBaseClientes->longitud(); i++) {
         clienteTemp = this->listBaseClientes->recuperar(i);
         if (clienteTemp->getId() == idOrig)
                 clienteAct = clienteTemp;
