@@ -112,6 +112,7 @@ using namespace std;
 #define E_NOMB_VAC              0x21
 #define E_TEL_REP               0x22
 #define E_TEL_NO_EXISTE         0x23
+#define E_SIN_STOCK             0x24
 
 //Constantes ReferListas
 #define E_REFERT                0x90

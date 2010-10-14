@@ -34,7 +34,7 @@ public:
 
     //Setters
     void agregarLibro(string strNombre, string isbn, string strAutor, string paginas, string peso, string precio, string stock);
-    void agregarVenta(string boolCorrelativo, int posLibro, int posCliente, int posVendedor, string cantLibros, string montoTotal);
+    void agregarVenta(string boolCorrelativo, int posLibro, int posCliente, int posVendedor, string cantLibros);
     void agregarCliente(string rut, string nombre, string edad, string direccion, string listTelefonos, string email);
     void agregarVendedor(string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos);
     //////////////////////////////////

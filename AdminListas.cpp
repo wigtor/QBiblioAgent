@@ -91,13 +91,10 @@ void AdminListas::agregarLibro(string strNombre, string isbn, string strAutor, s
     this->listBaseLibros->agregar(nuevoLibro);
 }
 
-void AdminListas::agregarVenta(string correlativo, int posLibro, int posCliente, int posVendedor, string cantLibros, string montoTotal){
+void AdminListas::agregarVenta(string correlativo, int posLibro, int posCliente, int posVendedor, string cantLibros){
     int intCantLibros, intMontoTotal;
     if ((intCantLibros = atoi(cantLibros.c_str())) == 0)
         throw ErrorExcep(E_CANT_LIBROS);
-
-    if ((intMontoTotal = atoi(montoTotal.c_str())) == 0)
-        throw ErrorExcep(E_MONTO);
 
     Cliente *tempCliente = this->listBaseClientes->recuperar(posCliente);
     if (tempCliente == NULL)
@@ -111,6 +108,9 @@ void AdminListas::agregarVenta(string correlativo, int posLibro, int posCliente,
     if (tempLibro == NULL)
         throw ErrorExcep(E_POS_LIBRO_NO_EXISTE);
 
+    if (tempLibro->getStock() < intCantLibros)
+        throw ErrorExcep(E_SIN_STOCK);
+
     bool boolCorrelativo;
     if (correlativo == "1"){
         boolCorrelativo = true;
@@ -119,6 +119,7 @@ void AdminListas::agregarVenta(string correlativo, int posLibro, int posCliente,
         boolCorrelativo = false;
     }
 
+    intMontoTotal = intCantLibros*tempLibro->getPrecio();
     time_t tSac = time(NULL);
     struct tm *tmP = localtime(&tSac);
     Fecha *tempFecha = new Fecha(tmP->tm_mday, tmP->tm_mon, tmP->tm_year);//se cambia por la fecha actual
@@ -131,6 +132,7 @@ void AdminListas::agregarVenta(string correlativo, int posLibro, int posCliente,
     tempCliente->addIdCompra(nuevaVenta->getId());
     tempVendedor->addVenta(nuevaVenta);
     tempVendedor->addIdVenta(nuevaVenta->getId());
+    tempLibro->setStock(tempLibro->getStock() - intCantLibros);
 }
 
 void AdminListas::agregarCliente(string rut, string strNombre, string edad, string direccion, string listTelefonos, string email){

@@ -11,7 +11,7 @@ Fecha::Fecha(int dia, int mes, int anno) {
             throw dia;
         else if (mes < 1 || mes > 12)
             throw mes;
-        else if (anno < 2000 || anno > 2100)
+        else if ((1990 +anno) < 2000 || (1990 +anno) > 2100)
             throw anno;
         else {
             this->dia = dia;
