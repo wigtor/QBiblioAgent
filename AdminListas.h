@@ -39,10 +39,10 @@ public:
     //////////////////////////////////
 
     //Funciones adicionales
-    void editarLibro(string strNombre, string isbn, string strAutor, string paginas, string peso, string precio, string stock);
-    void editarCliente(string rut, string nombre, string edad, string direccion, string listTelefonos, string email);
-    void editarVendedor(string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos);
-
+    void editarLibro(int idOrig ,string precio, string stock);
+    void editarCliente(int idOrig, string rut, string nombre, string edad, string direccion, string listTelefonos, string email);
+    void editarVendedor(int idOrig, string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos);
+    void eliminarVendedor(int idVendedor);
     //////////////////////////////////
 
 private:

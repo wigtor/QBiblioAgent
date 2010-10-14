@@ -16,11 +16,12 @@ public:
     static int TAM_REDIM;
     int menuOrden();
     string intAString(int i);
+    string getNrosTelVend(int pos);
+    string getNrosTelClient(int pos);
     bool verificarOpcion(string entrada, int nroOpciones);
 
 private:
     void menuAcceso();
-    void menuRealizarVenta();
     void menuAdmin();
     void menuVend();
     void menuListClientes();
@@ -28,6 +29,7 @@ private:
     void menuListVentas();
     void menuModCliente();
     void menuModVend();
+    void menuRealizarVenta();
     bool compruebaUsuario(string user, string pass);
     int encuentraUsuario(string nombre);
     int encuentraCliente(string nombre);

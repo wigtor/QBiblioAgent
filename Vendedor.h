@@ -36,7 +36,7 @@ public:
 
     //Iniciadores y obligatorios
     Vendedor(int intRut, string nombre, string direccion);
-    Vendedor(int idObj, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *ventasHechas);
+    Vendedor(int idObj, bool esActivo, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *ventasHechas);
     virtual ~Vendedor();
     bool operator<(const Vendedor& otroVend);
     bool operator>(const Vendedor& otroVend);
@@ -49,6 +49,7 @@ public:
     void setEdad(int intEdad);
     void setDireccion(string strDireccion);
     int setEmail(string strEmail);
+    void setActivo(bool activo);
     void setListaTelefonos(ListaEstatica<int> *listaTelefonos);
     void addTelefono(int telefonoAgregado);
     void addVenta(Venta *ventaAgregada);
@@ -61,6 +62,7 @@ public:
     int getRut();
     static int getNumOrder();
     string getResumen();
+    bool getEsActivo();
     string getNombre();
     int getEdad();
     string getEmail();
@@ -76,6 +78,7 @@ private:
     static int idCont;
     static int numOrder;    // Codigos: 1->Rut / 2->Nombre / 3-> Edad / 4-> Cantidad de Ventas
     int id;
+    bool activo;
     int rut;
     string nombre;
     int edad;

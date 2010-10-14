@@ -109,6 +109,8 @@ using namespace std;
 #define E_MONTO                 0x1E
 #define E_TELEFONO              0x1F
 #define E_MAIL                  0x20
+#define E_NOMB_VAC              0x21
+#define E_TEL_REP               0x22
 
 //Constantes ReferListas
 #define E_REFERT                0x90

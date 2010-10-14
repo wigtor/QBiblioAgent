@@ -212,15 +212,20 @@ void AdminListas::agregarVendedor(string strRut, string strNombre, string direcc
  *
  ****************************************/
 
-void AdminListas::editarLibro(string strNombre, string isbn, string strAutor, string paginas, string peso, string precio, string stock){
+void AdminListas::editarLibro(int idOrig ,string precio, string stock){
+
 
 }
 
-void AdminListas::editarCliente(string rut, string nombre, string edad, string direccion, string listTelefonos, string email){
+void AdminListas::editarCliente(int idOrig, string rut, string nombre, string edad, string direccion, string listTelefonos, string email){
 
 }
 
-void AdminListas::editarVendedor(string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos){
+void AdminListas::editarVendedor(int idOrig, string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos){
+
+}
+
+void AdminListas::eliminarVendedor(int idVendedor){
 
 }
 

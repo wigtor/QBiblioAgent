@@ -30,10 +30,12 @@ int Vendedor::ORD_CANTVENT = 4;
  *
  ****************************************/
  
-Vendedor::Vendedor(int idObj, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *idsVentasHechas){
+Vendedor::Vendedor(int idObj, bool esActivo, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *idsVentasHechas){
     this->id= idObj;
     this->rut = rut;
+    this->activo = true;
     this->nombre = nombre;
+    this->activo = esActivo;
     this->edad = edad;
     this->direccion = direccion;
     this->telefonos = telefonos;
@@ -44,6 +46,7 @@ Vendedor::Vendedor(int idObj, int rut, string nombre, int edad, string direccion
 Vendedor::Vendedor(int numRut, string nombre, string direccion){
     this->id = Vendedor::idCont++;
     this->rut = numRut;
+    this->activo = true;
     this->telefonos = NULL;
     this->ventas = new ListaEnlazada<Venta>();
     this->listIdVentas = new ListaEnlazada<int>();
@@ -195,6 +198,10 @@ void Vendedor::setNumOrder(int numOrder){
     Vendedor::numOrder = numOrder;
 }
 
+void Vendedor::setActivo(bool activo){
+    this->activo = activo;
+}
+
 void Vendedor::setListaTelefonos(ListaEstatica<int> *listaTelefonos){
     this->telefonos = listaTelefonos;
 }
@@ -234,6 +241,10 @@ int Vendedor::getNumOrder(){
 
 string Vendedor::getEmail(){
     return this->email;
+}
+
+bool Vendedor::getEsActivo(){
+    return this->activo;
 }
 
 string Vendedor::getResumen(){

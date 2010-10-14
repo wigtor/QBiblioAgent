@@ -395,6 +395,7 @@ Cliente *CapaIO::stringToCliente(string linea)
 Vendedor *CapaIO::stringToVendedor(string linea)
 {   if (linea.find("<Vendedor") != string::npos)
     {   int idObj, rut, edad;
+        bool esActivo;
         string nombre, direccion, stringTemp;
         //Busco el valor del idObj
         size_t posInicioId = linea.find("idObj", 0);
@@ -411,6 +412,11 @@ Vendedor *CapaIO::stringToVendedor(string linea)
         posInicioId = linea.find("\"", posInicioId+1);
         posFinalId = linea.find("\"", posInicioId+1);
         nombre = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+        //Busco si el vendedor es activo
+        posInicioId = linea.find("esActivo", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        esActivo = *(new bool(atoi(linea.substr(posInicioId+1, posFinalId - posInicioId-1).c_str())));
         //Busco el valor de la edad
         posInicioId = linea.find("edad", 0);
         posInicioId = linea.find("\"", posInicioId+1);
@@ -445,7 +451,7 @@ Vendedor *CapaIO::stringToVendedor(string linea)
             listaIdsVentas->agregar(new int(atoi(stringTemp.substr(posInicioId, posFinalId - posInicioId).c_str())));
             stringTemp = stringTemp.substr(posFinalId - posInicioId+1, stringTemp.length()-(posFinalId - posInicioId-1));
         }
-        return new Vendedor(idObj, rut, nombre, edad, direccion, listaTelefonos, listaIdsVentas);
+        return new Vendedor(idObj, esActivo, rut, nombre, edad, direccion, listaTelefonos, listaIdsVentas);
     }
     return NULL;
 }
@@ -567,6 +573,7 @@ string CapaIO::vendedorToString(Vendedor *vendedor)
     ListaEstatica<int> *listaTelefonos;
     linea << "<Vendedor ";
     linea << "idObj=\"" << vendedor->getId() << "\" ";
+    linea << "esActivo=\"" << vendedor->getEsActivo() << "\" ";
     linea << "rut=\"" << vendedor->getRut() << "\" ";
     linea << "nombre=\"" << vendedor->getNombre() << "\" ";
     linea << "edad=\"" << vendedor->getEdad() << "\" ";
