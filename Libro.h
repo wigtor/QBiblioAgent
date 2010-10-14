@@ -20,6 +20,7 @@
 
 
 #include <string>
+#include <sstream>
 
 using namespace std;
 //#pragma GCC visibility push(default)
@@ -50,6 +51,7 @@ public:
     int getId();
     int getIsbn();
     int getPrecio();
+    string getResumen();
     string getNombre();
     string getAutor();
     int getPaginas();

@@ -250,6 +250,16 @@ string Libro::getNombre(){
     return this->nombre;
 }
 
+string Libro::getResumen() {
+    stringstream streamTemp;
+    streamTemp << "Nombre :" << this->getNombre() << endl;
+    streamTemp << "Autor :" << this->getAutor() << endl;
+    streamTemp << "ISBN :" << this->getIsbn() << endl;
+    streamTemp << "Precio: " << this->precio << endl;
+    streamTemp << "Stock disponible :" << this->getStock() << endl;
+    return (streamTemp.str());
+}
+
 string Libro::getAutor(){
     return this->autor;
 }

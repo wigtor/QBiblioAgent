@@ -29,6 +29,7 @@ private:
     void menuListVentas();
     void menuModCliente();
     void menuModVend();
+    void menuModLibro();
     bool compruebaUsuario(string user, string pass);
     int encuentraUsuario(string nombre);
     int encuentraCliente(string nombre);
