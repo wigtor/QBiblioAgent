@@ -396,7 +396,7 @@ Vendedor *CapaIO::stringToVendedor(string linea)
 {   if (linea.find("<Vendedor") != string::npos)
     {   int idObj, rut, edad;
         bool esActivo;
-        string nombre, direccion, stringTemp;
+        string nombre, direccion, stringTemp, email;
         //Busco el valor del idObj
         size_t posInicioId = linea.find("idObj", 0);
         posInicioId = linea.find("\"", posInicioId+1);
@@ -412,6 +412,11 @@ Vendedor *CapaIO::stringToVendedor(string linea)
         posInicioId = linea.find("\"", posInicioId+1);
         posFinalId = linea.find("\"", posInicioId+1);
         nombre = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
+        //Busco el email
+        posInicioId = linea.find("email", 0);
+        posInicioId = linea.find("\"", posInicioId+1);
+        posFinalId = linea.find("\"", posInicioId+1);
+        email = linea.substr(posInicioId+1, posFinalId - posInicioId-1);
         //Busco si el vendedor es activo
         posInicioId = linea.find("esActivo", 0);
         posInicioId = linea.find("\"", posInicioId+1);
@@ -451,7 +456,7 @@ Vendedor *CapaIO::stringToVendedor(string linea)
             listaIdsVentas->agregar(new int(atoi(stringTemp.substr(posInicioId, posFinalId - posInicioId).c_str())));
             stringTemp = stringTemp.substr(posFinalId - posInicioId+1, stringTemp.length()-(posFinalId - posInicioId-1));
         }
-        return new Vendedor(idObj, esActivo, rut, nombre, edad, direccion, listaTelefonos, listaIdsVentas);
+        return new Vendedor(idObj, esActivo, rut, nombre, edad, email, direccion, listaTelefonos, listaIdsVentas);
     }
     return NULL;
 }
@@ -576,6 +581,7 @@ string CapaIO::vendedorToString(Vendedor *vendedor)
     linea << "esActivo=\"" << vendedor->getEsActivo() << "\" ";
     linea << "rut=\"" << vendedor->getRut() << "\" ";
     linea << "nombre=\"" << vendedor->getNombre() << "\" ";
+    linea << "email=\"" << vendedor->getEmail() << "\" ";
     linea << "edad=\"" << vendedor->getEdad() << "\" ";
     linea << "direccion=\"" << vendedor->getDireccion() << "\" ";
     linea << "telefonos=\"";

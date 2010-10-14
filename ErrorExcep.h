@@ -111,6 +111,7 @@ using namespace std;
 #define E_MAIL                  0x20
 #define E_NOMB_VAC              0x21
 #define E_TEL_REP               0x22
+#define E_TEL_NO_EXISTE         0x23
 
 //Constantes ReferListas
 #define E_REFERT                0x90

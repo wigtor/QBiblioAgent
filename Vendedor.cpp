@@ -30,12 +30,13 @@ int Vendedor::ORD_CANTVENT = 4;
  *
  ****************************************/
  
-Vendedor::Vendedor(int idObj, bool esActivo, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *idsVentasHechas){
+Vendedor::Vendedor(int idObj, bool esActivo, int rut, string nombre, int edad, string email, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *idsVentasHechas){
     this->id= idObj;
     this->rut = rut;
     this->activo = true;
     this->nombre = nombre;
     this->activo = esActivo;
+    this->email = email;
     this->edad = edad;
     this->direccion = direccion;
     this->telefonos = telefonos;

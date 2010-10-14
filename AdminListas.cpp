@@ -146,20 +146,20 @@ void AdminListas::agregarCliente(string rut, string strNombre, string edad, stri
         if (clienteTemp->getRut() == intRut)
             throw new ErrorExcep(E_RUT_REP);
     }
-
-    string strTel;
-    int intTel;
-    int pos = 0; //WTF!
     ListaEstatica<int> *tempListTelefonos = new ListaEstatica<int>();
-
-    pos = listTelefonos.find_first_not_of(' ', pos);
-    while(listTelefonos.length() != 0){
-        pos = listTelefonos.find_first_not_of(' ', pos);
-        strTel = listTelefonos.substr( 0, pos);
-        if ((intTel = atoi(strTel.substr( 0, pos).c_str())) == 0)
-            throw new ErrorExcep(E_TELEFONO);
-        tempListTelefonos->agregar(new int (intTel));
-    }
+        int intTel;
+        int posInicio = 0, posFinal;
+        listTelefonos = AdminListas::quitarEspacioExtremos(listTelefonos);
+        posFinal = listTelefonos.find(" ", posInicio+1);
+        while (listTelefonos != "") //REVISAR SI ESTA BUENO
+        {   posFinal = listTelefonos.find(" ", posInicio+1);
+            if ((intTel = atoi(listTelefonos.substr(posInicio, posFinal - posInicio).c_str())) == 0)
+                throw new ErrorExcep(E_TELEFONO);
+            if (posFinal == -1)
+                         listTelefonos = "";
+            tempListTelefonos->agregar(new int (intTel));
+            listTelefonos = listTelefonos.substr(posFinal - posInicio+1, listTelefonos.length()-(posFinal - posInicio-1));
+        }
 
     Cliente *nuevoCliente = new Cliente(intRut, strNombre, intEdad, direccion, tempListTelefonos);
     if ((nuevoCliente->setEmail(email)) != 0)
@@ -183,19 +183,21 @@ void AdminListas::agregarVendedor(string strRut, string strNombre, string direcc
             throw new ErrorExcep(E_RUT_REP);
     }
 
-    string strTel;
-    int intTel;
-    int pos = 0; //WTF!
     ListaEstatica<int> *tempListTelefonos = new ListaEstatica<int>();
-
-    pos = listTelefonos.find_first_not_of(' ', pos);
-    while(listTelefonos.length() != 0){
-        pos = listTelefonos.find_first_not_of(' ', pos);
-        strTel = listTelefonos.substr( 0, pos);
-        if ((intTel = atoi(strTel.substr( 0, pos).c_str())) == 0)
+    int intTel;
+    int posInicio = 0, posFinal;
+    listTelefonos = AdminListas::quitarEspacioExtremos(listTelefonos);
+    posFinal = listTelefonos.find(" ", posInicio+1);
+    while (listTelefonos != "") //REVISAR SI ESTA BUENO
+    {   posFinal = listTelefonos.find(" ", posInicio+1);
+        if ((intTel = atoi(listTelefonos.substr(posInicio, posFinal - posInicio).c_str())) == 0)
             throw new ErrorExcep(E_TELEFONO);
+        if (posFinal == -1)
+                     listTelefonos = "";
         tempListTelefonos->agregar(new int (intTel));
+        listTelefonos = listTelefonos.substr(posFinal - posInicio+1, listTelefonos.length()-(posFinal - posInicio-1));
     }
+
     Vendedor *nuevoVendedor = new Vendedor(intRut, strNombre, direccion);
     nuevoVendedor->setEdad(intEdad);
 
@@ -229,5 +231,18 @@ void AdminListas::eliminarVendedor(int idVendedor){
 
 }
 
-
+string AdminListas::quitarEspacioExtremos(string texto){
+    int izq = 0, der = texto.length(), j;
+    stringstream strStream;
+    const char *textoC = texto.c_str();
+    while (textoC[izq] == ' ') {
+        izq++;
+    }
+    while (textoC[der-1] == ' ') {
+        der--;
+    }
+    for (j = izq; j < der; j++)
+        strStream << textoC[j];
+    return strStream.str();
+}
 

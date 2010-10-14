@@ -83,6 +83,22 @@ int Menu::encuentraCliente(string nombre) {
     return -1;
 }
 
+int Menu::encuentraLibro(string nombre) {
+    int i;
+    Libro *libroTemp;
+    stringstream nombreStream;
+    string nombreStr;
+    for (i = 0; i < this->adminListas->getListaLibros()->longitud(); i++) {
+        libroTemp = this->adminListas->getListaLibros()->recuperar(i);
+        nombreStream << libroTemp->getNombre();
+        nombreStr = nombreStream.str();
+        if (nombreStr == nombre)
+            return i;
+        nombreStream.str("");
+    }
+    return -1;
+}
+
 bool Menu::verificarOpcion(string entrada, int nroOpciones) {
     bool valido = true;
     for (int i = 1; i <= nroOpciones; i++) {
@@ -331,7 +347,7 @@ void Menu::menuAdmin() {
                 pos = encuentraUsuario(nombreStr);
             }
             opcionAdminStr = "0";
-            cout << (this->adminListas->getListaVendedores()->eliminar(pos));
+            this->adminListas->getListaVendedores()->recuperar(pos)->setActivo(false);
             cout << "Se ha eliminado el vendedor." << endl;
             cout << endl;
         }
@@ -347,7 +363,7 @@ void Menu::menuAdmin() {
 }
 
 void Menu::menuListVendedores() {
-    char *opcionListVend = NULL;
+    char *opcionListVend = NULL, *charTemp = NULL;
     int critOrden, i;
     string opcionListVendStr = "0";
     ListaEstatica<Vendedor> *lVendedoresTemp;
@@ -414,6 +430,8 @@ void Menu::menuListVendedores() {
 
         if (opcionListVendStr == "6")
             return ;
+        cout << "Presione ENTER para volver al menu" << endl;
+        charTemp = Menu::leeString(stdin, charTemp);
     }
 }
 
@@ -461,6 +479,7 @@ void Menu::menuModVend() {
     string opModVendStr = "0", direccionStr, rutStr, edadStr, emailStr;
     string nombreStr, nvoNombreStr, nvoTelStr, borrTelStr, nvoRutStr, nvaDirStr;
     string nvaEdadStr, nvoEmailStr, nrosTelStr;
+    stringstream srtTel;
     bool nombreValido = false;
     int pos, id;
 
@@ -605,27 +624,68 @@ void Menu::menuModVend() {
             opModVendStr = "0";
         }
 
-        if (opModVendStr == "5") { // TERMINAR
+        if (opModVendStr == "5") { // REVISAR
             cout << "Ingrese el numero de telefono a agregar:";
             cout << ">> ";
+            stringstream strTel;
             nvoTel = Menu::leeString(stdin, nvoTel);
-            nvoTelStr =
-            direccionStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
-            nombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
-            rutStr = adminListas->getListaVendedores()->recuperar(pos)->getRut();
-            edadStr = adminListas->getListaVendedores()->recuperar(pos)->getEdad();
-            emailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
-            nrosTelStr = Menu::getNrosTelVend(pos);
+            nvoTelStr = *(new string(nvoTel));
+            srtTel << getNrosTelVend(pos) << nvoTelStr;
+            nrosTelStr = strTel.str();
+            nvaDirStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
+            nvoNombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
+            nvoRutStr = adminListas->getListaVendedores()->recuperar(pos)->getRut();
+            nvaEdadStr = adminListas->getListaVendedores()->recuperar(pos)->getEdad();
+            nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
             cout << endl;
-            this->adminListas->editarVendedor(id, rutStr, nombreStr, nvaDirStr, edadStr, emailStr, nrosTelStr);
+            try {
+                this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
+                cout << "Se ha agregado el telefono del vendedor." << endl;
+                cout << endl;
+            }
+            catch (ErrorExcep e) {
+                if (e.getMotivo() == E_TEL_REP)
+                    cout << "El telefono ya existe; intente de nuevo por favor." << endl;
+                if (e.getMotivo() == E_TELEFONO)
+                    cout << "El telefono no es valido; intente de nuevo por favor." << endl;
+                cout << "Presione ENTER para volver al menu de administrador" << endl;
+                cout << endl;
+                Menu::leeString(stdin, charTemp);
+            }
+
+            opModVendStr = "0";
         }
 
-        if (opModVendStr == "6") { // TERMINAR
+        if (opModVendStr == "6") { // REVISAR
             cout << "Ingrese el numero de telefono a eliminar:";
-            cout << "" << endl;
             cout << ">> ";
+            stringstream strTel;
             borrTel = Menu::leeString(stdin, borrTel);
             borrTelStr = *(new string(borrTel));
+            srtTel << getNrosTelVend(pos) << borrTelStr;
+            nrosTelStr = strTel.str();
+            nvaDirStr = adminListas->getListaVendedores()->recuperar(pos)->getDireccion();
+            nvoNombreStr = adminListas->getListaVendedores()->recuperar(pos)->getNombre();
+            nvoRutStr = adminListas->getListaVendedores()->recuperar(pos)->getRut();
+            nvaEdadStr = adminListas->getListaVendedores()->recuperar(pos)->getEdad();
+            nvoEmailStr = adminListas->getListaVendedores()->recuperar(pos)->getEmail();
+            cout << endl;
+            try {
+                this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
+                cout << "Se ha eliminado el telefono del vendedor." << endl;
+                cout << endl;
+            }
+            catch (ErrorExcep e) {
+                if (e.getMotivo() == E_TEL_NO_EXISTE) // FALTA EXCEPCION
+                    cout << "El telefono no existe; intente de nuevo por favor." << endl;
+                if (e.getMotivo() == E_TELEFONO) // FALTA EXCEPCION
+                    cout << "El telefono no es valido; intente de nuevo por favor." << endl;
+                cout << "Presione ENTER para volver al menu de administrador" << endl;
+                cout << endl;
+                Menu::leeString(stdin, charTemp);
+            }
+
+            opModVendStr = "0";
         }
 
         if (opModVendStr == "7") {
@@ -647,7 +707,7 @@ void Menu::menuModVend() {
 }
 
 void Menu::menuListVentas() {
-    char *opcionListVent;
+    char *opcionListVent = NULL, *charTemp = NULL;
     int critOrden, i;
     string opcionListVentStr = "0";
     ListaEnlazada<Venta> *lVentasTemp;
@@ -669,8 +729,7 @@ void Menu::menuListVentas() {
         cout << "" << endl;
 
         if (this->verificarOpcion(opcionListVentStr, 7)) {
-            cout << "Opcion incorrecta. Intente de nuevo por favor.";
-            cout << "" << endl;
+            cout << "Opcion incorrecta. Intente de nuevo por favor." << endl;
             opcionListVentStr = "0";
         }
 
@@ -717,17 +776,21 @@ void Menu::menuListVentas() {
             this->adminListas->getListaVentas()->ordenar(critOrden);
             opcionListVentStr = "0";
         }
+        cout << "Presione ENTER para volver al menu" << endl;
+        charTemp = Menu::leeString(stdin, charTemp);
     }
 }
 
 //////////////////////////////////////////////////////////////////
 
 void Menu::menuVend() {
-    char *opcionVend=NULL, *charTemp=NULL,*nombre=NULL, *isbn=NULL, *autor=NULL, *paginas=NULL, *direccion=NULL;
-    char *precio=NULL, *stock=NULL, *rut=NULL, *edad=NULL, *dir=NULL, *email=NULL, *nroTel=NULL, *peso = NULL;
-    int pos;
+    char *opcionVend=NULL, *charTemp=NULL, *cliente=NULL, *libro=NULL, *isbn=NULL, *autor=NULL, *paginas=NULL;
+    char *direccion=NULL, *precio=NULL, *stock=NULL, *rut=NULL, *edad=NULL, *dir=NULL, *email=NULL, *nroTel=NULL;
+    char *peso=NULL, *corr=NULL, *cantLib=NULL, *montoTotal=NULL, *vendedor=NULL;
+    int posCliente, posLibro, posVendedor;
     string opcionVendStr = "0";
-    string nombreStr, isbnStr, autorStr, paginasStr, precioStr, stockStr, rutStr, edadStr, dirStr, emailStr, nroTelStr, pesoStr;
+    string clienteStr, libroStr, isbnStr, autorStr, paginasStr, precioStr, stockStr, rutStr, edadStr, dirStr;
+    string nroTelStr, pesoStr, corrStr, emailStr, cantLibStr, montoTotalStr, vendedorStr;
 
     while (opcionVendStr == "0") {
         cout << "Vendedor" << endl;
@@ -757,37 +820,37 @@ void Menu::menuVend() {
         }
 
         while (opcionVendStr == "2") {
-            pos = -1;
+            posCliente = -1;
             cout << "Ingrese el nombre del cliente:" << endl;
             cout << ">> ";
-            nombre = Menu::leeString(stdin, nombre);
-            nombreStr = *(new string(nombre));
+            cliente = Menu::leeString(stdin, cliente);
+            clienteStr = *(new string(cliente));
             cout << endl;
-            pos = this->encuentraCliente(nombreStr);
-            while (pos == -1) {
+            posCliente = this->encuentraCliente(clienteStr);
+            while (posCliente == -1) {
                 cout << "Cliente no encontrado. Intente de nuevo por favor." << endl;
                 cout << "Si desea volver atras presione ENTER en lugar de ingresar el nombre del cliente" << endl;
                 cout << "Ingrese el nombre del cliente:" << endl;
                 cout << ">> ";
-                nombre = Menu::leeString(stdin, nombre);
-                nombreStr = *(new string(nombre));
+                cliente = Menu::leeString(stdin, cliente);
+                clienteStr = *(new string(cliente));
                 cout << endl;
-                if (nombreStr == ""){
+                if (clienteStr == ""){
                     opcionVendStr = "";
                     break ;
                 }
-                pos = this->encuentraCliente(nombreStr);
+                posCliente = this->encuentraCliente(clienteStr);
             }
             opcionVendStr = "0";
-            cout << (this->adminListas->getListaClientes()->recuperar(pos)->getResumen());
+            cout << (this->adminListas->getListaClientes()->recuperar(posCliente)->getResumen());
             cout << endl;
         }
 
         while (opcionVendStr == "3") {
             cout << "Ingrese el nombre del cliente:" << endl;
             cout << ">> ";
-            nombre = Menu::leeString(stdin, nombre);
-            nombreStr = *(new string(nombre));
+            cliente = Menu::leeString(stdin, cliente);
+            clienteStr = *(new string(cliente));
             cout << endl;
 
             cout << "Ingrese el RUT del cliente:" << endl;
@@ -821,7 +884,7 @@ void Menu::menuVend() {
             cout << endl;
 
             try {
-                this->adminListas->agregarCliente(rutStr, nombreStr, edadStr, direccion, nroTelStr, emailStr);
+                this->adminListas->agregarCliente(rutStr, clienteStr, edadStr, direccion, nroTelStr, emailStr);
                 cout << "Se ha agregado un nuevo cliente.";
                 cout << endl;
             }
@@ -856,8 +919,8 @@ void Menu::menuVend() {
         while (opcionVendStr == "5") {
             cout << "Ingrese el nombre del libro:" << endl;
             cout << ">> ";
-            nombre = Menu::leeString(stdin, nombre);
-            nombreStr = *(new string(nombre));
+            libro = Menu::leeString(stdin, libro);
+            libroStr = *(new string(libroStr));
             cout << endl;
 
             cout << "Ingrese el ISBN del libro:" << endl;
@@ -897,7 +960,7 @@ void Menu::menuVend() {
             cout << endl;
 
             try {
-                this->adminListas->agregarLibro(nombreStr, isbnStr, autorStr, paginasStr, pesoStr, precioStr, stockStr);
+                this->adminListas->agregarLibro(libroStr, isbnStr, autorStr, paginasStr, pesoStr, precioStr, stockStr);
             }
             catch (ErrorExcep e) {
                 if (e.getMotivo() == E_NOMB_REP)
@@ -921,22 +984,113 @@ void Menu::menuVend() {
             opcionVendStr = "0";
         }
 
-        if (opcionVendStr == "6") {
-            this->menuRealizarVenta(); //NO REALIZADA TRAZA DE ESTA LLAMADA AUN
+        if (opcionVendStr == "6") { // PROBAR
+            posLibro = -1;
+            cout << "Ingrese el nombre del libro:" << endl;
+            cout << ">> ";
+            libro = Menu::leeString(stdin, libro);
+            libroStr = *(new string(libro));
+            cout << endl;
+            posLibro = this->encuentraLibro(libroStr);
+            while (posLibro == -1) {
+                cout << "Libro no encontrado. Intente de nuevo por favor." << endl;
+                cout << "Si desea volver atras presione ENTER en lugar de ingresar el nombre del libro" << endl;
+                cout << "Ingrese el nombre del libro:" << endl;
+                cout << ">> ";
+                libro = Menu::leeString(stdin, libro);
+                libroStr = *(new string(libro));
+                cout << endl;
+                if (libroStr == ""){
+                    opcionVendStr = "";
+                    break ;
+                }
+                posLibro = this->encuentraLibro(libroStr);
+            }
+
+            posCliente = -1;
+            cout << "Ingrese el nombre del cliente:" << endl;
+            cout << ">> ";
+            cliente = Menu::leeString(stdin, cliente);
+            clienteStr = *(new string(cliente));
+            cout << endl;
+            posCliente = this->encuentraCliente(clienteStr);
+            while (posCliente == -1) {
+                cout << "Cliente no encontrado. Intente de nuevo por favor." << endl;
+                cout << "Si desea volver atras presione ENTER en lugar de ingresar el nombre del cliente" << endl;
+                cout << "Ingrese el nombre del cliente:" << endl;
+                cout << ">> ";
+                cliente = Menu::leeString(stdin, cliente);
+                clienteStr = *(new string(cliente));
+                cout << endl;
+                if (clienteStr == ""){
+                    opcionVendStr = "";
+                    break ;
+                }
+                posCliente = this->encuentraCliente(clienteStr);
+            }
+
+            cout << "Ingrese el valor del correlativo (SI = 1, NO = cualquier otro valor):" << endl;
+            cout << ">> ";
+            corr = Menu::leeString(stdin, corr);
+            corrStr = *(new string(corr));
+            cout << endl;
+
+            cout << "Ingrese la cantidad de libros:" << endl;
+            cout << ">> ";
+            cantLib = Menu::leeString(stdin, cantLib);
+            cantLibStr = *(new string(cantLib));
+            cout << endl;
+
+            cout << "Ingrese el monto total:" << endl;
+            cout << ">> ";
+            montoTotal = Menu::leeString(stdin, montoTotal);
+            montoTotalStr = *(new string(montoTotal));
+            cout << endl;
+
+            posVendedor = -1;
+            cout << "Ingrese el nombre del vendedor:" << endl;
+            cout << ">> ";
+            vendedor = Menu::leeString(stdin, vendedor);
+            vendedorStr = *(new string(vendedor));
+            cout << endl;
+            posVendedor = this->encuentraUsuario(vendedorStr);
+            while (posVendedor == -1) {
+                cout << "Vendedor no encontrado. Intente de nuevo por favor." << endl;
+                cout << "Si desea volver atras presione ENTER en lugar de ingresar el nombre del vendedor" << endl;
+                cout << "Ingrese el nombre del vendedor:" << endl;
+                cout << ">> ";
+                vendedor = Menu::leeString(stdin, vendedor);
+                vendedorStr = *(new string(vendedor));
+                cout << endl;
+                if (vendedorStr == ""){
+                    opcionVendStr = "";
+                    break ;
+                }
+                posVendedor = this->encuentraUsuario(vendedorStr);
+            }
+
+            try {
+                this->adminListas->agregarVenta(corrStr, posLibro, posCliente, posVendedor, cantLibStr, montoTotalStr);
+            }
+            catch (ErrorExcep e) {
+                if (e.getMotivo() == E_CANT_LIBROS)
+                    cout << "La cantidad de libros introducida no es valida; intente de nuevo por favor." << endl;
+                if (e.getMotivo() == E_MONTO)
+                    cout << "El monto del libro no es valido; intente de nuevo por favor." << endl;
+                cout << "Presione ENTER para volver al menu de vendedor" << endl;
+                charTemp = Menu::leeString(stdin, charTemp);
+            }
+
             opcionVendStr = "0";
         }
+
         if (opcionVendStr == "7")
             return ;
     }
 }
 
-void Menu::menuRealizarVenta(){
-
-    //FALTA IMPLEMENTAR
-}
-
 void Menu::menuListClientes() {
-    char *opcionListCliente;
+    char *opcionListCliente = NULL, *charTemp=NULL;
     int critOrden, i;
     string opcionListClienteStr = "0";
     ListaEnlazada<Cliente> *lClienteTemp;
@@ -992,14 +1146,17 @@ void Menu::menuListClientes() {
             this->adminListas->getListaClientes()->ordenar(critOrden);
             opcionListClienteStr = "0";
         }
+        cout << "Presione ENTER para volver al menu" << endl;
+        charTemp = Menu::leeString(stdin, charTemp);
     }
 }
 
 void Menu::menuModCliente() {
     char *opModCliente=NULL, *nombre=NULL, *nvoNombre=NULL, *nvoRut=NULL, *nvaDir=NULL;
     char *nvoTel=NULL, *borrTel=NULL, *nvoEmail=NULL, *nvaEdad=NULL, *charTemp=NULL;
-    string opModVendStr = "0", opModClienteStr;
-    string nombreStr, nvoNombreStr, nvoRutStr, nvaDirStr, nvoTelStr, borrTelStr, nvaEdadStr, nvoEmailStr, nrosTelStr;
+    string opModClienteStr = "0", nombreStr, nvoNombreStr;
+    string nvoRutStr, nvaDirStr, nvoTelStr, borrTelStr, nvaEdadStr, nvoEmailStr, nrosTelStr;
+    stringstream srtTel;
     bool nombreValido = false;
     int pos, id;
 
@@ -1044,7 +1201,7 @@ void Menu::menuModCliente() {
             opModClienteStr = "0";
         }
 
-        if (opModVendStr == "1") {
+        if (opModClienteStr == "1") {
             cout << "Ingrese el nuevo nombre del cliente:";
             cout << endl;
             cout << ">> ";
@@ -1072,7 +1229,7 @@ void Menu::menuModCliente() {
             opModClienteStr = "0";
         }
 
-        if (opModVendStr == "2") {
+        if (opModClienteStr == "2") {
             cout << "Ingrese el nuevo rut del cliente:";
             cout << endl;
             cout << ">> ";
@@ -1118,7 +1275,7 @@ void Menu::menuModCliente() {
             opModClienteStr = "0";
         }
 
-        if (opModVendStr == "4") {
+        if (opModClienteStr == "4") {
             cout << "Ingrese la nueva edad del cliente:";
             cout << endl;
             cout << ">> ";
@@ -1146,40 +1303,68 @@ void Menu::menuModCliente() {
             opModClienteStr = "0";
         }
 
-        while (opModClienteStr == "5") { // TERMINAR
+        if (opModClienteStr == "5") { // REVISAR
             cout << "Ingrese el numero de telefono a agregar:";
-            cout << endl;
             cout << ">> ";
+            stringstream strTel;
             nvoTel = Menu::leeString(stdin, nvoTel);
             nvoTelStr = *(new string(nvoTel));
+            srtTel << getNrosTelVend(pos) << nvoTelStr;
+            nrosTelStr = strTel.str();
+            nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
+            nvoNombreStr = adminListas->getListaClientes()->recuperar(pos)->getNombre();
+            nvoRutStr = adminListas->getListaClientes()->recuperar(pos)->getRut();
+            nvaEdadStr = adminListas->getListaClientes()->recuperar(pos)->getEdad();
+            nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
+            cout << endl;
+            try {
+                this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaEdadStr, nvaDirStr, nrosTelStr, nvoEmailStr);
+                cout << "Se ha agregado el telefono del vendedor." << endl;
+                cout << endl;
+            }
+            catch (ErrorExcep e) {
+                if (e.getMotivo() == E_TEL_REP)
+                    cout << "El telefono ya existe; intente de nuevo por favor." << endl;
+                if (e.getMotivo() == E_TELEFONO)
+                    cout << "El telefono no es valido; intente de nuevo por favor." << endl;
+                cout << "Presione ENTER para volver al menu de vendedor" << endl;
+                cout << endl;
+                Menu::leeString(stdin, charTemp);
+            }
 
-            // Verificar telefono
-            // Si es valido (no existe y esta compuesto de numeros) {
-            //     opModClienteStr = "0";
-            //     agregar telefono
-            // }
-            // Sino {
-            //     cout << "Numero de telefono no valido. Intente de nuevo por favor." << endl;
-            //     cout << "" << endl;
-            // }
+            opModClienteStr = "0";
         }
 
-        while (opModClienteStr == "6") { // TERMINAR
+        if (opModClienteStr == "6") { // REVISAR
             cout << "Ingrese el numero de telefono a eliminar:";
-            cout << endl;
             cout << ">> ";
+            stringstream strTel;
             borrTel = Menu::leeString(stdin, borrTel);
             borrTelStr = *(new string(borrTel));
+            srtTel << getNrosTelVend(pos) << borrTelStr;
+            nrosTelStr = strTel.str();
+            nvaDirStr = adminListas->getListaClientes()->recuperar(pos)->getDireccion();
+            nvoNombreStr = adminListas->getListaClientes()->recuperar(pos)->getNombre();
+            nvoRutStr = adminListas->getListaClientes()->recuperar(pos)->getRut();
+            nvaEdadStr = adminListas->getListaClientes()->recuperar(pos)->getEdad();
+            nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
+            cout << endl;
+            try {
+                this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaEdadStr, nvaDirStr, nrosTelStr, nvoEmailStr);
+                cout << "Se ha eliminado el telefono del vendedor." << endl;
+                cout << endl;
+            }
+            catch (ErrorExcep e) {
+                if (e.getMotivo() == E_TEL_NO_EXISTE) // FALTA EXCEPCION
+                    cout << "El telefono no existe; intente de nuevo por favor." << endl;
+                if (e.getMotivo() == E_TELEFONO) // FALTA EXCEPCION
+                    cout << "El telefono no es valido; intente de nuevo por favor." << endl;
+                cout << "Presione ENTER para volver al menu de vendedor" << endl;
+                cout << endl;
+                Menu::leeString(stdin, charTemp);
+            }
 
-            // Verificar telefono
-            // Si es valido (existe) {
-            //     opModClienteStr = "0";
-            //     quitar telefono
-            // }
-            // Sino {
-            //     cout << "No se encuentra el numero de telefono. Intente de nuevo por favor." << endl;
-            //     cout << "" << endl;
-            // }
+            opModClienteStr = "0";
         }
 
         if (opModClienteStr == "7") {

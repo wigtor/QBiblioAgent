@@ -29,10 +29,10 @@ private:
     void menuListVentas();
     void menuModCliente();
     void menuModVend();
-    void menuRealizarVenta();
     bool compruebaUsuario(string user, string pass);
     int encuentraUsuario(string nombre);
     int encuentraCliente(string nombre);
+    int encuentraLibro(string nombre);
     AdminListas *adminListas;
 
 };

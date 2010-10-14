@@ -36,7 +36,7 @@ public:
 
     //Iniciadores y obligatorios
     Vendedor(int intRut, string nombre, string direccion);
-    Vendedor(int idObj, bool esActivo, int rut, string nombre, int edad, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *ventasHechas);
+    Vendedor(int idObj, bool esActivo, int rut, string nombre, int edad, string email, string direccion, ListaEstatica<int> *telefonos, ListaEnlazada<int> *ventasHechas);
     virtual ~Vendedor();
     bool operator<(const Vendedor& otroVend);
     bool operator>(const Vendedor& otroVend);

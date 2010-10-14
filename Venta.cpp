@@ -175,7 +175,7 @@ Fecha *Venta::getFecha() {
 
 string Venta::getResumen(){
     stringstream resumen;
-    resumen << "corretalivo: " << this->correlativo << endl;
+    //resumen << "corretalivo: " << (this->correlativo) << endl;
     resumen << "Libro: " << this->libro->getNombre() << endl;
     resumen << "Cliente: " << this->cliente->getNombre() << endl;
     resumen << "Rut Cliente: " << this->cliente->getRut() << endl;

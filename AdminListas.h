@@ -43,6 +43,7 @@ public:
     void editarCliente(int idOrig, string rut, string nombre, string edad, string direccion, string listTelefonos, string email);
     void editarVendedor(int idOrig, string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos);
     void eliminarVendedor(int idVendedor);
+    string quitarEspacioExtremos(string texto);
     //////////////////////////////////
 
 private:
