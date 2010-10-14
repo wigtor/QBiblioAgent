@@ -37,6 +37,7 @@ Libro::Libro(int intIsbn, string strNombre, string strAutor){
     this->isbn = intIsbn;
     this->nombre = strNombre;
     this->autor = strAutor;
+    this->id = Libro::idCont++;
 }
 
 Libro::~Libro(){

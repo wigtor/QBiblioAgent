@@ -87,7 +87,11 @@ void AdminListas::agregarLibro(string strNombre, string isbn, string strAutor, s
             }
         }
 
-    Libro *nuevoLibro = new Libro(Libro::getIdCont(), intIsbn, strNombre, strAutor, intPrecio, intPaginas, intPeso, intStock);
+    Libro *nuevoLibro = new Libro(intIsbn, strNombre, strAutor);
+    nuevoLibro->setPrecio(intPrecio);
+    nuevoLibro->setPaginas(intPaginas);
+    nuevoLibro->setPeso(intPeso);
+    nuevoLibro->setStock(intStock);
     this->listBaseLibros->agregar(nuevoLibro);
 }
 

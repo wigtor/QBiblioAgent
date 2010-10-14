@@ -269,7 +269,7 @@ int CapaIO::stringToId(string linea)
         return atoi(idStr.c_str());
     }
     else
-        return 0;
+        return 1;
 }
 
 Venta *CapaIO::stringToVenta(string linea)
