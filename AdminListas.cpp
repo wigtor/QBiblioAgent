@@ -57,22 +57,22 @@ ListaEstatica<Vendedor> *AdminListas::getListaVendedores(){
 void AdminListas::agregarLibro(string strNombre, string isbn, string strAutor, string paginas, string peso, string precio, string stock){
     int i, intIsbn, intPrecio, intPaginas, intPeso, intStock;
     //Se debe comprobar que los datos introducidos son convertibles a entero
-    if ((intIsbn = atoi(isbn.c_str())) == 0){
+    if ((intIsbn = atoi(isbn.c_str())) == 0)
         throw ErrorExcep(E_ISBN);
-    }
-    if ((intPaginas = atoi(paginas.c_str())) == 0){
+    if ((intPaginas = atoi(paginas.c_str())) == 0)
         throw ErrorExcep(E_PAGINAS);
-    }
-    if ((intPeso = atoi(peso.c_str())) == 0){
+    if ((intPeso = atoi(peso.c_str())) == 0)
         throw ErrorExcep(E_PESO);
-    }
-    if ((intPrecio = atoi(precio.c_str())) == 0){
+    if ((intPrecio = atoi(precio.c_str())) == 0)
         throw ErrorExcep(E_PRECIO);
-    }
-    if ((intStock = atoi(stock.c_str())) == 0){
+    if ((intStock = atoi(stock.c_str())) == 0)
         throw ErrorExcep(E_STOCK);
-    }
-
+    if (intPaginas < 0)
+        throw ErrorExcep(E_PAGINAS);
+    if (intPeso < 0)
+        throw ErrorExcep(E_PESO);
+    if (intStock < 0)
+        throw ErrorExcep(E_STOCK);
     //Compruebo que no se repite el nombre del libro
     for (i = 0; i < this->listBaseLibros->longitud();i++){
         if (listBaseLibros->recuperar(i)->getNombre() == strNombre){
@@ -98,6 +98,8 @@ void AdminListas::agregarLibro(string strNombre, string isbn, string strAutor, s
 void AdminListas::agregarVenta(string correlativo, int posLibro, int posCliente, int posVendedor, string cantLibros){
     int intCantLibros, intMontoTotal;
     if ((intCantLibros = atoi(cantLibros.c_str())) == 0)
+        throw ErrorExcep(E_CANT_LIBROS);
+    if (intCantLibros < 0)
         throw ErrorExcep(E_CANT_LIBROS);
 
     Cliente *tempCliente = this->listBaseClientes->recuperar(posCliente);
@@ -181,7 +183,11 @@ void AdminListas::agregarVendedor(string strRut, string strNombre, string direcc
     if ((intRut = atoi(strRut.c_str())) == 0)
         throw ErrorExcep(E_RUT);
     if ((intEdad = atoi(strEdad.c_str())) == 0)
-            throw ErrorExcep(E_EDAD);
+        throw ErrorExcep(E_EDAD);
+    if (intEdad <= 0)
+        throw ErrorExcep(E_EDAD);
+    if (intRut < 500000)
+        throw ErrorExcep(E_RUT);
     for (i = 0; i < this->listBaseVendedores->longitud();i++){
         vendedorTemp = this->listBaseVendedores->recuperar(i);
         if (vendedorTemp->getNombre() == strNombre){
@@ -236,6 +242,10 @@ void AdminListas::editarCliente(int idOrig, string rut, string strNombre, string
         throw ErrorExcep(E_EDAD);
     if ((intRut = atoi(rut.c_str())) == 0)
         throw ErrorExcep(E_RUT);
+    if (intEdad <= 0)
+        throw ErrorExcep(E_EDAD);
+    if (intRut <= 500000)
+        throw ErrorExcep(E_RUT);
     for (i = 0; i < this->listBaseClientes->longitud();i++){
         clienteTemp = this->listBaseClientes->recuperar(i);
         if ((clienteTemp->getNombre() == strNombre)  && (clienteTemp != clienteAct))
@@ -282,7 +292,11 @@ void AdminListas::editarVendedor(int idOrig, string strRut, string strNombre, st
     if ((intRut = atoi(strRut.c_str())) == 0)
         throw ErrorExcep(E_RUT);
     if ((intEdad = atoi(strEdad.c_str())) == 0)
-            throw ErrorExcep(E_EDAD);
+        throw ErrorExcep(E_EDAD);
+    if (intEdad <= 0)
+        throw ErrorExcep(E_EDAD);
+    if (intRut <= 500000)
+        throw ErrorExcep(E_RUT);
     for (i = 0; i < this->listBaseVendedores->longitud();i++){
         vendedorTemp = this->listBaseVendedores->recuperar(i);
         if ((vendedorTemp->getNombre() == strNombre) && (vendedorTemp != vendedorAct))
