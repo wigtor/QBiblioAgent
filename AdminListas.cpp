@@ -255,19 +255,19 @@ void AdminListas::editarCliente(int idOrig, string rut, string strNombre, string
     }
 
     ListaEstatica<int> *tempListTelefonos = new ListaEstatica<int>();
-        int intTel;
-        int posInicio = 0, posFinal;
-        listTelefonos = AdminListas::quitarEspacioExtremos(listTelefonos);
-        posFinal = listTelefonos.find(" ", posInicio+1);
-        while (listTelefonos != "") //REVISAR SI ESTA BUENO
-        {   posFinal = listTelefonos.find(" ", posInicio+1);
-            if ((intTel = atoi(listTelefonos.substr(posInicio, posFinal - posInicio).c_str())) == 0)
-                throw ErrorExcep(E_TELEFONO);
-            if (posFinal == -1)
-                         listTelefonos = "";
-            tempListTelefonos->agregar(new int (intTel));
-            listTelefonos = listTelefonos.substr(posFinal - posInicio+1, listTelefonos.length()-(posFinal - posInicio-1));
-        }
+    int intTel;
+    int posInicio = 0, posFinal;
+    listTelefonos = AdminListas::quitarEspacioExtremos(listTelefonos);
+    posFinal = listTelefonos.find(" ", posInicio+1);
+    while (listTelefonos != "") //REVISAR SI ESTA BUENO
+    {   posFinal = listTelefonos.find(" ", posInicio+1);
+        if ((intTel = atoi(listTelefonos.substr(posInicio, posFinal - posInicio).c_str())) == 0)
+            throw ErrorExcep(E_TELEFONO);
+        if (posFinal == -1)
+            listTelefonos = "";
+        tempListTelefonos->agregar(new int (intTel));
+        listTelefonos = listTelefonos.substr(posFinal - posInicio+1, listTelefonos.length()-(posFinal - posInicio-1));
+    }
 
     clienteAct->setRut(intRut);
     clienteAct->setNombre(strNombre);

@@ -798,7 +798,7 @@ void Menu::menuModVend() {
     string opModVendStr = "0";
     string nombreStr, nvoNombreStr, nvoTelStr, borrTelStr, nvoRutStr, nvaDirStr;
     string nvaEdadStr, nvoEmailStr, nrosTelStr;
-    stringstream srtTel, streamTemp;
+    stringstream streamTemp;
     bool nombreValido = false;
     int pos, id;
 
@@ -892,8 +892,8 @@ void Menu::menuModVend() {
             stringstream strTel;
             nvoTel = Menu::leeString(stdin, nvoTel);
             nvoTelStr = *(new string(nvoTel));
-            srtTel << getNrosTelVend(pos) << nvoTelStr;
-            nrosTelStr = strTel.str(); strTel.str("");
+            strTel << nrosTelStr << nvoTelStr;
+            nrosTelStr = strTel.str();
             cout << endl;
             opModVendStr = "0";
         }
@@ -904,7 +904,7 @@ void Menu::menuModVend() {
             stringstream strTel;
             borrTel = Menu::leeString(stdin, borrTel);
             borrTelStr = *(new string(borrTel));
-            srtTel << getNrosTelVend(pos) << borrTelStr;
+            strTel << getNrosTelVend(pos) << borrTelStr;
             nrosTelStr = strTel.str(); strTel.str("");
             cout << endl;
             opModVendStr = "0";
@@ -922,7 +922,7 @@ void Menu::menuModVend() {
             return ;
         }
         try {
-            this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nvoTelStr);
+            this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
             cout << "Se ha modificado el vendedor." << endl;
             cout << endl;
             return ;
@@ -1435,7 +1435,7 @@ void Menu::menuModCliente() {
     char *nvoTel=NULL, *borrTel=NULL, *nvoEmail=NULL, *nvaEdad=NULL;
     string opModClienteStr = "0", nombreStr, nvoNombreStr;
     string nvoRutStr, nvaDirStr, nvoTelStr, borrTelStr, nvaEdadStr, nvoEmailStr, nrosTelStr;
-    stringstream srtTel, streamTemp;
+    stringstream streamTemp;
     bool nombreValido = false;
     int pos, id;
 
@@ -1532,7 +1532,7 @@ void Menu::menuModCliente() {
             stringstream strTel;
             nvoTel = Menu::leeString(stdin, nvoTel);
             nvoTelStr = *(new string(nvoTel));
-            srtTel << getNrosTelVend(pos) << nvoTelStr;
+            strTel << nrosTelStr << nvoTelStr;
             nrosTelStr = strTel.str(); strTel.str("");
             cout << endl;
             opModClienteStr = "0";
@@ -1544,7 +1544,7 @@ void Menu::menuModCliente() {
             stringstream strTel;
             borrTel = Menu::leeString(stdin, borrTel);
             borrTelStr = *(new string(borrTel));
-            srtTel << getNrosTelVend(pos) << borrTelStr;
+            strTel << getNrosTelVend(pos) << borrTelStr;
             nrosTelStr = strTel.str(); strTel.str("");
             cout << endl;
             opModClienteStr = "0";
