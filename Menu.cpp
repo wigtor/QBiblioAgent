@@ -851,8 +851,7 @@ void Menu::menuModVend() {
         }
 
         if (opModVendStr == "1") {
-            cout << "Ingrese el nuevo nombre del vendedor:";
-            cout << endl;
+            cout << "Ingrese el nuevo nombre del vendedor:" << endl;
             cout << ">> ";
             nvoNombre = Menu::leeString(stdin, nvoNombre);
             nvoNombreStr = *(new string(nvoNombre));
@@ -1050,8 +1049,7 @@ void Menu::menuVend() {
         cout << "6. Ingresar libro" << endl;
         cout << "7. Modificar un libro" << endl;
         cout << "8. Realizar una venta" << endl;
-        cout << "9. Volver" << endl;
-        cout << endl;
+        cout << "9. Volver" << endl << endl;
         cout << ">> ";
         opcionVend = Menu::leeString(stdin, opcionVend);
         opcionVendStr = *(new string(opcionVend));
@@ -1093,9 +1091,6 @@ void Menu::menuVend() {
                 opcionVendStr = "0";
                 cout << (this->adminListas->getListaClientes()->recuperar(posCliente)->getResumen());
             }
-            cout << "Presione ENTER para volver al menu de vendedor" << endl;
-            charTemp = Menu::leeString(stdin, charTemp);
-            cout << endl;
         }
 
         while (opcionVendStr == "3") {
@@ -1477,8 +1472,7 @@ void Menu::menuModCliente() {
         cout << "5. Agregar telefono" << endl;
         cout << "6. Quitar telefono" << endl;
         cout << "7. Email" << endl;
-        cout << "8. Volver" << endl;
-        cout << endl;
+        cout << "8. Volver" << endl << endl;
         cout << ">> ";
         opModCliente = Menu::leeString(stdin, opModCliente);
         opModClienteStr = *(new string(opModCliente));
@@ -1500,8 +1494,7 @@ void Menu::menuModCliente() {
         }
 
         if (opModClienteStr == "2") {
-            cout << "Ingrese el nuevo rut del cliente:";
-            cout << endl;
+            cout << "Ingrese el nuevo rut del cliente:" << endl;
             cout << ">> ";
             nvoRut = Menu::leeString(stdin, nvoNombre);
             nvoRutStr = *(new string(nvoRut));
@@ -1510,8 +1503,7 @@ void Menu::menuModCliente() {
         }
 
         if (opModClienteStr == "3") {
-            cout << "Ingrese la nueva direccion del cliente:";
-            cout << endl;
+            cout << "Ingrese la nueva direccion del cliente:" << endl;
             cout << ">> ";
             nvaDir = Menu::leeString(stdin, nvaDir);
             nvaDirStr = *(new string(nvaDir));
@@ -1520,8 +1512,7 @@ void Menu::menuModCliente() {
         }
 
         if (opModClienteStr == "4") {
-            cout << "Ingrese la nueva edad del cliente:";
-            cout << endl;
+            cout << "Ingrese la nueva edad del cliente:" << endl;
             cout << ">> ";
             nvaEdad = Menu::leeString(stdin, nvaEdad);
             nvaEdadStr = *(new string(nvaEdad));
@@ -1543,7 +1534,7 @@ void Menu::menuModCliente() {
 
         if (opModClienteStr == "6") { // REVISAR
             elimTelefonos = true;
-            cout << "Ingrese el numero de telefono a eliminar:";
+            cout << "Ingrese el numero de telefono a eliminar:" << endl;
             cout << ">> ";
             stringstream strTel;
             borrTel = Menu::leeString(stdin, borrTel);
@@ -1555,8 +1546,7 @@ void Menu::menuModCliente() {
         }
 
         if (opModClienteStr == "7") {
-            cout << "Ingrese el nuevo email del cliente:";
-            cout << endl;
+            cout << "Ingrese el nuevo email del cliente:" << endl;
             cout << ">> ";
             nvoEmail = Menu::leeString(stdin, nvoEmail);
             nvoEmailStr = *(new string(nvoEmail));
@@ -1599,8 +1589,7 @@ void Menu::menuModLibro(){
         cout << "Que atributo desea modificar del libro? Escoja una opcion:" << endl;
         cout << endl;
         cout << "1. Stock" << endl;
-        cout << "2. Precio" << endl;
-        cout << endl;
+        cout << "2. Precio" << endl << endl;
         cout << ">> ";
         opModLibro = Menu::leeString(stdin, opModLibro);
         opModLibroStr = *(new string(opModLibro));
