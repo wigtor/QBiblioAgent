@@ -41,6 +41,7 @@ public:
     void setEdad(int edad);
     void setDireccion(string direccion);
     int setEmail(string email);
+    void setListaTelefonos(ListaEstatica<int> *listaTelefonos);
     void addIdCompra(int idCompra);
 
     // GETTERS

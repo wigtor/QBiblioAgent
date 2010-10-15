@@ -799,7 +799,7 @@ void Menu::menuModVend() {
     string nombreStr, nvoNombreStr, nvoTelStr, borrTelStr, nvoRutStr, nvaDirStr;
     string nvaEdadStr, nvoEmailStr, nrosTelStr;
     stringstream streamTemp;
-    bool nombreValido = false;
+    bool nombreValido = false, elimtelefonos;
     int pos, id;
 
     while (nombreValido == false) {
@@ -828,6 +828,7 @@ void Menu::menuModVend() {
         streamTemp << adminListas->getListaVendedores()->recuperar(pos)->getEdad();
         nvaEdadStr = streamTemp.str(); streamTemp.str("");
         nrosTelStr = Menu::getNrosTelVend(pos);
+        elimtelefonos = false;
         cout << "Que atributo desea modificar? Escoja una opcion:" << endl;
         cout << "" << endl;
         cout << "1. Nombre" << endl;
@@ -886,7 +887,7 @@ void Menu::menuModVend() {
             opModVendStr = "0";
         }
 
-        if (opModVendStr == "5") { // REVISAR
+        if (opModVendStr == "5") {
             cout << "Ingrese el numero de telefono a agregar:" << endl;
             cout << ">> ";
             stringstream strTel;
@@ -899,12 +900,13 @@ void Menu::menuModVend() {
         }
 
         if (opModVendStr == "6") { // REVISAR
+            elimtelefonos = true;
             cout << "Ingrese el numero de telefono a eliminar:" << endl;
             cout << ">> ";
             stringstream strTel;
             borrTel = Menu::leeString(stdin, borrTel);
             borrTelStr = *(new string(borrTel));
-            strTel << getNrosTelVend(pos) << borrTelStr;
+            strTel << borrTelStr;
             nrosTelStr = strTel.str(); strTel.str("");
             cout << endl;
             opModVendStr = "0";
@@ -922,7 +924,7 @@ void Menu::menuModVend() {
             return ;
         }
         try {
-            this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr);
+            this->adminListas->editarVendedor(id, nvoRutStr, nvoNombreStr, nvaDirStr, nvaEdadStr, nvoEmailStr, nrosTelStr, elimtelefonos);
             cout << "Se ha modificado el vendedor." << endl;
             cout << endl;
             return ;
@@ -1237,7 +1239,7 @@ void Menu::menuVend() {
             opcionVendStr = "0";
         }
 
-        if (opcionVendStr == "9") {
+        if (opcionVendStr == "7") {
             menuModLibro();
             opcionVendStr = "0";
         }
@@ -1436,7 +1438,7 @@ void Menu::menuModCliente() {
     string opModClienteStr = "0", nombreStr, nvoNombreStr;
     string nvoRutStr, nvaDirStr, nvoTelStr, borrTelStr, nvaEdadStr, nvoEmailStr, nrosTelStr;
     stringstream streamTemp;
-    bool nombreValido = false;
+    bool nombreValido = false, elimTelefonos;
     int pos, id;
 
     while (nombreValido == false) {
@@ -1465,6 +1467,7 @@ void Menu::menuModCliente() {
         nvaEdadStr = streamTemp.str(); streamTemp.str("");
         nvoEmailStr = adminListas->getListaClientes()->recuperar(pos)->getEmail();
         nrosTelStr = getNrosTelClient(pos);
+        elimTelefonos = false;
         cout << "Que atributo desea modificar? Escoja una opcion:" << endl;
         cout << endl;
         cout << "1. Nombre" << endl;
@@ -1526,7 +1529,7 @@ void Menu::menuModCliente() {
             opModClienteStr = "0";
         }
 
-        if (opModClienteStr == "5") { // REVISAR
+        if (opModClienteStr == "5") {
             cout << "Ingrese el numero de telefono a agregar:" << endl;
             cout << ">> ";
             stringstream strTel;
@@ -1539,6 +1542,7 @@ void Menu::menuModCliente() {
         }
 
         if (opModClienteStr == "6") { // REVISAR
+            elimTelefonos = true;
             cout << "Ingrese el numero de telefono a eliminar:";
             cout << ">> ";
             stringstream strTel;
@@ -1564,7 +1568,7 @@ void Menu::menuModCliente() {
         }
 
         try {
-            this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaEdadStr, nvaDirStr, nrosTelStr, nvoEmailStr);
+            this->adminListas->editarCliente(id, nvoRutStr, nvoNombreStr, nvaEdadStr, nvaDirStr, nvoEmailStr, nrosTelStr, elimTelefonos);
             cout << "Se ha modificado el cliente." << endl;
             cout << endl;
             return ;

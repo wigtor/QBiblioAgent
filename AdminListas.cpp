@@ -228,7 +228,7 @@ void AdminListas::agregarVendedor(string strRut, string strNombre, string direcc
  *
  ****************************************/
 
-void AdminListas::editarCliente(int idOrig, string rut, string strNombre, string edad, string direccion, string listTelefonos, string email){
+void AdminListas::editarCliente(int idOrig, string rut, string strNombre, string edad, string direccion, string email, string listTelefonos, bool elimTelefonos){
     int intEdad, intRut, i;
     Cliente *clienteTemp = NULL, *clienteAct = NULL;
     //Busco el cliente que estoy modificando en la lista de clientes:
@@ -255,8 +255,7 @@ void AdminListas::editarCliente(int idOrig, string rut, string strNombre, string
     }
 
     ListaEstatica<int> *tempListTelefonos = new ListaEstatica<int>();
-    int intTel;
-    int posInicio = 0, posFinal;
+    int intTel, contElim = 0, posInicio = 0, posFinal;
     listTelefonos = AdminListas::quitarEspacioExtremos(listTelefonos);
     posFinal = listTelefonos.find(" ", posInicio+1);
     while (listTelefonos != "") //REVISAR SI ESTA BUENO
@@ -274,11 +273,23 @@ void AdminListas::editarCliente(int idOrig, string rut, string strNombre, string
     clienteAct->setEdad(intEdad);
     clienteAct->setDireccion(direccion);
     if ((clienteAct->setEmail(email)) != 0)
-            throw ErrorExcep(E_MAIL);
-    //clienteAct->setListaTelefonos(tempListTelefonos);
+        throw ErrorExcep(E_MAIL);
+    if (elimTelefonos) {
+        //significa que temListTelefonos es la lista de telefonos a eliminar
+        for (i = 0; i < tempListTelefonos->longitud(); i++){
+            if (*(tempListTelefonos->recuperar(i)) == *(clienteAct->getTelefonos()->recuperar(i))) {
+                clienteAct->getTelefonos()->eliminar(i--);//elimino el elemento y evito que se autoincremente el indice del bucle
+                contElim++;
+            }
+        }
+        if (contElim!=tempListTelefonos->longitud())
+            throw ErrorExcep(E_TEL_NO_EXISTE);
+    }
+    else
+        clienteAct->setListaTelefonos(tempListTelefonos);
 }
 
-void AdminListas::editarVendedor(int idOrig, string strRut, string strNombre, string direccion, string strEdad, string strEmail, string listTelefonos){
+void AdminListas::editarVendedor(int idOrig, string strRut, string strNombre, string direccion, string strEdad, string strEmail, string listTelefonos, bool elimTelefonos){
     int i, intRut, intEdad;
     Vendedor *vendedorTemp = NULL, *vendedorAct = NULL;
     //Busco el vendedor que estoy modificando en la lista de vendedores:
@@ -307,8 +318,7 @@ void AdminListas::editarVendedor(int idOrig, string strRut, string strNombre, st
 
 
     ListaEstatica<int> *tempListTelefonos = new ListaEstatica<int>();
-    int intTel;
-    int posInicio = 0, posFinal;
+    int intTel, contElim = 0, posInicio = 0, posFinal;
     listTelefonos = AdminListas::quitarEspacioExtremos(listTelefonos);
     posFinal = listTelefonos.find(" ", posInicio+1);
     while (listTelefonos != "") //REVISAR SI ESTA BUENO
@@ -327,7 +337,19 @@ void AdminListas::editarVendedor(int idOrig, string strRut, string strNombre, st
     vendedorAct->setRut(intRut);
     if ((vendedorAct->setEmail(strEmail)) != 0)
         throw ErrorExcep(E_MAIL);
-    vendedorAct->setListaTelefonos(tempListTelefonos);
+    if (elimTelefonos) {
+        //significa que temListTelefonos es la lista de telefonos a eliminar
+        for (i = 0; i < tempListTelefonos->longitud(); i++){
+            if (*(tempListTelefonos->recuperar(i)) == *(vendedorAct->getTelefonos()->recuperar(i))) {
+                vendedorAct->getTelefonos()->eliminar(i--);//elimino el elemento y evito que se autoincremente el indice del bucle
+                contElim++;
+            }
+        }
+        if (contElim != tempListTelefonos->longitud())
+            throw ErrorExcep(E_TEL_NO_EXISTE);
+    }
+    else
+        vendedorAct->setListaTelefonos(tempListTelefonos);
 
 }
 

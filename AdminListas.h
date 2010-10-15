@@ -40,8 +40,8 @@ public:
     //////////////////////////////////
 
     //Funciones adicionales
-    void editarCliente(int idOrig, string rut, string nombre, string edad, string direccion, string listTelefonos, string email);
-    void editarVendedor(int idOrig, string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos);
+    void editarCliente(int idOrig, string rut, string nombre, string edad, string direccion, string email, string listTelefonos, bool elimTelefonos);
+    void editarVendedor(int idOrig, string strRut, string nombre, string direccion, string edad, string strEmail, string telefonos, bool elimTelefonos);
     string quitarEspacioExtremos(string texto);
     //////////////////////////////////
 

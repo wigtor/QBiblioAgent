@@ -97,6 +97,10 @@ void Cliente::setNombre(string nombre) {
     this->nombre = nombre;
 }
 
+void Cliente::setListaTelefonos(ListaEstatica<int> *listaTelefonos) {
+    this->telefonos = listaTelefonos;
+}
+
 void Cliente::setEdad(int edad) {
     this->edad = edad;
 }
