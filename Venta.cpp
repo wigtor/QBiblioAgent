@@ -181,6 +181,7 @@ string Venta::getResumen(){
     resumen << "Rut Cliente: " << this->cliente->getRut() << endl;
     resumen << "Vendedor: " << this->vendedor->getNombre() << endl;
     resumen << "Rut vendedor: " << this->vendedor->getRut() << endl;
+    resumen << "Fecha: " << this->fecha->getDia() << " - " << this->fecha->getMes() << " - " << (this->fecha->getAnno() + 1900) << endl;
     resumen << "Cantidad de libros: " << this->cantidadLibros << endl;
     resumen << "Monto total: " << this->montoTotal << endl;
     return resumen.str();

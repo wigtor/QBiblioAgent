@@ -40,7 +40,7 @@ private:
 };
 
 template <class tipo>
-int ListaEstatica<tipo>::tamDefault = 10;
+int ListaEstatica<tipo>::tamDefault = 20;
 
 template <class tipo>
 ListaEstatica<tipo>::ListaEstatica() {
